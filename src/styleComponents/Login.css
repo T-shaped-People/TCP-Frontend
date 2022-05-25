@@ -1,0 +1,25 @@
+input{
+    margin-top: 56px;
+    display:inline-block;
+}
+div{
+    width: 100%;
+    height: 100%;
+    background-color: #15133C;
+}
+fieldset{
+    width: 600px;
+    height: 535px;
+    background-color: white;
+    margin: 0 auto;
+    text-align: center;
+}
+.id, .pass{
+   width: 400px;
+    height: 40px;
+}
+.submit{
+    width: 200px;
+    height: 40px;
+}
+
