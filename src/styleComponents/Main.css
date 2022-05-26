@@ -36,7 +36,7 @@ nav{
     text-decoration: none;
 }
 .nav--div{
-    margin-left: 50em;
+    margin-left: 54em;
 }
 nav img{
     margin-top: 5px;
@@ -48,4 +48,8 @@ nav img{
 .sec--img{
     margin-top: 100px;
     width: 400px;
+}
+.continue_BSM{
+    background-color: #15133C;
+    color: white;
 }

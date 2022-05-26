@@ -4,6 +4,12 @@ import React from 'react';
 
 export default function Main(){
     const navigate = useNavigate();
+    function Sign_in(){
+        window.location.href = "http://bssm.kro.kr/oauth/login?clientId=4edf448e&redirectURI=http://localhost:3000/user/oauth"
+    }
+    function make_it_team(){
+        navigate('TeamRecruitment')
+    }
     return(
         <div>
             <nav>
@@ -13,15 +19,14 @@ export default function Main(){
                 <Link to={"/ourTeam"} className={"link"}>나의 팀</Link>
                 <Link to={"/Canvas"} className={"link"}>캔버스</Link>
                 <div className={"nav--div"}>
-                    <Link to={"/signup"} className={"sign-up"}>Sign up</Link>
-                    <Link to={"/Login"} className={"sign-in"}>Sign in</Link>
+                    <button onClick={Sign_in} className={"continue_BSM"}>BSM 계정으로 계속</button>
                 </div>
             </nav>
             <section>
                 <div className={"imgdiv"}>
                     <img src={"images/teamimg1.png"} className="sec--img"/>
                 </div>
-                <button className="sec--button">팀 구하러 가기</button>
+                <button className="sec--button" onClick={make_it_team}>팀 구하러 가기</button>
             </section>
         </div>
         )
