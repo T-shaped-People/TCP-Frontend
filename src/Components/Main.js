@@ -10,6 +10,7 @@ export default function Main(){
                 <Link to={"/TeamRecruitment"} className={"link"}>팀원 모집</Link>
                 <Link to={"/community"} className={"link"}>커뮤니티</Link>
                 <Link to={"/ourTeam"} className={"link"}>나의 팀</Link>
+                <Link to={"/Canvas"} className={"link"}>캔버스</Link>
                 <div className={"nav--div"}>
                     <Link to={"/signup"} className={"sign-up"}>Sign up</Link>
                     <Link to={"/Login"} className={"sign-in"}>Sign in</Link>
