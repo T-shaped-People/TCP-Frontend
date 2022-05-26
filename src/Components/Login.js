@@ -8,13 +8,13 @@ function Login()
         history.push('/');
     }
     return(
-        <div>
+        <div className={"loginPage"}>
             <fieldset>
                 <img src={"images/tcpicon.png"}  onClick={goHome} />
                 <form>
                     <input type={"text"} placeholder={"username"} className={"id"} />
                     <input type={"password"} placeholder={"password"}  className={"pass"}/>
-                    <input type={"submit"} value={"로그인하기"} className={"submit"} />
+                    <input type={"button"} value={"로그인하기"} className={"button"} />
                 </form>
                 <br/>
                 <br/>
