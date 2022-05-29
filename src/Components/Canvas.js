@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import '../styleComponents/Canvas.css';
-import { Emit, getPosition } from '../Utils/SocketDrawing';
+import { Emit, getPosition, test } from '../Utils/SocketDrawing';
 
 const Canvas = () => {
 
@@ -20,7 +20,7 @@ const Canvas = () => {
 
         // CanvasRenderingContext2D 객체 
         const context = canvas.getContext("2d");
-        context.lineWidth = 2;
+        context.lineWidth = 5;
         context.strokeStyle = 'black';
         contextRef.current = context;
         setCtx(context);
@@ -49,8 +49,9 @@ const Canvas = () => {
             // 그리기 
             else {
                 ctx.lineTo(offsetX, offsetY);
-                // Emit(offsetX, offsetY);
+                Emit(offsetX, offsetY);
                 ctx.stroke();
+                getPosition();
             }
         }
     }
