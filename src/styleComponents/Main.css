@@ -1,9 +1,3 @@
-@font-face {
-    font-family: 'HallymGothic-Regular';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2204@1.0/HallymGothic-Regular.woff2') format('woff2');
-    font-weight: 400;
-    font-style: normal;
-}
 section{
     width: 100%;
     height: 100%;
@@ -11,45 +5,69 @@ section{
     margin-top: 30px;
 }
 .sec--button{
-    font-family: 'HallymGothic-Regular';
     background: #EC994B;
     border-radius: 20px;
     width: 350px;
     height: 60px;
     font-size:20px;
+    font-weight: bold;
     border: none;
+    cursor: pointer;
 }
-nav{
+header{
     width: 100%;
-    height: 60px;
     background-color: #15133C;
     display: flex;
-    align-items: center;
+    justify-content: center;
 }
-.link, .sign-up, .sign-in{
+nav{
+    max-width: 1420px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    font-size: 17px;
+}
+.nav--menus .continue_BSM{
+    display: none;
+}
+.nav--link{
     padding: 20px;
     color: white;
-    font-family: 'HallymGothic-Regular';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 17px;
-    text-decoration: none;
 }
-.nav--div{
-    margin-left: 54em;
-}
-nav img{
-    margin-top: 5px;
-    padding: 20px;
-    width: 90px;
-    height: 50px;
+.nav--logo{
+    height: 40px;
     cursor: pointer;
+}
+@media screen and (min-width:0px) and (max-width:720px) {
+    .nav--left{
+        flex-direction: column;
+        width: 100%;
+    }
+    .nav--right{
+        display: none;
+    }
+    .nav--menus{
+        justify-content: space-between;
+        width: 100%;
+        padding-top: 10px;
+    }
+    .nav--menus .continue_BSM{
+        display: inline;
+    }
+    .nav--link{
+        padding: 15px;
+        font-size: 16px;
+    }
 }
 .sec--img{
     margin-top: 100px;
     width: 400px;
 }
 .continue_BSM{
-    background-color: #15133C;
+    background: none;
     color: white;
+    border: none;
+    font-size: 15px;
 }
