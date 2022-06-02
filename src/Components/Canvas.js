@@ -1,6 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
 import '../styleComponents/Canvas.css';
-// import { Emit, getPosition, test } from '../Utils/SocketDrawing';
 import io from 'socket.io-client';
 const socket = io.connect(`http://13.125.87.53:3000`);
 
@@ -28,7 +27,7 @@ const Canvas = () => {
         contextRef.current = context;
         setCtx(context);
 
-        drawLine(context, 1, 1, 100, 100, 'black');
+        // drawLine(context, 1, 1, 100, 100, 'black');
     }, []);
 
     // 캔버스에서 마우스가 눌러졌을 때
@@ -44,14 +43,16 @@ const Canvas = () => {
         setIsDrawing(false);
     }
 
-
-    // nativeEvent => js에서의 event
+    // nativeEvent => js에서의 e
     const drawing = ({ nativeEvent }) => {
         const { offsetX, offsetY } = nativeEvent;
-
         if (ctx) {
             // 움직이기
-            if (isDrawing){
+            let before = 10000;
+            // && 뒤는 비동기라 바뀌지 않는것에 대비해서 넣음
+            if (isDrawing && before != prevposition.prevX){
+                before = prevposition.prevX;
+                // 소켓 통신
                 socket.emit('draw', {
                     'x1': prevposition.prevX,
                     'y1': prevposition.prevY,
@@ -59,19 +60,22 @@ const Canvas = () => {
                     'y2': offsetY,
                     color: color,
                 });
+                // 함수 사용
                 drawLine(ctx, prevposition.prevX, prevposition.prevY, offsetX, offsetY, color);
+                // 이전의 위치 변경하기
+                setPrevposition({prevX: offsetX, prevY: offsetY});
             }
         }
-
+        // 소켓 받기
         socket.on('draw', (data) => drawLine(ctx, data.x1, data.y1, data.x2, data.y2, data.color));
     }
     
-    // 컬러 바꾸기 color state에 저장
+    // 색상 변경
     const changeColor = (c) => {
         setColor(c);
     }
 
-    // 드로우 모듈
+    // 드로우 함수
     const distance = (x1, y1, x2, y2) => Math.sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
     const getAngle = (x, y) => Math.atan(y / (x == 0 ? 0.01 : x)) + (x < 0 ? Math.PI : 0);
 
