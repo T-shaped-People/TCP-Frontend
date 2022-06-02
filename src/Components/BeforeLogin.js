@@ -27,7 +27,7 @@ function BeforeLogin(){
                     <div className={"section--left"}>
                         <div className={"section--div"}>
                             <img className={"section--div--title"} src={"images/black_tcpicon.png"} alt={"profile"}></img>
-                            <p className={"section--div--subtitle"}>:Team Cooperation Platform</p>
+                            <p className={"section--div--subtitle"}> : Team Cooperation Platform</p>
                         </div>
                         <div className={"section--div2"}>
                             <p className={"section--div2--p"}>✔ 함께 아이디어를 공유할 수 있는 드로잉 기능 제공</p>
