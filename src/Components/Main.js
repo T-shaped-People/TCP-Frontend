@@ -4,9 +4,6 @@ import React from 'react';
 
 export default function Main(){
     const navigate = useNavigate();
-    function Sign_in(){
-        window.location.href = "http://bssm.kro.kr/oauth/login?clientId=4edf448e&redirectURI=http://localhost:3000/user/oauth"
-    }
     function make_it_team(){
         navigate('TeamRecruitment')
     }
@@ -16,8 +13,7 @@ export default function Main(){
                 <nav className='container'>
                     <div className="nav--left rows">
                         <div className='nav--menus rows'>
-                            <img src={"images/tcpicon.png"} className="nav--logo" onClick={() => navigate('/')} />
-                            <button onClick={Sign_in} className="continue_BSM">BSM 계정으로 계속</button>
+                            <img src={"images/tcpicon.png"} className="nav--logo" onClick={() => navigate('/Main')} alt={"이미지 로딩중..."}/>
                         </div>
                         <div className='rows'>
                             <Link to={"/TeamRecruitment"} className="nav--link">팀원 모집</Link>
@@ -27,13 +23,13 @@ export default function Main(){
                         </div>
                     </div>
                     <div className="nav--right">
-                        <button onClick={Sign_in} className="continue_BSM">BSM 계정으로 계속</button>
+                        <button className="continue_BSM">계정</button>
                     </div>
                 </nav>
             </header>
             <section>
                 <div className="imgdiv">
-                    <img src={"images/teamimg1.png"} className="sec--img"/>
+                    <img src={"images/teamimg1.png"} className="sec--img" alt={"이미지 로딩중..."}/>
                 </div>
                 <button className="sec--button" onClick={make_it_team}>팀 구하러 가기</button>
             </section>
