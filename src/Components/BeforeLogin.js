@@ -4,7 +4,7 @@ import '../styleComponents/BeforeLogin.css'
 
 function BeforeLogin(){
     function goOauth(){
-        window.location.href = "http://bssm.kro.kr/oauth/login?clientId=4edf448e&redirectURI=http://localhost:3000/user/oauth"
+        window.location.href = "https://bssm.kro.kr/oauth/login?clientId=4edf448e&redirectURI=http://localhost:3000/user/oauth"
     }
     function goSignup(){
         window.location.href = "https://bssm.kro.kr/login"

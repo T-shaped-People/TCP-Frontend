@@ -1,10 +1,14 @@
 .sidebar{
     display: flex;
-    height: 100%;
-    width: 83px;
+    height: calc(100% + 50px);
+    width: 100px;
     background-color: #15133C;
     flex-direction: column;
     align-items: center;
+    text-align: left;
+    border-right: 7px solid #3F3C6D;
+    position: relative;
+    bottom: 50px;
 }
 .sidebar--square{
     width: 60px;

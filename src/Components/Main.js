@@ -9,8 +9,8 @@ export default function Main(){
     }
     return(
         <div>
-            <header>
-                <nav className='container'>
+            <header className={"header_main"}>
+                <nav className='container_main_nav'>
                     <div className="nav--left rows">
                         <div className='nav--menus rows'>
                             <img src={"images/tcpicon.png"} className="nav--logo" onClick={() => navigate('/Main')} alt={"이미지 로딩중..."}/>
@@ -27,7 +27,7 @@ export default function Main(){
                     </div>
                 </nav>
             </header>
-            <section>
+            <section className={"section_main"}>
                 <div className="imgdiv">
                     <img src={"images/teamimg1.png"} className="sec--img" alt={"이미지 로딩중..."}/>
                 </div>

@@ -3,7 +3,7 @@ import "../styleComponents/sidebar.css";
 function Sidebar(){
     function randomColor(){
         const color = ["#6554C0", "#4FCBDF", "#EC994B", "#36B37E"];
-        const index = Math.round(Math.random() * 4);
+        const index = Math.floor(Math.random() * 4);
         return color[index];
     }
     return(
@@ -15,7 +15,7 @@ function Sidebar(){
             <div className={"sidebar--square"} style={{
                 backgroundColor:  randomColor()
             }}></div>
-            <img src={"images/plusicon.png"} alt={"icon"} className={"sidebar--plus"}/>
+            <img src={"images/whiteplus.png"} alt={"icon"} className={"sidebar--plus"}/>
         </div>
     )
 }

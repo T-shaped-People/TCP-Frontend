@@ -1,4 +1,4 @@
-section{
+.section_main{
     width: 100%;
     height: 100%;
     text-align: center;
@@ -13,13 +13,13 @@ section{
     border: none;
     cursor: pointer;
 }
-header{
+.header_main{
     width: 100%;
     background-color: #15133C;
     display: flex;
     justify-content: center;
 }
-nav{
+.container_main_nav{
     max-width: 1420px;
     width: 100%;
     display: flex;

@@ -1,0 +1,63 @@
+.navbar{
+    display: flex;
+    height: 50px;
+    width: 100%;
+    justify-content: right;
+    align-items: center;
+    background-color: #15133C;
+    border-bottom: 7px solid #3F3C6D;
+    position: relative;
+}
+.navbar--speech{
+    width: 35px;
+    height: 35px;
+    margin-right: 20px;
+}
+.navbar--notebook{
+    width: 40px;
+    height: 40px;
+    margin-right: 20px;
+}
+.navbar--username{
+    color: white;
+    margin-right: 20px;
+}
+.navbar--input{
+    margin-right: 20px;
+    background-color: #3F3C6D;
+    border-radius: 20px;
+    width: 300px;
+    height: 35px;
+    border: none;
+    outline: none;
+    color: white;
+    padding-left: 8px;
+}
+.navbar--person{
+    margin-right: 20px;
+}
+.sidebar{
+    display: flex;
+    height: 100%;
+    width: 83px;
+    background-color: #15133C;
+    flex-direction: column;
+    align-items: center;
+    text-align: left;
+}
+.sidebar--square{
+    width: 60px;
+    height: 60px;
+    margin-top: 25px;
+    border-radius: 20px;
+}
+.sidebar--tcp{
+    margin-top: 20px;
+    width: 50px;
+    height: 50px;
+}
+.sidebar--plus{
+    margin-top: 33px;
+    width: 23px;
+    height: 23px;
+}
