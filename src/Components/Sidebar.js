@@ -1,6 +1,8 @@
 import "../styleComponents/sidebar.css";
+import { useNavigate } from "react-router-dom";
 
 function Sidebar(){
+    const navigate = useNavigate();
     function randomColor(){
         const color = ["#6554C0", "#4FCBDF", "#EC994B", "#36B37E"];
         const index = Math.floor(Math.random() * 4);
@@ -8,7 +10,7 @@ function Sidebar(){
     }
     return(
         <div className={"sidebar"}>
-            <img src={"images/tcpicon2.png"} alt={"icon"} className={"sidebar--tcp"}/>
+            <img src={"images/tcpicon2.png"} alt={"icon"} className={"sidebar--tcp"} onClick={()=>{ navigate('/'); }}/>
             <div className={"sidebar--square"} style={{
                 backgroundColor:  randomColor()
             }}></div>

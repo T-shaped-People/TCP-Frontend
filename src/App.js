@@ -14,7 +14,7 @@ function App() {
                 <Route path={"/canvas"} element={<Canvas />}/>
                 <Route path={"/"} element={<BeforeLogin />}></Route>
                 <Route path={"/navbar"} element={<Nav/>}></Route>
-                <Route path={"/calender"} element={<Calendar/>}></Route>
+                <Route path={"/calendar"} element={<Calendar/>}></Route>
             </Routes>
         </BrowserRouter>
     );

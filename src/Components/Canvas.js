@@ -50,7 +50,7 @@ const Canvas = () => {
             // 움직이기
             let before = 10000;
             // && 뒤는 비동기라 바뀌지 않는것에 대비해서 넣음
-            if (isDrawing && before != prevposition.prevX){
+            if (isDrawing && before !== prevposition.prevX){
                 before = prevposition.prevX;
                 // 소켓 통신
                 socket.emit('draw', {
@@ -77,7 +77,7 @@ const Canvas = () => {
 
     // 드로우 함수
     const distance = (x1, y1, x2, y2) => Math.sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
-    const getAngle = (x, y) => Math.atan(y / (x == 0 ? 0.01 : x)) + (x < 0 ? Math.PI : 0);
+    const getAngle = (x, y) => Math.atan(y / (x === 0 ? 0.01 : x)) + (x < 0 ? Math.PI : 0);
 
     const drawLine = (context, x1, y1, x2, y2, color) => {
         context.fillStyle = color;

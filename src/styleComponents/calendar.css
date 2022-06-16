@@ -98,6 +98,11 @@
     margin-top: 15px;
 }
 .calender_sidebar--product--div > span{
+    font-size: 15px;
+    color: #B2B9C7;
+    font-family: 'Noto Sans';
+    font-style: normal;
+    font-weight: 400;
 }
 .calender_sidebar--product--div > div{
     width: 20px;

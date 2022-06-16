@@ -3,9 +3,15 @@ import Nav from "./Nav";
 import "../styleComponents/calendar.css"
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
-import googleCalendarPlugin from '@fullcalendar/google-calendar';
+import interactionPlugin from "@fullcalendar/interaction";
 
 function Calendar(){
+
+    const handleDateClick = (arg) =>{
+        const calEl = document.querySelector(`[role="gridcell"][data-date="${arg.dateStr}"] .fc-daygrid-day-events`);
+        const plan = prompt('입력하고 싶은 내용을 적어주세요');
+        calEl.innerHTML = plan;
+    }
     return(
         <div className={"calender-root"}>
             <Nav/>
@@ -63,17 +69,13 @@ function Calendar(){
                 </div>
                 <div className={"calendar"}>
                     <FullCalendar
-                        plugins={[dayGridPlugin, googleCalendarPlugin]}
+                        plugins={[dayGridPlugin, interactionPlugin]}
+                        dateClick={handleDateClick}
                         initialView="dayGridMonth"
-                        googleCalendarApiKey={"AIzaSyA6ge43y5-UWY9iww_pXy0IOm00qF122xo"}
-                        events={{
-                            googleCalendarId: '202110211@bssm.hs.kr',
-                        }}
                         eventDisplay={'block'}
                         eventTextColor={'#FFF'}
                         eventColor={'#F2921D'}
                         height={'100%'}
-                        Toolbar
                     />
                 </div>
             </div>
