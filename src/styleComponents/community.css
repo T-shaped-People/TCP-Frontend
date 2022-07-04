@@ -1,0 +1,90 @@
+.community_container{
+    box-sizing: border-box;
+    margin: 0 auto;
+}
+
+.title{
+    text-align: left;
+    margin-top: 2.5em;
+    margin-bottom: 0.5em;
+    display: block;
+    font-size: 4em;
+}
+
+.community--main{
+    display: flex;
+    height: 100%;
+}
+
+.board::before{
+    content: '\00a0';
+    font-size: 54px;
+    border-radius: 0px 50px 50px 0px;
+    background-color: aqua;
+}
+
+.board{
+    margin: 1em auto;
+    border: 1px solid #CDCDCD;
+    border-left: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 10%;
+}
+
+.board--title{
+    display: inline;
+    font-size: 1.6em;
+    font-weight: normal;
+    text-overflow: ellipsis;
+    margin-left: 0.6em;
+    margin-right: 40em;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.board--recruit{
+    color: #CDCDCD;
+    font-size:1.6em;
+    margin: 1em;
+    white-space: nowrap;
+}
+.board--date{
+    text-align: right;
+    color: #CDCDCD;
+    font-size: 1.6em;
+    margin-right: 0.8em;
+    margin-left: 5em;
+    white-space: nowrap;
+}
+
+@media screen and (max-width: 1380px){
+    .board{
+        margin: 0.5em auto;
+    }
+
+    .board--title{
+        display: inline;
+        font-size: 1.6em;
+        font-weight: normal;
+        text-overflow: ellipsis;
+        margin-left: 0.6em;
+        margin-right: 25em;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
+    .board--recruit{
+        font-size:1.6em;
+        margin: 0.75em;
+        white-space: nowrap;
+    }
+
+    .board--date{
+        font-size: 1.6em;
+        margin-right: 0.8em;
+        margin-left: 3.5em;
+        white-space: nowrap;
+    }
+}
