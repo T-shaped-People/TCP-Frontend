@@ -1,27 +1,31 @@
 .sidebar{
+    position: fixed;
     display: flex;
-    height: calc(100% + 50px);
-    width: 100px;
+    height: 100%;
+    width: 60px;
     background-color: #15133C;
     flex-direction: column;
     align-items: center;
     text-align: left;
     border-right: 4px solid #3F3C6D;
-    position: relative;
+    z-index: 1;
 }
+
 .sidebar--square{
-    width: 60px;
-    height: 60px;
+    width: 45px;
+    height: 45px;
     margin-top: 25px;
-    border-radius: 20px;
+    border-radius: 15px;
 }
+
 .sidebar--tcp{
-    margin-top: 20px;
-    width: 50px;
-    height: 50px;
+    margin-top: 15px;
+    width: 35px;
+    height: 33px;
 }
+
 .sidebar--plus{
-    margin-top: 33px;
-    width: 23px;
-    height: 23px;
+    margin-top: 30px;
+    width: 20px;
+    height: 20px;
 }

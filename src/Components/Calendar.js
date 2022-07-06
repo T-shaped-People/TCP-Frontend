@@ -1,6 +1,6 @@
 import Sidebar from "./Sidebar";
 import Nav from "./Nav";
-import "../styleComponents/calendar.css"
+import "../styles/calendar.css"
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from "@fullcalendar/interaction";
@@ -12,11 +12,12 @@ function Calendar(){
         const plan = prompt('입력하고 싶은 내용을 적어주세요');
         calEl.innerHTML = plan;
     }
+    
     return(
         <div className={"calendar-root"}>
+            <Sidebar/>
             <Nav/>
             <div className={"sideAndSide"}>
-                <Sidebar/>
                 <div className={"calendar_sidebar"}>
                     <div className="paddingyong">
                         <img src={"images/bxs_chat.png"} alt={"icon"} className={"calendar_sidebar--chaticon"}/>
@@ -63,10 +64,14 @@ function Calendar(){
                         </div>
                     </div>
                     <div className={"calendar_sidebar--user"}>
-                        <div className={"calendar_sidebar--userimg"}></div>
-                        <p>닉네임</p>
-                        <img src={"images/micicon.png"} alt={"icon"} className={"calendar_sidebar--user--mic"}/>
-                        <img src={"images/headphone.png"} alt={"icon"} className={"calendar_sidebar--user--head"}/>
+                        <div className={"calendar_sidebar--user--div"}>
+                            <div className={"calendar_sidebar--userimg"}></div>
+                            <p>닉네임</p>
+                        </div>
+                        <div className={"calendar_sidebar--user--icons"}>
+                            <img src={"images/micicon.png"} alt={"icon"} className={"calendar_sidebar--user--mic"}/>
+                            <img src={"images/headphone.png"} alt={"icon"} className={"calendar_sidebar--user--head"}/>
+                        </div>
                     </div>
                 </div>
                 <div className={"calendar"}>

@@ -1,4 +1,4 @@
-import "../styleComponents/nav.css"
+import "../styles/nav.css"
 
 function Nav(){
     return(

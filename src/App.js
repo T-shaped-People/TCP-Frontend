@@ -7,7 +7,7 @@ import Sidebar from "./Components/Sidebar";
 import Community from './Components/community';
 import Nav from "./Components/Nav";
 import Calendar from "./Components/Calendar";
-import './styleComponents/App.css';
+import './styles/App.css';
 
 function App() {
     return (

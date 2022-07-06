@@ -1,4 +1,4 @@
-import '../styleComponents/Main.css';
+import '../styles/Main.css';
 import {Link, useNavigate} from "react-router-dom";
 import React from 'react';
 

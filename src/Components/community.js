@@ -1,7 +1,7 @@
 import axios from "axios";
 import {React} from "react";
 import Sidebar from "./Sidebar"
-import '../styleComponents/community.css'
+import '../styles/community.css'
 // import CommunityText from "./communityText";
 
 export default function Community(){

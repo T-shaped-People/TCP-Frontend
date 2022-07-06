@@ -1,6 +1,6 @@
 import React from "react";
 import {useNavigate} from "react-router-dom";
-import '../styleComponents/BeforeLogin.css'
+import '../styles/BeforeLogin.css'
 
 function BeforeLogin(){
     function goOauth(){
