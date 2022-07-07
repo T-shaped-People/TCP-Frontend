@@ -61,7 +61,7 @@
     }
 }
 .sec--img{
-    margin-top: 200px;
+    margin-top: 14em;
     width: 400px;
 }
 .continue_BSM{
@@ -69,4 +69,9 @@
     color: white;
     border: none;
     font-size: 15px;
+}
+.sec--button--or{
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    font-size: 30px;
 }

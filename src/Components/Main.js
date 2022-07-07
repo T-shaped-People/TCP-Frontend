@@ -13,7 +13,7 @@ export default function Main(){
                 <nav className='container_main_nav'>
                     <div className="nav--left rows">
                         <div className='nav--menus rows'>
-                            <img src={"images/tcpicon.png"} className="nav--logo" onClick={() => navigate('/Main')} alt={"이미지 로딩중..."}/>
+                            <img src={"images/tcpicon.png"} className="nav--logo" onClick={() => navigate('/Main')} alt={"icon"}/>
                         </div>
                         <div className='rows'>
                             <Link to={"/TeamRecruitment"} className="nav--link">팀원 모집</Link>
@@ -29,9 +29,11 @@ export default function Main(){
             </header>
             <section className={"section_main"}>
                 <div className="imgdiv">
-                    <img src={"images/teamimg1.png"} className="sec--img" alt={"이미지 로딩중..."}/>
+                    <img src={"images/teamimg1.png"} className="sec--img" alt={"icon"}/>
                 </div>
                 <button className="sec--button" onClick={make_it_team}>팀 구하러 가기</button>
+                <p className='sec--button--or'>OR</p>
+                <button className='sec--button'>팀 만들기</button>
             </section>
         </div>
         )
