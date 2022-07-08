@@ -1,7 +1,7 @@
-import {Nav, Sidebar, SecSideBar} from '../allFiles'
+import {TeamHeader, Sidebar, SecSideBar} from '../allFiles'
 import '../styles/chatting.css';
 
-export default function Chatting()
+export default function Chatting(props)
 {
     const send = () => {
         console.log('실행')
@@ -14,7 +14,7 @@ export default function Chatting()
 
     return(
         <div className='chatting-div'>
-            <Nav/>
+            <TeamHeader user={props.user} />
             <Sidebar/>
             <SecSideBar/>
             <div className='chatting-main-div'>

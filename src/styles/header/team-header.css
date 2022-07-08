@@ -1,4 +1,4 @@
-.navbar{
+.team-header nav{
     display: flex;
     height: 50px;
     width: stretch;
@@ -8,22 +8,22 @@
     border-bottom: 4px solid #3F3C6D;
     position: fixed;
 }
-.navbar--speech{
+.team-header--speech{
     width: 30px;
     height: 30px;
     margin-right: 20px;
 }
-.navbar--notebook{
+.team-header--notebook{
     width: 30px;
     height: 30px;
     margin-right: 20px;
 }
-.navbar--username{
+.team-header--username{
     color: white;
     font-size: 20px;
     margin-right: 20px;
 }
-.navbar--input{
+.team-header--input{
     margin-right: 20px;
     background-color: #3F3C6D;
     border-radius: 20px;
@@ -34,6 +34,6 @@
     color: white;
     padding-left: 8px;
 }
-.navbar--person{
+.team-header--person{
     margin-right: 20px;
 }

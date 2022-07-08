@@ -36,7 +36,7 @@ header{
     margin-right: 10%;
     margin-left: 250px;
     width: 480px;
-    height: 370px;
+    height: 250px;
     border-radius: 20px;
     background-color: white;
     display: flex;
@@ -76,7 +76,7 @@ header{
     color: #15133C;
 }
 .section--right--div--h2{
-    margin-bottom: 150px;
+    margin-bottom: 50px;
 }
 .section--right--div--button{
     background: #FFFFFF;

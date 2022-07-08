@@ -1,12 +1,12 @@
-import {Nav, SecSideBar, Sidebar} from '../allFiles';
+import {TeamHeader, SecSideBar, Sidebar} from '../allFiles';
 import "../styles/calendar.css"
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from "@fullcalendar/interaction";
 
-function Calendar(){
+function Calendar(props) {
 
-    const handleDateClick = (arg) =>{
+    const handleDateClick = (arg) => {
         const calEl = document.querySelector(`[role="gridcell"][data-date="${arg.dateStr}"] .fc-daygrid-day-events`);
         const plan = prompt('입력하고 싶은 내용을 적어주세요');
         calEl.innerHTML = plan;
@@ -14,8 +14,8 @@ function Calendar(){
     
     return(
         <div className={"calendar-root"}>
+            <TeamHeader user={props.user} />
             <Sidebar/>
-            <Nav/>
             <div className={"sideAndSide"}>
                 <SecSideBar/>
                 <div className={"calendar"}>
