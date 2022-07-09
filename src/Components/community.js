@@ -1,35 +1,13 @@
 import axios from "axios";
-import {React} from "react";
+import React from "react";
 import Sidebar from "./Sidebar"
+import { TeamHeader } from "../allFiles";
 import '../styles/community.css'
-// import CommunityText from "./communityText";
 
-export default function Community(){
-    axios.defaults.withCredentials = true;
-    
-    let config = {
-        method: 'post',
-        url: 'http://localhost:3000/api/user/oauth/bsm',
-        data: {
-            authcode: '2f35b5ccc93b1d8c5aac1c8c1a818b60' 
-        }
-    };
-
-    (async () => {
-        await axios(config).data;
-
-        config = {
-            method: 'get',
-            url: 'http://localhost:3000/api/user'
-        };
-        const result = await axios(config);
-        console.log(result);
-    })();
-
-
-
+export default function Community(props){
     return (
         <main className="community--main">
+            <TeamHeader user={props.user} />
             <Sidebar />
             <div className="community_container">
             <h1 className="title">커뮤니티</h1>

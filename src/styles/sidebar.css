@@ -8,7 +8,7 @@
     align-items: center;
     text-align: left;
     border-right: 4px solid #3F3C6D;
-    z-index: 1;
+    z-index: 3;
 }
 
 .sidebar--square{

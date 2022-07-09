@@ -13,62 +13,9 @@
     border: none;
     cursor: pointer;
 }
-.header_main{
-    width: 100%;
-    background-color: #15133C;
-    display: flex;
-    justify-content: center;
-}
-.container_main_nav{
-    max-width: 1420px;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 20px;
-    font-size: 17px;
-}
-.nav--menus .continue_BSM{
-    display: none;
-}
-.nav--link{
-    padding: 20px;
-    color: white;
-}
-.nav--logo{
-    height: 40px;
-    cursor: pointer;
-}
-@media screen and (min-width:0px) and (max-width:720px) {
-    .nav--left{
-        flex-direction: column;
-        width: 100%;
-    }
-    .nav--right{
-        display: none;
-    }
-    .nav--menus{
-        justify-content: space-between;
-        width: 100%;
-        padding-top: 10px;
-    }
-    .nav--menus .continue_BSM{
-        display: inline;
-    }
-    .nav--link{
-        padding: 15px;
-        font-size: 16px;
-    }
-}
 .sec--img{
     margin-top: 14em;
     width: 400px;
-}
-.continue_BSM{
-    background: none;
-    color: white;
-    border: none;
-    font-size: 15px;
 }
 .sec--button--or{
     margin-top: 0.5em;

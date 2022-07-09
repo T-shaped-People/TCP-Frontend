@@ -1,32 +1,16 @@
-import '../styles/Main.css';
-import {Link, useNavigate} from "react-router-dom";
 import React from 'react';
+import {Link, useNavigate} from "react-router-dom";
+import { MainHeader } from '../allFiles';
+import '../styles/Main.css';
 
-export default function Main(){
+export default function Main(props){
     const navigate = useNavigate();
     function make_it_team(){
         navigate('TeamRecruitment')
     }
     return(
         <div>
-            <header className={"header_main"}>
-                <nav className='container_main_nav'>
-                    <div className="nav--left rows">
-                        <div className='nav--menus rows'>
-                            <img src={"images/tcpicon.png"} className="nav--logo" onClick={() => navigate('/Main')} alt={"icon"}/>
-                        </div>
-                        <div className='rows'>
-                            <Link to={"/TeamRecruitment"} className="nav--link">팀원 모집</Link>
-                            <Link to={"/community"} className="nav--link">커뮤니티</Link>
-                            <Link to={"/ourTeam"} className="nav--link">나의 팀</Link>
-                            <Link to={"/Canvas"} className="nav--link">캔버스</Link>
-                        </div>
-                    </div>
-                    <div className="nav--right">
-                        <button className="continue_BSM">계정</button>
-                    </div>
-                </nav>
-            </header>
+            <MainHeader user={props.user} />
             <section className={"section_main"}>
                 <div className="imgdiv">
                     <img src={"images/teamimg1.png"} className="sec--img" alt={"icon"}/>

@@ -1,4 +1,5 @@
 import TeamHeader from './Components/header/TeamHeader';
+import MainHeader from './Components/header/MainHeader';
 import Sidebar from './Components/Sidebar';
 import Main from './Components/Main';
 import Chatting from './Components/chatting';
@@ -8,4 +9,4 @@ import SecSideBar from './Components/secSideBar';
 import Community from './Components/community';
 import Calendar from './Components/Calendar';
 
-export {TeamHeader, Sidebar, Main, Chatting, Canvas, BeforeLogin, SecSideBar, Community, Calendar};
+export {TeamHeader, MainHeader, Sidebar, Main, Chatting, Canvas, BeforeLogin, SecSideBar, Community, Calendar};

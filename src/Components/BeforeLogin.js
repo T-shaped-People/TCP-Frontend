@@ -6,10 +6,10 @@ function BeforeLogin(props) {
     const navigate = useNavigate();
     if (props.user.isLogin) navigate('/calendar');
     
-    function goOauth(){
+    function goOauth() {
         window.location.href = "https://bssm.kro.kr/oauth/login?clientId=4edf448e&redirectURI=http://localhost:3000/api/user/oauth/bsm"
     }
-    return(
+    return (
         <div className={"root-div"}>
             <header>
                 <nav className={"container"}>

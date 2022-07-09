@@ -14,13 +14,24 @@ const TeamHeader: React.FC<PropsType> = (props: PropsType) => {
     return (
         <header className="team-header">
             <nav>
-                <img src="images/speechbubble.png" alt="icon" className="team-header--speech"/>
-                <img src="images/carbon_notebook.png" alt="icon" className="team-header--notebook"/>
-                <input type="text" className="team-header--input"/>
-                <img src="images/person.png" alt="icon" className="team-header--person"/>
-                <p className="team-header--username">{
-                    user.nickname
-                }</p>
+                <div className="nav--left">
+                    
+                </div>
+                <ul className="nav--right rows">
+                    <li>
+                        <img src="images/speechbubble.png" alt="icon" className="team-header--speech"/>
+                    </li>
+                    <li>
+                        <img src="images/carbon_notebook.png" alt="icon" className="team-header--notebook"/>
+                    </li>
+                    <li>
+                        <input type="text" className="team-header--input"/>
+                    </li>
+                    <li className="header--username">
+                        <img src="images/person.png" alt="icon" className="team-header--person"/>    
+                        <span>{user.nickname}</span>
+                    </li>
+                </ul>
             </nav>
         </header>
     )
