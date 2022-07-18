@@ -1,8 +1,13 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import '../styles/BeforeLogin.css'
+import { User } from "../types/user";
 
-function BeforeLogin(props) {
+interface BeforeLoginProps{
+    user: User
+}
+
+function BeforeLogin(props: BeforeLoginProps) {
     const navigate = useNavigate();
     if (props.user.isLogin) navigate('/calendar');
     

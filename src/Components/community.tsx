@@ -3,8 +3,13 @@ import React from "react";
 import Sidebar from "./Sidebar"
 import { TeamHeader } from "../allFiles";
 import '../styles/community.css'
+import { User } from "../types/user";
 
-export default function Community(props){
+interface CommunityProps{
+    user: User
+}
+
+export default function Community(props: CommunityProps){
     return (
         <main className="community--main">
             <TeamHeader user={props.user} />

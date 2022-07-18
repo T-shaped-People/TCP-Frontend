@@ -2,11 +2,16 @@ import React from 'react';
 import {Link, useNavigate} from "react-router-dom";
 import { MainHeader } from '../allFiles';
 import '../styles/Main.css';
+import { User } from '../types/user';
 
-export default function Main(props){
+interface MainProps{
+    user: User
+}
+
+export default function Main(props: MainProps){
     const navigate = useNavigate();
     function make_it_team(){
-        navigate('TeamRecruitment')
+        navigate('/community')
     }
     return(
         <div>
