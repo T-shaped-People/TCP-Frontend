@@ -12,13 +12,13 @@
     font-weight: bold;
     border: none;
     cursor: pointer;
+    margin-top: 2em;
 }
 .sec--img{
-    margin-top: 14em;
+    margin-top: 17em;
     width: 400px;
 }
 .sec--button--or{
-    margin-top: 0.5em;
     margin-bottom: 0.5em;
     font-size: 30px;
 }

@@ -1,6 +1,5 @@
 import React from 'react';
-import {Link, useNavigate} from "react-router-dom";
-import { MainHeader } from '../allFiles';
+import { MainHeader, MakeTeam } from '../allFiles';
 import '../styles/Main.css';
 import { User } from '../types/user';
 
@@ -9,10 +8,13 @@ interface MainProps{
 }
 
 export default function Main(props: MainProps){
-    const navigate = useNavigate();
-    function make_it_team(){
-        navigate('/community')
+    
+    const [modal, setModal] = React.useState(false);
+
+    const team = () => {
+        setModal(!modal);
     }
+
     return(
         <div>
             <MainHeader user={props.user} />
@@ -20,9 +22,9 @@ export default function Main(props: MainProps){
                 <div className="imgdiv">
                     <img src={"images/teamimg1.png"} className="sec--img" alt={"icon"}/>
                 </div>
-                <button className="sec--button" onClick={make_it_team}>팀 구하러 가기</button>
-                <p className='sec--button--or'>OR</p>
-                <button className='sec--button'>팀 만들기</button>
+                <p className='sec--button--or'>당신의 팀 프로젝트를 시작하세요</p>
+                <button className="sec--button" onClick={team}>시작하기</button>
+                {modal ? <MakeTeam /> : <></>}
             </section>
         </div>
         )

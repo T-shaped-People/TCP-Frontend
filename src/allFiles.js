@@ -8,5 +8,6 @@ import BeforeLogin from './Components/BeforeLogin';
 import SecSideBar from './Components/secSideBar';
 import Community from './Components/community';
 import Calendar from './Components/Calendar';
+import MakeTeam from './Components/makeTeam';
 
-export {TeamHeader, MainHeader, Sidebar, Main, Chatting, Canvas, BeforeLogin, SecSideBar, Community, Calendar};
+export {TeamHeader, MainHeader, Sidebar, Main, Chatting, Canvas, BeforeLogin, SecSideBar, Community, Calendar, MakeTeam};
