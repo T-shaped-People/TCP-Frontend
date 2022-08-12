@@ -19,8 +19,7 @@ const MainHeader: React.FC<PropsType> = (props: PropsType) => {
                         <img src="images/tcpicon.png" className="nav--logo" alt="icon"/>
                     </div>
                     <div className='rows'>
-                        <Link to="/team-recruitment" className="nav--link">팀원 모집</Link>
-                        <Link to="/community" className="nav--link">커뮤니티</Link>
+                        <Link to="/community" className="nav--link">팀원 모집</Link>
                         <Link to="/team" className="nav--link">나의 팀</Link>
                     </div>
                 </div>

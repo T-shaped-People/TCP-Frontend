@@ -10,13 +10,24 @@ interface MainProps{
 export default function Main(props: MainProps){
     
     const [modal, setModal] = React.useState(false);
+    const mEl = document.querySelector('.main-root');
 
     const team = () => {
+        mEl?.classList.add('main-shadow');
         setModal(!modal);
     }
 
+    React.useEffect(()=>{
+        if(document.querySelector('.main-shadow') !== null){
+            document.querySelector('.main-shadow')?.addEventListener('click', ()=>{
+                mEl?.classList.remove('main-shadow');
+                setModal(!modal)
+            })
+        }
+    }, [modal])
+
     return(
-        <div>
+        <div className='main-root'>
             <MainHeader user={props.user} />
             <section className={"section_main"}>
                 <div className="imgdiv">

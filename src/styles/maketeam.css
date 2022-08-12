@@ -1,0 +1,39 @@
+.makeTeam-root{
+    width: 500px;
+    height: 500px;
+    background-color: white;
+    position: fixed;
+    z-index: 2;
+    top: 18em;
+    left: 37.3%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 10px;
+}
+.makeTeam-title{
+    font-size: 40px;
+    margin-top: 30px;
+}
+.makeTeam-button{
+    width: 395px;
+    height: 65px;
+    font-size: 20px;
+    color: white;
+    background-color: #15133C;
+    border-radius: 10px;
+    margin-top: 40px;
+}
+.makeTeam-sub{
+    margin-top: 150px;
+    font-size: 25px;
+}
+.makeTeam-attend{
+    width: 395px;
+    height: 65px;
+    font-size: 20px;
+    color: white;
+    background-color: #15133C;
+    border-radius: 10px;
+    margin-top: 20px;
+}

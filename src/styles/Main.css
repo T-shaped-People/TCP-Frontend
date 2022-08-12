@@ -22,3 +22,13 @@
     margin-bottom: 0.5em;
     font-size: 30px;
 }
+.main-shadow::after{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.9);
+    cursor: pointer;
+}
