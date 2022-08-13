@@ -28,7 +28,7 @@ export default function Main(props: MainProps){
 
     return(
         <div className='main-root'>
-            <MainHeader user={props.user} />
+            <MainHeader user={props.user}  />
             <section className={"section_main"}>
                 <div className="imgdiv">
                     <img src={"images/teamimg1.png"} className="sec--img" alt={"icon"}/>
