@@ -4,6 +4,7 @@ import Sidebar from "./Sidebar"
 import { TeamHeader } from "../allFiles";
 import '../styles/community.css'
 import { User } from "../types/user";
+import QueryString from "qs";
 
 interface CommunityProps{
     user: User
@@ -15,30 +16,30 @@ export default function Community(props: CommunityProps){
     const [page, setPage] = React.useState(1);
 
     React.useEffect(()=>{
-        axios.get('/api/board/post?category=normal&limit=5&page=1')
+        axios.get(`/api/board/post?category=normal&limit=5&page=${page}`)
         .then((response)=>{
             return response;
         }).then((data)=>{
-            console.log(data);
-            setContent(data.data);
+            console.log(data.data.posts);
+            setContent(data.data.posts);
         })
-    }, [])
-
-    const data = new FormData();
-
-    data.append('category', 'normal')
-    data.append('title', '테스트')
-    data.append('content', '테스트 글입니다')
+    }, [page])
 
     const test = () =>{
-        console.log(data);
+        
+        const data = {
+            category: 'normal',
+            title: '테스트',
+            content: '테스트 글입니다'
+        }
 
         axios.post('/api/board/post', data)
-        .then((response)=>{
-            console.log('성공')
-        }).catch((e)=>{
-            console.log(e);
+        .then(function (response) {
+            console.log('성공');
         })
+        .catch(function (error) {
+            console.log(error);
+        });
     }
 
     return (
@@ -78,7 +79,7 @@ export default function Community(props: CommunityProps){
                     <span className="board--recruit">2/10 명 모집중</span>
                     <span className="board--date">2022-02-04</span>
                 </span> */}
-
+                
             </div>
         </main>
     )
