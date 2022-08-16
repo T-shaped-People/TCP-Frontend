@@ -9,5 +9,6 @@ import SecSideBar from './Components/secSideBar';
 import Community from './Components/community';
 import Calendar from './Components/Calendar';
 import MakeTeam from './Components/makeTeam';
+import Content from './Components/content';
 
-export {TeamHeader, MainHeader, Sidebar, Main, Chatting, Canvas, BeforeLogin, SecSideBar, Community, Calendar, MakeTeam};
+export {TeamHeader, MainHeader, Sidebar, Main, Chatting, Canvas, BeforeLogin, SecSideBar, Community, Calendar, MakeTeam, Content};

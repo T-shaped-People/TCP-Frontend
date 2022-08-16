@@ -21,6 +21,8 @@
     font-size: 54px;
     border-radius: 0px 50px 50px 0px;
     background-color: aqua;
+    position: absolute;
+    left: 0;
 }
 
 .board{
@@ -29,8 +31,9 @@
     border-left: none;
     display: flex;
     align-items: center;
-    justify-content: center;
     height: 10%;
+    position: relative;
+    width: 1300px;
 }
 
 .board--title{
@@ -38,8 +41,7 @@
     font-size: 1.6em;
     font-weight: normal;
     text-overflow: ellipsis;
-    margin-left: 0.6em;
-    margin-right: 40em;
+    margin-left: 3em;
     white-space: nowrap;
     overflow: hidden;
 }
@@ -49,6 +51,8 @@
     font-size:1.6em;
     margin: 1em;
     white-space: nowrap;
+    position: absolute;
+    right: 8em;
 }
 .board--date{
     text-align: right;
@@ -57,11 +61,23 @@
     margin-right: 0.8em;
     margin-left: 5em;
     white-space: nowrap;
+    right: 0;
+    position: absolute;
 }
 
 @media screen and (max-width: 1380px){
     .board{
-        margin: 0.5em auto;
+        margin: 1em auto;
+        width: 1000px;
+    }
+    
+    .board::before{
+        content: '\00a0';
+        font-size: 48px;
+        border-radius: 0px 50px 50px 0px;
+        background-color: aqua;
+        position: absolute;
+        left: 0;
     }
 
     .board--title{
@@ -69,8 +85,7 @@
         font-size: 1.6em;
         font-weight: normal;
         text-overflow: ellipsis;
-        margin-left: 0.6em;
-        margin-right: 25em;
+        margin-left: 2em;
         white-space: nowrap;
         overflow: hidden;
     }
@@ -79,6 +94,8 @@
         font-size:1.6em;
         margin: 0.75em;
         white-space: nowrap;
+        position: absolute;
+        right: 8em;
     }
 
     .board--date{
@@ -86,5 +103,7 @@
         margin-right: 0.8em;
         margin-left: 3.5em;
         white-space: nowrap;
+        right: 0;
+        position: absolute;
     }
 }

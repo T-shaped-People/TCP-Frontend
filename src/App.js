@@ -1,6 +1,6 @@
 import React from 'react';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import {Chatting, Main, Canvas, Community, BeforeLogin, Calendar} from './allFiles';
+import {Chatting, Main, Canvas, Community, BeforeLogin, Calendar, Content} from './allFiles';
 import axios, { AxiosError } from 'axios';
 import './styles/App.css';
 
@@ -45,6 +45,7 @@ function App() {
                 <Route path={"/community"} element={<Community user={user} />}></Route>
                 <Route path={"/calendar"} element={<Calendar user={user} />}></Route>
                 <Route path={"/chatting"} element={<Chatting user={user} />}></Route>
+                <Route path={"/content"} element={<Content user={user}/>}/>
             </Routes>
         </BrowserRouter>
     );
