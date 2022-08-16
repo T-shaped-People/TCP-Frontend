@@ -13,11 +13,7 @@ const socket = io('localhost:3000/chat', {
 const teamId = 'edfa0783e4dc4fd09e68b71be3ff69ea';
 const roomId = 'a11c92055eba46e690099bd5233bc3c4';
 
-interface ChattingProps {
-    user: User
-}
-
-export default function Chatting(props: ChattingProps) {
+export default function Chatting() {
     const [chatList, setChatList] = React.useState<Chat[]>([]);
     const chatInputRef = React.useRef<HTMLInputElement>(null);
 
@@ -73,7 +69,7 @@ export default function Chatting(props: ChattingProps) {
 
     return(
         <div className='chatting-div'>
-            <TeamHeader user={props.user} />
+            <TeamHeader />
             <Sidebar/>
             <SecSideBar/>
             <div className='chatting-main-div'>

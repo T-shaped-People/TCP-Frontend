@@ -5,11 +5,7 @@ import React from 'react';
 import axios from 'axios'
 import '../styles/content.css';
 
-interface ContentProps{
-    user: User
-}
-
-export default function Content(props: ContentProps)
+export default function Content()
 {
     const state = useLocation();
     console.log(state);
@@ -40,7 +36,7 @@ export default function Content(props: ContentProps)
 
     return(
         <div className="content-root">
-            <TeamHeader user={props.user} />
+            <TeamHeader/>
             <Sidebar/>
             <div className="content">
                 <h1>{content.title}</h1>

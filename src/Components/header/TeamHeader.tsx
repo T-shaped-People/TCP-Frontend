@@ -1,15 +1,12 @@
-import React from "react";
+import React, {useContext} from "react";
 import { useNavigate } from "react-router-dom";
-import { User } from "../../types/user";
 import "../../styles/header/team-header.css"
+import { UserContext } from "../../App";
 
-interface PropsType {
-    user: User
-}
 
-const TeamHeader: React.FC<PropsType> = (props: PropsType) => {
+const TeamHeader = () => {
     const navigate = useNavigate();
-    const { user } = props;
+    const user = useContext(UserContext);
     if (!user.isLogin) navigate('/');
     return (
         <header className="team-header">

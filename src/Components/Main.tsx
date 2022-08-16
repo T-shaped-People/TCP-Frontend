@@ -1,13 +1,9 @@
 import React from 'react';
 import { MainHeader, MakeTeam } from '../allFiles';
 import '../styles/Main.css';
-import { User } from '../types/user';
 
-interface MainProps{
-    user: User
-}
 
-export default function Main(props: MainProps){
+export default function Main(){
     
     const [modal, setModal] = React.useState(false);
     const mEl = document.querySelector('.main-root');
@@ -28,7 +24,7 @@ export default function Main(props: MainProps){
 
     return(
         <div className='main-root'>
-            <MainHeader user={props.user}  />
+            <MainHeader />
             <section className={"section_main"}>
                 <div className="imgdiv">
                     <img src={"images/teamimg1.png"} className="sec--img" alt={"icon"}/>

@@ -3,14 +3,7 @@ import "../styles/calendar.css"
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from "@fullcalendar/interaction";
-import { User } from '../types/user';
-
-
-interface CalendarProps{
-    user: User
-}
-
-function Calendar(props: CalendarProps) {
+function Calendar() {
 
     const handleDateClick = (arg: any) => {
         const calEl = document.querySelector(`[role="gridcell"][data-date="${arg.dateStr}"] .fc-daygrid-day-events`);
@@ -21,7 +14,7 @@ function Calendar(props: CalendarProps) {
     
     return(
         <div className={"calendar-root"}>
-            <TeamHeader user={props.user} />
+            <TeamHeader/>
             <Sidebar/>
             <div className={"sideAndSide"}>
                 <SecSideBar/>

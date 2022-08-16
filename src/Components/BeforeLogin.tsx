@@ -1,15 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import '../styles/BeforeLogin.css'
-import { User } from "../types/user";
+import { UserContext } from "../App";
 
-interface BeforeLoginProps{
-    user: User
-}
 
-function BeforeLogin(props: BeforeLoginProps) {
+function BeforeLogin() {
     const navigate = useNavigate();
-    if (props.user.isLogin) navigate('/calendar');
+    const user = useContext(UserContext);
+    if (user.isLogin) navigate('/calendar');
     
     function goOauth() {
         window.location.href = "https://bssm.kro.kr/oauth/login?clientId=4edf448e&redirectURI=http://localhost:3000/api/user/oauth/bsm"

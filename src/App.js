@@ -1,54 +1,66 @@
-import React from 'react';
-import {BrowserRouter, Route, Routes} from "react-router-dom";
-import {Chatting, Main, Canvas, Community, BeforeLogin, Calendar, Content} from './allFiles';
-import axios, { AxiosError } from 'axios';
-import './styles/App.css';
+import React, { createContext } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import {
+  Chatting,
+  Main,
+  Canvas,
+  Community,
+  BeforeLogin,
+  Calendar,
+} from "./allFiles";
+import axios, { AxiosError } from "axios";
+import "./styles/App.css";
+
+const userInfo = {
+    isLogin: false,
+    usercode: 0,
+    nickname: "",
+    enrolled: 0,
+    grade: 0,
+    classNo: 0,
+    studentNo: 0,
+    name: "",
+    email: "",
+  }
+
+export const UserContext = createContext(userInfo);
 
 function App() {
-    const [user, setUser] = React.useState({
-        isLogin: false,
-        usercode: 0,
-        nickname: '',
-        enrolled: 0,
-        grade: 0,
-        classNo: 0,
-        studentNo: 0,
-        name: '',
-        email: ''
-    });
+  const [user, setUser] = React.useState(userInfo);
 
-    React.useEffect(() => {
-        (async () => {
-            try {
-                setUser({
-                    ...(await getUserInfo()).data,
-                    isLogin: true
-                });
-            } catch (error) {
-                if (error instanceof AxiosError && error.response?.status == 401) {
-                    setUser(prev => ({...prev, isLogin: false}));
-                }
-            }
-        })();
-    }, []);
+  React.useEffect(() => {
+    (async () => {
+      try {
+        setUser({
+          ...(await getUserInfo()).data,
+          isLogin: true,
+        });
+      } catch (error) {
+        if (error instanceof AxiosError && error.response?.status == 401) {
+          setUser((prev) => ({ ...prev, isLogin: false }));
+        }
+      }
+    })();
+  }, []);
 
-    const getUserInfo = () => {
-        return axios.get('/api/user', {withCredentials: true}); 
-    }
+  const getUserInfo = () => {
+    return axios.get("/api/user", { withCredentials: true });
+  };
 
-    return (
-        <BrowserRouter>
-            <Routes>
-                <Route path={"/"} element={<BeforeLogin user={user} />}></Route>
-                <Route path={"/Main"} element={<Main user={user} />}/>
-                <Route path={"/canvas"} element={<Canvas user={user} />}/>
-                <Route path={"/community"} element={<Community user={user} />}></Route>
-                <Route path={"/calendar"} element={<Calendar user={user} />}></Route>
-                <Route path={"/chatting"} element={<Chatting user={user} />}></Route>
-                <Route path={"/content"} element={<Content user={user}/>}/>
-            </Routes>
-        </BrowserRouter>
-    );
+  return (
+    <BrowserRouter>
+      <UserContext.Provider value={user}>
+        <Routes>
+          <Route path={"/"} element={<BeforeLogin />}></Route>
+          <Route path={"/Main"} element={<Main />} />
+          <Route path={"/canvas"} element={<Canvas />} />
+          <Route path={"/community"} element={<Community />}></Route>
+          <Route path={"/calendar"} element={<Calendar />}></Route>
+          <Route path={"/chatting"} element={<Chatting />}></Route>
+        </Routes>
+      </UserContext.Provider>
+    </BrowserRouter>
+  );
 }
 
 export default App;

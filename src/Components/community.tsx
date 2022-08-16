@@ -2,12 +2,7 @@ import axios from "axios";
 import React from "react";
 import { TeamHeader, Sidebar } from "../allFiles";
 import '../styles/community.css'
-import { User } from "../types/user";
 import { useNavigate } from 'react-router-dom';
-
-interface CommunityProps{
-    user: User
-}
 
 interface Post{
     category: string,
@@ -19,8 +14,7 @@ interface Post{
     title: string,
     usercode: number,
 }
-
-export default function Community(props: CommunityProps){
+export default function Community(){
 
     const [post, setPost] = React.useState<Post[]>([],);
     const [page, setPage] = React.useState(1);
@@ -39,7 +33,7 @@ export default function Community(props: CommunityProps){
 
     return (
         <main className="community--main">
-            <TeamHeader user={props.user} />
+            <TeamHeader />
             <Sidebar />
             <div className="community_container">
                 <h1 className="title">커뮤니티</h1>

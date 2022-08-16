@@ -1,15 +1,12 @@
-import React from "react";
+import React, {useContext} from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { User } from "../../types/user";
 import "../../styles/header/base.css"
+import { UserContext } from "../../App";
 
-interface PropsType {
-    user: User
-}
 
-const MainHeader: React.FC<PropsType> = (props: PropsType) => {
+const MainHeader = () => {
     const navigate = useNavigate();
-    const { user } = props;
+    const user = useContext(UserContext);
     if (!user.isLogin) navigate('/');
     return (
         <header className="main_header">
