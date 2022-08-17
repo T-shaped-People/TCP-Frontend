@@ -1,6 +1,9 @@
+import React, {useContext} from 'react';
 import "../styles/secSideBar.css";
+import { UserContext } from "../App";
 
-export default function secSideBar() {
+export default function SecSideBar() {
+  const user = useContext(UserContext);
   return (
     <div className={"calendar_sidebar"}>
       <div className="paddingyong">
@@ -74,7 +77,7 @@ export default function secSideBar() {
       <div className={"calendar_sidebar--user"}>
         <div className={"calendar_sidebar--user--div"}>
           <div className={"calendar_sidebar--userimg"}></div>
-          <p>닉네임</p>
+          <p className={'secSideBar-nickname'}>{user.nickname}</p>
         </div>
         <div className={"calendar_sidebar--user--icons"}>
           <img

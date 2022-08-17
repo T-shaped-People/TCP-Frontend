@@ -1,5 +1,4 @@
 import { TeamHeader, Sidebar } from '../allFiles';
-import { User } from '../types/user';
 import { useLocation } from 'react-router-dom';
 import React from 'react';
 import axios from 'axios'
@@ -32,7 +31,7 @@ export default function Content()
             setContent(data.data);
             console.log(content);
         })
-    }, [])
+    }, [content, state.state])
 
     return(
         <div className="content-root">
