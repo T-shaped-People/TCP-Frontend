@@ -20,7 +20,7 @@ export default function Main(){
                 setModal(!modal)
             })
         }
-    }, [modal])
+    }, [mEl?.classList, modal])
 
     return(
         <div className='main-root'>
@@ -36,4 +36,3 @@ export default function Main(){
         </div>
         )
 }
-

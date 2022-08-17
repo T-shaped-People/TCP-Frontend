@@ -3,7 +3,6 @@ import axios, { Axios, AxiosError, AxiosPromise } from 'axios';
 import {TeamHeader, Sidebar, SecSideBar} from '../allFiles'
 import '../styles/chatting.css';
 import { io } from 'socket.io-client';
-import { User } from '../types/user';
 import { Chat } from '../types/chat';
 
 const socket = io('localhost:3000/chat', {

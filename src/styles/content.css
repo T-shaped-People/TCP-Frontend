@@ -1,6 +1,131 @@
+.content-root{
+    width: 100%;
+    height: 100%;
+}
 .content{
     position: absolute;
-    margin-left: 10em;
+    left: 25em;
+    top: 14em;
+}
+.content-header::before{
+    content: '\00a0';
+    font-size: 60px;
+    border-radius: 0px 50px 50px 0px;
+    background-color: aqua;
+    position: absolute;
+    left: 0;
+}
+.content-header{
+    width: 1000px;
+    height: 80px;
+    padding-left: 25px;
+    display: flex;
+    justify-content: center;
+    border-left:none;
+    flex-direction: column;
+    position: relative;
+}
+.content-title{
+    font-size: 25px;
+}
+.content-nickname{
+    margin-top: 10px;
+    font-size: 15px;
+}
+.content-info{
+    display: flex;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    font-size: 13px;
+}
+.content-info-date{
+    margin-left: 10px;
+}
+.content-content{
+    display: flex;
+    font-size: 15px;
+    margin-left: 2em;
     margin-top: 5em;
-    font-size: 20px;
+    max-width: 65em;
+}
+.write-comment{
+    position: absolute;
+    margin-top: 10em;
+    margin-left: 10em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.write-comment-input{
+    padding: 10px;
+    width: 60em;
+    min-height: 5em;
+}
+.write-comment-button{
+    margin-top: 20px;
+    width: 120px;
+    height: 40px;
+    background-color: #EC994B;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+}
+.reload-button{
+    margin-top: 20px;
+    width: 120px;
+    height: 40px;
+    background-color: #EC994B;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    margin-right: 30px;
+}
+.delete-button{
+    margin-top: 20px;
+    width: 120px;
+    height: 40px;
+    background-color: #EC994B;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    margin-left: 30px;
+}
+.comment-button-div{
+    display: flex;
+    margin-bottom: 5em;
+}
+.read-comment-root{
+    position: relative;
+    margin-top: 25em;
+}
+.read-comment{
+    margin-left: 5em;
+    font-size: 15px;
+    display: flex;
+    flex-direction: column;
+    max-width: 60em;
+    overflow: scroll;
+}
+.read-comment::-webkit-scrollbar{
+    display: none;
+}
+.read-comment-nickname{
+    margin-right: 10px;
+}
+.read-comment-date{
+    font-size: 12px;
+    margin-top: 10px;
+}
+.read-comment-content{
+    margin-top: 20px;
+    padding-bottom: 20px;
+}
+@media screen and (min-width:0px) and (max-width:1380px) {
+    .content{
+        left: 18em;
+    }    
 }

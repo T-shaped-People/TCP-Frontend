@@ -10,5 +10,7 @@ import Community from './Components/community';
 import Calendar from './Components/Calendar';
 import MakeTeam from './Components/makeTeam';
 import Content from './Components/content';
+import LoadingPage from './Components/loadingPage';
+import NotFound from './Components/NotFound';
 
-export {TeamHeader, MainHeader, Sidebar, Main, Chatting, Canvas, BeforeLogin, SecSideBar, Community, Calendar, MakeTeam, Content};
+export {TeamHeader, MainHeader, Sidebar, Main, Chatting, Canvas, BeforeLogin, SecSideBar, Community, Calendar, MakeTeam, Content, LoadingPage, NotFound};

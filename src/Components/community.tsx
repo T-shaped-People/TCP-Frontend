@@ -1,6 +1,6 @@
 import axios from "axios";
 import React from "react";
-import { TeamHeader, Sidebar } from "../allFiles";
+import { TeamHeader, Sidebar, LoadingPage } from "../allFiles";
 import '../styles/community.css'
 import { useNavigate } from 'react-router-dom';
 
@@ -18,6 +18,7 @@ export default function Community(){
 
     const [post, setPost] = React.useState<Post[]>([],);
     const [page, setPage] = React.useState(1);
+    const [loading, setLoading] = React.useState(false);
 
     const nav = useNavigate();
 
@@ -28,6 +29,7 @@ export default function Community(){
         }).then((data)=>{
             console.log(data.data.posts);
             setPost(data.data.posts);
+            setLoading(true);
         })
     }, [page])
 
@@ -35,7 +37,7 @@ export default function Community(){
         <main className="community--main">
             <TeamHeader />
             <Sidebar />
-            <div className="community_container">
+            {loading ? <div className="community_container">
                 <h1 className="title">커뮤니티</h1>
                 {post.map((value) => {
                     const date = value.createdAt.substring(0,10)
@@ -50,7 +52,7 @@ export default function Community(){
                         </span>
                     )
                 })}
-            </div>
+            </div> : <LoadingPage />}
         </main>
     )
 }

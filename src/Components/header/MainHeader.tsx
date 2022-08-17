@@ -13,7 +13,7 @@ const MainHeader = () => {
             <nav>
                 <div className="nav--left rows">
                     <div className='nav--menus rows'>
-                        <img src="images/tcpicon.png" className="nav--logo" alt="icon"/>
+                        <Link to="/"><img src="images/tcpicon2.png" className="nav--logo" alt="icon"/></Link>
                     </div>
                     <div className='rows'>
                         <Link to="/community" className="nav--link">팀원 모집</Link>
