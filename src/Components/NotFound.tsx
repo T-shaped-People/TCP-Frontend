@@ -14,4 +14,8 @@ function NotFound() {
   )
 }
 
+<<<<<<< HEAD
 export default NotFound;
+=======
+export default NotFound
+>>>>>>> a8c313272683095962901a95fcbafc29456910ae

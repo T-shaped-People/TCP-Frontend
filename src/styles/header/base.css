@@ -39,10 +39,11 @@ li {
 }
 
 .nav--link{
-    padding: 20px;
+    padding: 0 20px;
     color: white;
 }
 .nav--logo{
     height: 40px;
     cursor: pointer;
+    vertical-align: middle;
 }
