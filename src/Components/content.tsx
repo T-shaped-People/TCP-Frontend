@@ -1,9 +1,10 @@
-import { TeamHeader, Sidebar } from '../allFiles';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { MainHeader, Sidebar } from '../allFiles';
+import { useParams, useNavigate } from 'react-router-dom';
 import React from 'react';
 import axios, { AxiosError } from 'axios'
 import '../styles/content.css';
 import { UserContext } from '../App';
+
 
 interface CommentType{
     id: number, // 댓글 id
@@ -18,7 +19,7 @@ interface CommentType{
 
 export default function Content()
 {
-    const state = useLocation();
+    const param = useParams();
     const nav = useNavigate();
     const user = React.useContext(UserContext);
 
@@ -70,7 +71,7 @@ export default function Content()
                 parentId: 0,
                 content: input.current.value,
             };
-            axios.post(`/api/board/comment/${state.state}`, data)
+            axios.post(`/api/board/comment/${param.postId}`, data)
             .then((response)=>{
                 console.log('성공')
             }).catch((e)=>{
@@ -85,21 +86,20 @@ export default function Content()
     }
 
     const deletePost = () =>{
-        axios.delete(`/api/board/post/${state.state}`)
+        axios.delete(`/api/board/post/${param.postId}`)
     }
 
     const getPost = () =>{
-        return axios.get(`/api/board/post/${state.state}`)
+        return axios.get(`/api/board/post/${param.postId}`)
     }
 
     const getComment = () =>{
-        return axios.get(`/api/board/comment/${state.state}`)
+        return axios.get(`/api/board/comment/${param.postId}`)
     }
 
     return(
         <div className="content-root">
-            <TeamHeader/>
-            <Sidebar/>
+            <MainHeader/>
             <div className="content">
                 <div className='content-header'>
                     <h1 className='content-title'>{content.title}</h1>

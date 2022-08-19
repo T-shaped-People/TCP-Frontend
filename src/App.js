@@ -8,7 +8,8 @@ import {
   BeforeLogin,
   Calendar,
   Content,
-  NotFound
+  NotFound,
+  MakeTeam
 } from "./allFiles";
 import axios, { AxiosError } from "axios";
 import "./styles/App.css";
@@ -59,8 +60,9 @@ function App() {
           <Route path={"/community"} element={<Community />}></Route>
           <Route path={"/calendar"} element={<Calendar />}></Route>
           <Route path={"/chatting"} element={<Chatting />}></Route>
-          <Route path={"/content"} element={<Content/>}></Route>
+          <Route path={"/content/:postId/:page"} element={<Content/>}></Route>
           <Route path={"*"} element={<NotFound />} />
+          <Route path={"makeTeam"} element={<MakeTeam />}></Route>
         </Routes>
       </UserContext.Provider>
     </BrowserRouter>

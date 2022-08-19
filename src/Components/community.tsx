@@ -1,6 +1,6 @@
 import axios from "axios";
 import React from "react";
-import { TeamHeader, Sidebar, LoadingPage } from "../allFiles";
+import { MainHeader, Sidebar, LoadingPage } from "../allFiles";
 import '../styles/community.css'
 import { useNavigate } from 'react-router-dom';
 
@@ -35,15 +35,14 @@ export default function Community(){
 
     return (
         <main className="community--main">
-            <TeamHeader />
-            <Sidebar />
+            <MainHeader />
             {loading ? <div className="community_container">
-                <h1 className="title">커뮤니티</h1>
+                <h1 className="title">팀원 모집</h1>
                 {post.map((value) => {
                     const date = value.createdAt.substring(0,10)
                     return(
                         <span className="board" onClick={()=>{
-                            nav('/content', {state: value.id});
+                            nav(`/content/${value.id}/${page}`);
                         }}>
                             <h3 className="board--title">{value.title}</h3>
                             <span className="board--stack"></span>

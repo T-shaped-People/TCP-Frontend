@@ -10,14 +10,14 @@ function Sidebar(){
     }
     return(
         <div className={"sidebar"}>
-            <img src={"images/tcpicon2.png"} alt={"icon"} className={"sidebar--tcp"} onClick={()=>{ navigate('/'); }}/>
+            <img src={"/images/tcpicon2.png"} alt={"icon"} className={"sidebar--tcp"} onClick={()=>{ navigate('/'); }}/>
             <div className={"sidebar--square"} style={{
                 backgroundColor:  randomColor()
             }}></div>
             <div className={"sidebar--square"} style={{
                 backgroundColor:  randomColor()
             }}></div>
-            <img src={"images/whiteplus.png"} alt={"icon"} className={"sidebar--plus"}/>
+            <img src={"/images/whiteplus.png"} alt={"icon"} className={"sidebar--plus"}/>
         </div>
     )
 }

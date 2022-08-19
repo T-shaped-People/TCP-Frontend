@@ -16,16 +16,16 @@ const TeamHeader = () => {
                 </div>
                 <ul className="nav--right rows">
                     <li>
-                        <img src="images/speechbubble.png" alt="icon" className="team-header--speech"/>
+                        <img src="/images/speechbubble.png" alt="icon" className="team-header--speech"/>
                     </li>
                     <li>
-                        <img src="images/carbon_notebook.png" alt="icon" className="team-header--notebook"/>
+                        <img src="/images/carbon_notebook.png" alt="icon" className="team-header--notebook"/>
                     </li>
                     <li>
                         <input type="text" className="team-header--input"/>
                     </li>
                     <li className="header--username">
-                        <img src="images/person.png" alt="icon" className="team-header--person"/>    
+                        <img src="/images/person.png" alt="icon" className="team-header--person"/>    
                         <span>{user.nickname}</span>
                     </li>
                 </ul>
