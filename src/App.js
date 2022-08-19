@@ -9,7 +9,8 @@ import {
   Calendar,
   Content,
   NotFound,
-  MakeTeam
+  MakeTeam,
+  MyTeam,
 } from "./allFiles";
 import axios, { AxiosError } from "axios";
 import "./styles/App.css";
@@ -60,9 +61,10 @@ function App() {
           <Route path={"/community"} element={<Community />}></Route>
           <Route path={"/calendar"} element={<Calendar />}></Route>
           <Route path={"/chatting"} element={<Chatting />}></Route>
-          <Route path={"/content/:postId/:page"} element={<Content/>}></Route>
+          <Route path={"/content/:postId/:page"} element={<Content />}></Route>
           <Route path={"*"} element={<NotFound />} />
           <Route path={"makeTeam"} element={<MakeTeam />}></Route>
+          <Route path={"/myteam"} element={<MyTeam />}></Route>
         </Routes>
       </UserContext.Provider>
     </BrowserRouter>
