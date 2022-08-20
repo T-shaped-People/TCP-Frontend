@@ -64,7 +64,7 @@ function App() {
           <Route path={"/content/:postId/:page"} element={<Content />}></Route>
           <Route path={"*"} element={<NotFound />} />
           <Route path={"makeTeam"} element={<MakeTeam />}></Route>
-          <Route path={"/myteam"} element={<MyTeam />}></Route>
+          <Route path={"/team"} element={<MyTeam />}></Route>
         </Routes>
       </UserContext.Provider>
     </BrowserRouter>

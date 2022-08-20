@@ -1,12 +1,13 @@
 .MyTeam-div{
     height: calc(100% - 50px);
-    padding-top: 50px;
     padding: 50px 20px 0 20px;
+    width: 100%;
 }
 
 .MyTeam-teamList{
     display: flex;
     gap: 10px;
+    flex-wrap: wrap;
 }
 
 .MyTeam-div h1{
@@ -24,12 +25,57 @@
 .teamList-div h2{
     margin: 50px 0px 10px 0px;
     font-size: 2em;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
-.teamList-div-deadline{
+
+.teamList-span-div{
+    margin-top: 3em;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.teamList-span-div-deadline{
+    font-size: 1.6em;
+}
+
+
+.teamList-span-div-leader{
     font-size: 1.2em;
 }
 
-.teamList-span{
-    gap: 5;
+.MyTeam-noTeam-img{
+    text-align: center;
+}
+
+.MyTeam-noTeam-img img{
+    width: 400px;
+    margin-top: 8em;
+}
+
+.MyTeam-noTeam-span{
+    text-align: center;
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.MyTeam-button{
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 2em;
+}
+
+.MyTeam-button button{
+    font-size: 20px;
+    width: 300px;
+    height: 50px;
+    border-radius: 10px;
+    border: none;
+    background-color: #EC994B;
+    color: white;
+    cursor: pointer;
 }
