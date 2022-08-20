@@ -1,7 +1,7 @@
 import TeamHeader from "./Components/header/TeamHeader";
 import MainHeader from "./Components/header/MainHeader";
 import Sidebar from "./Components/Sidebar";
-import Main from "./Components/Main";
+import MakeProject from "./Components/makeProject";
 import Chatting from "./Components/chatting";
 import Canvas from "./Components/Canvas";
 import BeforeLogin from "./Components/BeforeLogin";
@@ -18,7 +18,7 @@ export {
   TeamHeader,
   MainHeader,
   Sidebar,
-  Main,
+  MakeProject,
   Chatting,
   Canvas,
   BeforeLogin,

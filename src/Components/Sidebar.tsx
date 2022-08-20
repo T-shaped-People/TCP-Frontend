@@ -1,5 +1,7 @@
 import "../styles/sidebar.css";
 import { useNavigate } from "react-router-dom";
+import { useContext } from 'react';
+import { UserContext } from "../App";
 
 function Sidebar(){
     const navigate = useNavigate();
@@ -8,9 +10,13 @@ function Sidebar(){
         const index = Math.floor(Math.random() * 4);
         return color[index];
     }
+    const user = useContext(UserContext);
     return(
         <div className={"sidebar"}>
-            <img src={"/images/tcpicon2.png"} alt={"icon"} className={"sidebar--tcp"} onClick={()=>{ navigate('/'); }}/>
+            <img src={"/images/tcpicon2.png"} alt={"icon"} className={"sidebar--tcp"} onClick={()=>{ 
+                if(user.isLogin) navigate('/calendar')
+                else navigate('/');
+             }}/>
             <div className={"sidebar--square"} style={{
                 backgroundColor:  randomColor()
             }}></div>

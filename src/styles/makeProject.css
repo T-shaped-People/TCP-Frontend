@@ -1,0 +1,67 @@
+.makeProject-root{
+    width: 100%;
+    height: 100%;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+.makeProject-div{
+    position: absolute;
+    top: 10%;
+    left: 8em;
+}
+.makeProject-flex{
+    display: flex;
+    flex-direction: column;
+    margin-left: 44em;   
+}
+.makeProject-title{
+    font-size: 30px;
+}
+.makeProject-subtitle{
+    margin-top: 2em;
+    font-size: 25px;
+    font-weight: 500;
+    width: 300px;
+}
+.makeProject-table{
+    margin-top: 4em;
+    font-size: 15px;
+    display: flex;
+    flex-direction: column;
+}
+.makeProject-td{
+    position: absolute;
+}
+.makeProject-input, .makeProject-textarea{
+    margin-left: 13em;
+    margin-bottom: 30px;
+    border: 2px solid black;
+}
+.makeProject-input{
+    border-radius: 5px;
+    padding-left: 5px;
+    height: 40px;
+    width: 400px;
+}
+.makeProject-textarea{
+    width: 400px;
+    border-radius: 5px;
+    padding: 5px;
+    height: 150px;
+}
+.makeProject-button{
+    width: 200px;
+    height: 40px;
+    border: none;
+    background-color: #EC994B;
+    border-radius: 10px;
+    color: white;
+    font-size: 15px;
+    margin-left: 11em;
+    margin-top: 3em;
+}
+
+@media screen and (min-width:0px) and (max-width: 1300px) {
+    .makeProject-flex{
+        margin-left: 22em;
+    }
+}

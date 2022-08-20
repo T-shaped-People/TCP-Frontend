@@ -1,6 +1,6 @@
 import React from "react";
 import { MdPerson, MdCalendarToday } from "react-icons/md"; //npm install react-icons --save 치세요
-import { TeamHeader } from "../allFiles";
+import { MainHeader } from "../allFiles";
 import "../styles/MyTeam.css";
 
 interface sampleTeam {
@@ -53,7 +53,7 @@ function MyTeam() {
   ];
   return (
     <div>
-      <TeamHeader />
+      <MainHeader />
       <div className="MyTeam-div">
         <h1>내 프로젝트</h1>
         <div className="MyTeam-teamList">

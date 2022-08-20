@@ -2,7 +2,7 @@ import React, { createContext } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import {
   Chatting,
-  Main,
+  MakeProject,
   Canvas,
   Community,
   BeforeLogin,
@@ -56,14 +56,14 @@ function App() {
       <UserContext.Provider value={user}>
         <Routes>
           <Route path={"/"} element={<BeforeLogin />} />
-          <Route path={"/main"} element={<Main />} />
+          <Route path={"/makeproject"} element={<MakeProject />} />
           <Route path={"/canvas"} element={<Canvas />} />
           <Route path={"/community"} element={<Community />}></Route>
           <Route path={"/calendar"} element={<Calendar />}></Route>
           <Route path={"/chatting"} element={<Chatting />}></Route>
           <Route path={"/content/:postId/:page"} element={<Content />}></Route>
           <Route path={"*"} element={<NotFound />} />
-          <Route path={"makeTeam"} element={<MakeTeam />}></Route>
+          <Route path={"/maketeam"} element={<MakeTeam />}></Route>
           <Route path={"/myteam"} element={<MyTeam />}></Route>
         </Routes>
       </UserContext.Provider>

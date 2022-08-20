@@ -13,11 +13,14 @@ const MainHeader = () => {
             <nav>
                 <div className="nav--left rows">
                     <div className='nav--menus rows'>
-                        <Link to="/"><img src="images/tcpicon2.png" className="nav--logo" alt="icon"/></Link>
+                        <img src="images/tcpicon2.png" className="nav--logo" alt="icon" onClick={()=>{
+                            if(user.isLogin) navigate('/calendar')
+                            else navigate('/');
+                        }}/>
                     </div>
                     <div className='rows'>
                         <Link to="/community" className="nav--link">팀원 모집</Link>
-                        <Link to="/team" className="nav--link">나의 팀</Link>
+                        <Link to="/myteam" className="nav--link">나의 팀</Link>
                     </div>
                 </div>
                 <div className="nav--right">
