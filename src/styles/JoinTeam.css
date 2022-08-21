@@ -1,0 +1,61 @@
+.modal{
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 10000;
+    background-color: rgba(0, 0, 0, 0.8);
+    animation: modal-show 0.3s;
+}
+
+.JoinTeam-div{
+    height: 20em;
+    padding: 20px;
+    width: 30em;
+    box-sizing: border-box;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    background-color: white;
+    border-radius: 20px;
+}
+
+.JoinTeam-div h2{
+    margin: 10px;
+}
+
+.JoinTeam-input{
+    width: 200px;
+    height: 50px;
+    font-size: 2em;
+    margin: 10px;
+    border-radius: 5px;
+    margin-top: 30px;
+}
+
+.JoinTeam-confirm{
+    font-size: 1.2em;
+    width: 75px;
+    height: 40px;
+    border-radius: 10px;
+    border: none;
+    background-color: #EC994B;
+    color: white;
+    cursor: pointer;
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+}
+
+@keyframes modal-show {
+    from{
+      opacity: 0;
+    }
+    to{
+      opacity: 1;
+    }
+  };
