@@ -1,7 +1,7 @@
 import TeamHeader from "./Components/header/TeamHeader";
 import MainHeader from "./Components/header/MainHeader";
 import Sidebar from "./Components/Sidebar";
-import Main from "./Components/Main";
+import MakeProject from "./Components/makeProject";
 import Chatting from "./Components/chatting";
 import Canvas from "./Components/Canvas";
 import BeforeLogin from "./Components/BeforeLogin";
@@ -13,12 +13,13 @@ import Content from "./Components/content";
 import LoadingPage from "./Components/loadingPage";
 import NotFound from "./Components/NotFound";
 import MyTeam from "./Components/MyTeam";
+import JoinTeam from "./Components/JoinTeam";
 
 export {
   TeamHeader,
   MainHeader,
   Sidebar,
-  Main,
+  MakeProject,
   Chatting,
   Canvas,
   BeforeLogin,
@@ -30,4 +31,5 @@ export {
   LoadingPage,
   NotFound,
   MyTeam,
+  JoinTeam
 };
