@@ -11,7 +11,7 @@ import {
   NotFound,
   MakeTeam,
   MyTeam,
-  JoinTeam
+  JoinTeam,
 } from "./allFiles";
 import axios, { AxiosError } from "axios";
 import "./styles/App.css";
@@ -65,8 +65,7 @@ function App() {
           <Route path={"/content/:postId/:page"} element={<Content />}></Route>
           <Route path={"*"} element={<NotFound />} />
           <Route path={"/maketeam"} element={<MakeTeam />}></Route>
-          <Route path={"/myteam"} element={<MyTeam />}></Route>
-          <Route path={"/jointeam"} element={<JoinTeam />} />
+          <Route path={"/team"} element={<MyTeam />}></Route>
         </Routes>
       </UserContext.Provider>
     </BrowserRouter>

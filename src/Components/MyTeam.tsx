@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { MdPerson, MdCalendarToday } from "react-icons/md";
 import { Link } from "react-router-dom";
-import { MainHeader } from "../allFiles";
+import { MainHeader, JoinTeam } from "../allFiles";
 import "../styles/MyTeam.css";
 
 interface sampleTeam {
@@ -34,7 +34,11 @@ const TeamList = ({ team }: { team: sampleTeam }) => {
 };
 
 function MyTeam() {
-  const [haveTeam, setHaveTeam] = useState(true);
+  const [haveTeam, setHaveTeam] = useState(false);
+  const [modal, setModal] = useState(false);
+  const onClick = () => {
+    setModal((prev) => !prev);
+  };
   // useEffect(() => {
   //   if (sampleTeam.length > 0) {
   //     setHaveTeam(true);
@@ -86,8 +90,15 @@ function MyTeam() {
             <Link to="/community">
               <button>모집중인 팀 보기</button>
             </Link>
-            <button>팀 가입하기</button>
+            <button
+              onClick={() => {
+                setModal(true);
+              }}
+            >
+              팀 가입하기
+            </button>
           </div>
+          {modal && <JoinTeam onClick={onClick} />}
         </div>
       )}
     </div>

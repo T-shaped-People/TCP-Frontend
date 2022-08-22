@@ -10,9 +10,9 @@
 }
 
 .JoinTeam-div{
-    height: 20em;
+    height: 30em;
     padding: 20px;
-    width: 30em;
+    width: 45em;
     box-sizing: border-box;
     position: absolute;
     left: 0;
@@ -49,6 +49,12 @@
     position: absolute;
     right: 20px;
     bottom: 20px;
+}
+
+.JoinTeam-notCorrect{
+    margin-left: 10px;
+    display: block;
+    color: red;
 }
 
 @keyframes modal-show {
