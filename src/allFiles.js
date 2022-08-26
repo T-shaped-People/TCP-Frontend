@@ -14,6 +14,7 @@ import LoadingPage from "./Components/loadingPage";
 import NotFound from "./Components/NotFound";
 import MyTeam from "./Components/MyTeam";
 import JoinTeam from "./Components/JoinTeam";
+import Todo from "./Components/Todo";
 
 export {
   TeamHeader,
@@ -31,5 +32,6 @@ export {
   LoadingPage,
   NotFound,
   MyTeam,
-  JoinTeam
+  JoinTeam,
+  Todo,
 };

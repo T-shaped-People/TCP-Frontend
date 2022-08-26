@@ -1,0 +1,70 @@
+.Todo-root{
+    height: 100%;
+}
+
+.Todo{
+    padding-top: 50px;
+    padding-left: 250px;
+    height: 100%;
+}
+
+.Todo-title-div{
+    border-bottom: 2px solid gray;
+    height: 60px;
+    line-height: 60px;
+}
+
+.Todo-title{
+    margin-left: 1.5em;
+    font-size: 2em;
+}
+
+.Todo-content-div{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: calc(100% - 50px);
+}
+
+.Todo-content{
+    background-color: #CDCDCD;
+    width: 55em;
+    height: 55em;
+    border-radius: 20px;
+    position: relative;
+}
+
+.Todo-content-title{
+    margin: 20px;
+    display: inline-block;
+}
+
+.Todo-content-list{
+    background-color: white;
+    border-radius: 20px;
+    width: 520px;
+    height: 465px;
+    margin: 0 auto;
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.Todo-content-list-line{
+    width: 400px;
+    margin: 0 auto;
+    font-size: 1.5em;
+}
+
+.Todo-content-list-line-todo{
+    display: inline-block;
+    width: 300px;
+}
+
+.Todo-content-list-line-complete{
+    display: inline-block;
+    width: 100px;
+    text-align: right;
+    color: red;
+}

@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { MdPerson, MdCalendarToday } from "react-icons/md";
 import { Link } from "react-router-dom";
@@ -5,65 +6,74 @@ import { MainHeader, JoinTeam } from "../allFiles";
 import "../styles/MyTeam.css";
 
 interface sampleTeam {
-  id: number;
+  id: string;
   name: string;
-  deadline: number;
-  leader: number;
-  leaderName: string;
-  memberCount: number;
-  comment: string;
+  leaderId: number;
+  leaderNickname: string;
 }
 
 const TeamList = ({ team }: { team: sampleTeam }) => {
-  const { name, deadline, leaderName, memberCount } = team;
+  const { name, leaderNickname } = team;
+
   return (
     <div className="teamList-div">
       <h2>{name}</h2>
       <div className="teamList-span-div">
-        <span className="teamList-span-div-deadline">
+        {/* <span className="teamList-span-div-deadline">
           <MdCalendarToday /> D - {deadline}
+        </span> */}
+        <span className="teamList-span-div-leader">
+          팀장 : {leaderNickname}
         </span>
-        <span className="teamList-span-div-leader">팀장 : {leaderName}</span>
-        <span>
+        {/* <span>
           <MdPerson />
-          {memberCount}
-        </span>
+          {totalMembers}
+        </span> */}
       </div>
     </div>
   );
 };
 
 function MyTeam() {
-  const [haveTeam, setHaveTeam] = useState(false);
   const [modal, setModal] = useState(false);
+  const [team, setTeam] = useState([]);
+  let haveTeam: boolean = true;
   const onClick = () => {
     setModal((prev) => !prev);
   };
+
+  useEffect(() => {
+    (async () => {
+      try {
+        setTeam((await getTeam()).data);
+        haveTeam = team.length > 0 ? true : false;
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  }, []);
+
+  console.log(team);
+
   // useEffect(() => {
-  //   if (sampleTeam.length > 0) {
-  //     setHaveTeam(true);
-  //   }
+  //   (async () => {
+  //     try {
+  //       const a = await postTeam();
+  //       console.log(a);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   })();
   // }, []);
-  const sampleTeam: sampleTeam[] = [
-    {
-      id: 1,
-      name: "T자형 인재 프로젝트",
-      deadline: 21,
-      leader: 3,
-      leaderName: "이현준",
-      memberCount: 21,
-      comment: "팀 협업 플랫폼입니다",
-    },
-    {
-      id: 2,
-      name: "test",
-      deadline: 12,
-      leader: 3,
-      leaderName: "정승민",
-      memberCount: 5,
-      comment: "test",
-    },
-  ];
+
+  const getTeam = () => {
+    return axios.get("api/team");
+  };
+
+  // const postTeam = () => {
+  //   return axios.post("api/team", { teamName: "asdbfg ujafedg" });
+  // };
+
   return (
     <div>
       <MainHeader />
@@ -71,7 +81,7 @@ function MyTeam() {
         <div className="MyTeam-div">
           <h1>내 프로젝트</h1>
           <div className="MyTeam-teamList">
-            {sampleTeam.map((team: sampleTeam) => {
+            {team.map((team: sampleTeam) => {
               return <TeamList team={team} key={team.id} />;
             })}
           </div>
