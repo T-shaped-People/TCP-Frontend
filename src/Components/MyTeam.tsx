@@ -5,23 +5,34 @@ import { Link } from "react-router-dom";
 import { MainHeader, JoinTeam } from "../allFiles";
 import "../styles/MyTeam.css";
 
-interface sampleTeam {
+interface Team {
   id: string;
   name: string;
   leaderId: number;
   leaderNickname: string;
+  description: string;
+  startDate: Date;
+  deadline: Date;
 }
 
-const TeamList = ({ team }: { team: sampleTeam }) => {
-  const { name, leaderNickname } = team;
+const TeamList = ({ team }: { team: Team }) => {
+  const { name, leaderNickname, startDate, deadline } = team;
+  const getDateDiff = (d1: Date, d2: Date) => {
+    const date1 = new Date(d1);
+    const date2 = new Date(d2);
+    const diffDate = date1.getTime() - date2.getTime();
 
+    return Math.abs(diffDate / (1000 * 60 * 60 * 24)); // 밀리세컨 * 초 * 분 * 시 = 일
+  };
+
+  const d_day = getDateDiff(startDate, deadline);
   return (
     <div className="teamList-div">
       <h2>{name}</h2>
       <div className="teamList-span-div">
-        {/* <span className="teamList-span-div-deadline">
-          <MdCalendarToday /> D - {deadline}
-        </span> */}
+        <span className="teamList-span-div-deadline">
+          <MdCalendarToday /> D - {d_day}
+        </span>
         <span className="teamList-span-div-leader">
           팀장 : {leaderNickname}
         </span>
@@ -38,6 +49,7 @@ function MyTeam() {
   const [modal, setModal] = useState(false);
   const [team, setTeam] = useState([]);
   let haveTeam: boolean = true;
+  // const [haveTeam, setHaveTeam] = useState(true);
   const onClick = () => {
     setModal((prev) => !prev);
   };
@@ -46,32 +58,43 @@ function MyTeam() {
     (async () => {
       try {
         setTeam((await getTeam()).data);
-        haveTeam = team.length > 0 ? true : false;
       } catch (error) {
         console.log(error);
       }
     })();
+    haveTeam = team.length > 0 ? true : false;
   }, []);
 
   console.log(team);
 
+  const getTeam = () => {
+    return axios.get("api/team");
+  };
+
   // useEffect(() => {
   //   (async () => {
   //     try {
-  //       const a = await postTeam();
-  //       console.log(a);
+  //       const data = await postTeam();
+  //       console.log(data.data.teamId);
+  //       const code = await axios.post("api/team/code", {
+  //         teamId: data.data.teamId,
+  //       });
+  //       setTeamCode([...teamCode, code]);
   //     } catch (error) {
   //       console.log(error);
   //     }
   //   })();
   // }, []);
 
-  const getTeam = () => {
-    return axios.get("api/team");
-  };
+  // console.log(teamCode);
 
   // const postTeam = () => {
-  //   return axios.post("api/team", { teamName: "asdbfg ujafedg" });
+  //   return axios.post("api/team", {
+  //     teamName: "test3",
+  //     description: "테스트",
+  //     startDate: "2022-08-26",
+  //     deadline: "2022-09-26",
+  //   });
   // };
 
   return (
@@ -81,7 +104,7 @@ function MyTeam() {
         <div className="MyTeam-div">
           <h1>내 프로젝트</h1>
           <div className="MyTeam-teamList">
-            {team.map((team: sampleTeam) => {
+            {team.map((team: Team) => {
               return <TeamList team={team} key={team.id} />;
             })}
           </div>

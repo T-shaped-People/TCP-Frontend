@@ -42,6 +42,17 @@
     height: 40px;
     width: 400px;
 }
+.makeProject-input-date{
+    border-radius: 5px;
+    padding-left: 5px;
+    height: 40px;
+    width: 200px;
+}
+.makeProject-input-date-div{
+    margin-left: 13em;
+    margin-bottom: 30px;
+    
+}
 .makeProject-textarea{
     width: 400px;
     border-radius: 5px;

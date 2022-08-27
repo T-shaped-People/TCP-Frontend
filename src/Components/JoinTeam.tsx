@@ -1,10 +1,40 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import "../styles/JoinTeam.css";
 
 function JoinTeam({ onClick }: { onClick: any }) {
   const [code, setCode] = useState("");
   const [isConfirm, setIsConfirm] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
+  const [team, setTeam] = useState([]);
+  const [teamCode, setTeamCode] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        setTeam((await getTeam()).data);
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+    team.map(async (item) => {
+      try {
+        const newCode = await axios.post("/api/team/code", item.id);
+        setTeamCode([...teamCode, newCode]);
+      } catch (error) {
+        console.log(error);
+      }
+    });
+  }, []);
+
+  console.log(teamCode);
+
+  const getTeam = () => {
+    return axios.get("api/team");
+  };
+
+  console.log(team);
+
   const sampleCode = ["123456", "qwerty"];
   const confirm = () => {
     sampleCode.includes(code) && setIsCorrect(true);
