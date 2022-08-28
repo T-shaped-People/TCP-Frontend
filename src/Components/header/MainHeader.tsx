@@ -13,7 +13,7 @@ const MainHeader = () => {
             <nav>
                 <div className="nav--left rows">
                     <div className='nav--menus rows'>
-                        <img src="images/tcpicon2.png" className="nav--logo" alt="icon" onClick={()=>{
+                        <img src="/images/tcpicon2.png" className="nav--logo" alt="icon" onClick={()=>{
                             if(user.isLogin) navigate('/calendar')
                             else navigate('/');
                         }}/>

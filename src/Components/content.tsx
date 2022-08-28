@@ -1,4 +1,4 @@
-import { MainHeader, Sidebar } from "../allFiles";
+import { MainHeader } from "../allFiles";
 import { useParams, useNavigate } from "react-router-dom";
 import React from "react";
 import axios, { AxiosError } from "axios";
@@ -131,22 +131,22 @@ export default function Content() {
             )}
           </div>
         </div>
-        <div className="read-comment-root">
-          {comment.map((value) => {
-            if (value.deleted !== true) {
-              return (
-                <div className="read-comment">
-                  <span className="read-comment-nickname">
-                    {value.nickname}
-                  </span>
-                  <span className="read-comment-date">{value.createdAt}</span>
-                  <span className="read-comment-content">{value.content}</span>
-                </div>
-              );
-            }
-          })}
-        </div>
       </div>
+      <div className="read-comment-root">
+            {comment.map((value) => {
+              if (value.deleted !== true) {
+                return (
+                  <div className="read-comment">
+                    <p className="read-comment-nickname">
+                      {value.nickname}
+                    </p>
+                    <p className="read-comment-date">{value.createdAt}</p>
+                    <p className="read-comment-content">{value.content}</p>
+                  </div>
+                );
+              }
+            })}
+        </div>
     </div>
   );
 }

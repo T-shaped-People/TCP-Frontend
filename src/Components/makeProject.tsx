@@ -24,7 +24,7 @@ export default function MakeProject()
             <div className='makeProject-div'>
                 <h1 className='makeProject-title'>팀 만들기</h1>
                 <div className='makeProject-flex'>
-                    <h2 className='makeProject-subtitle'>새 프로젝트를 만들어보세요</h2>
+                    <h2 className='makeProject-subtitle'>새 팀을 만들어보세요</h2>
                     <div className='makeProject-table'>
                         <div className='makeProject-tr'>
                             <span className='makeProject-td'>팀 이름</span>

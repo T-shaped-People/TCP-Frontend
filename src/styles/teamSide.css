@@ -1,0 +1,27 @@
+.teamSide-root{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    border: 1px solid black;
+    width: 150px;
+    height: 100%;
+}
+.teamSide-logo{
+    margin-top: 10px;
+}
+.teamSide-root a:nth-child(2){
+    margin-top: 8em;
+}
+.teamSide-root > a{
+    color: black;
+    font-size: 15px;
+    margin-top: 30px;
+}
+.teamSide-button{
+    cursor: pointer;
+    font-size: 15px;
+    border: none;
+    background: none;
+    margin-top: 20em;
+}

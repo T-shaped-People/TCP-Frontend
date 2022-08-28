@@ -3,9 +3,10 @@
     height: 100%;
 }
 .content{
-    position: absolute;
-    left: 25em;
-    top: 14em;
+    margin-top: 10em;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 }
 .content-header::before{
     content: '\00a0';
@@ -33,33 +34,26 @@
     font-size: 15px;
 }
 .content-info{
-    display: flex;
-    position: absolute;
-    right: 0;
-    bottom: 0;
     font-size: 13px;
 }
 .content-info-date{
     margin-left: 10px;
 }
 .content-content{
-    display: flex;
+    text-align: left;
+    margin-top: 30px;
     font-size: 15px;
-    margin-left: 2em;
-    margin-top: 5em;
-    max-width: 65em;
+    width: 65em;
 }
 .write-comment{
-    position: absolute;
     margin-top: 10em;
-    margin-left: 10em;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 .write-comment-input{
     padding: 10px;
-    width: 60em;
+    width: 73em;
     min-height: 5em;
 }
 .write-comment-button{
@@ -99,22 +93,16 @@
     margin-bottom: 5em;
 }
 .read-comment-root{
-    position: relative;
-    margin-top: 25em;
+    margin-left: 28em;
+    margin-top: 20px;
 }
 .read-comment{
-    margin-left: 5em;
     font-size: 15px;
-    display: flex;
-    flex-direction: column;
     max-width: 60em;
     overflow: scroll;
 }
 .read-comment::-webkit-scrollbar{
     display: none;
-}
-.read-comment-nickname{
-    margin-right: 10px;
 }
 .read-comment-date{
     font-size: 12px;
@@ -125,7 +113,5 @@
     padding-bottom: 20px;
 }
 @media screen and (min-width:0px) and (max-width:1380px) {
-    .content{
-        left: 18em;
-    }    
+    
 }
