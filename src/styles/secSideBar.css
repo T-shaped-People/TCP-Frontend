@@ -159,5 +159,9 @@
     margin-left: 5px;
 }
 .secSideBar-nickname{
+    display: block;
     width: 100px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }

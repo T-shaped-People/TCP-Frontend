@@ -16,6 +16,7 @@ import MyTeam from "./Components/MyTeam";
 import JoinTeam from "./Components/JoinTeam";
 import Team from "./Components/team";
 import TeamSide from "./Components/teamSide";
+import Todo from "./Components/Todo";
 
 export {
   TeamHeader,
@@ -36,4 +37,5 @@ export {
   JoinTeam,
   Team,
   TeamSide,
+  Todo,
 };

@@ -20,7 +20,7 @@ const MainHeader = () => {
                     </div>
                     <div className='rows'>
                         <Link to="/community" className="nav--link">팀원 모집</Link>
-                        <Link to="/myteam" className="nav--link">나의 팀</Link>
+                        <Link to="/team" className="nav--link">나의 팀</Link>
                     </div>
                 </div>
                 <div className="nav--right">

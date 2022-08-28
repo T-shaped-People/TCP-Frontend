@@ -1,65 +1,102 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { MdPerson, MdCalendarToday } from "react-icons/md";
 import { Link } from "react-router-dom";
-import { MainHeader } from "../allFiles";
+import { MainHeader, JoinTeam } from "../allFiles";
 import "../styles/MyTeam.css";
 
-interface sampleTeam {
-  id: number;
+interface Team {
+  id: string;
   name: string;
-  deadline: number;
-  leader: number;
-  leaderName: string;
-  memberCount: number;
-  comment: string;
+  leaderId: number;
+  leaderNickname: string;
+  description: string;
+  startDate: Date;
+  deadline: Date;
 }
 
-const TeamList = ({ team }: { team: sampleTeam }) => {
-  const { name, deadline, leaderName, memberCount } = team;
+const TeamList = ({ team }: { team: Team }) => {
+  const { name, leaderNickname, startDate, deadline } = team;
+  const getDateDiff = (d1: Date, d2: Date) => {
+    const date1 = new Date(d1);
+    const date2 = new Date(d2);
+    const diffDate = date1.getTime() - date2.getTime();
+
+    return Math.abs(diffDate / (1000 * 60 * 60 * 24)); // 밀리세컨 * 초 * 분 * 시 = 일
+  };
+
+  const d_day = getDateDiff(startDate, deadline);
   return (
     <div className="teamList-div">
       <h2>{name}</h2>
       <div className="teamList-span-div">
         <span className="teamList-span-div-deadline">
-          <MdCalendarToday /> D - {deadline}
+          <MdCalendarToday /> D - {d_day}
         </span>
-        <span className="teamList-span-div-leader">팀장 : {leaderName}</span>
-        <span>
+        <span className="teamList-span-div-leader">
+          팀장 : {leaderNickname}
+        </span>
+        {/* <span>
           <MdPerson />
-          {memberCount}
-        </span>
+          {totalMembers}
+        </span> */}
       </div>
     </div>
   );
 };
 
 function MyTeam() {
-  const [haveTeam, setHaveTeam] = useState(true);
+  const [modal, setModal] = useState(false);
+  const [team, setTeam] = useState([]);
+  let haveTeam: boolean = true;
+  // const [haveTeam, setHaveTeam] = useState(true);
+  const onClick = () => {
+    setModal((prev) => !prev);
+  };
+
+  useEffect(() => {
+    (async () => {
+      try {
+        setTeam((await getTeam()).data);
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+    haveTeam = team.length > 0 ? true : false;
+  }, []);
+
+  console.log(team);
+
+  const getTeam = () => {
+    return axios.get("api/team");
+  };
+
   // useEffect(() => {
-  //   if (sampleTeam.length > 0) {
-  //     setHaveTeam(true);
-  //   }
+  //   (async () => {
+  //     try {
+  //       const data = await postTeam();
+  //       console.log(data.data.teamId);
+  //       const code = await axios.post("api/team/code", {
+  //         teamId: data.data.teamId,
+  //       });
+  //       setTeamCode([...teamCode, code]);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   })();
   // }, []);
-  const sampleTeam: sampleTeam[] = [
-    {
-      id: 1,
-      name: "T자형 인재 프로젝트",
-      deadline: 21,
-      leader: 3,
-      leaderName: "이현준",
-      memberCount: 21,
-      comment: "팀 협업 플랫폼입니다",
-    },
-    {
-      id: 2,
-      name: "test",
-      deadline: 12,
-      leader: 3,
-      leaderName: "정승민",
-      memberCount: 5,
-      comment: "test",
-    },
-  ];
+
+  // console.log(teamCode);
+
+  // const postTeam = () => {
+  //   return axios.post("api/team", {
+  //     teamName: "test3",
+  //     description: "테스트",
+  //     startDate: "2022-08-26",
+  //     deadline: "2022-09-26",
+  //   });
+  // };
+
   return (
     <div>
       <MainHeader />
@@ -67,7 +104,7 @@ function MyTeam() {
         <div className="MyTeam-div">
           <h1>내 프로젝트</h1>
           <div className="MyTeam-teamList">
-            {sampleTeam.map((team: sampleTeam) => {
+            {team.map((team: Team) => {
               return <TeamList team={team} key={team.id} />;
             })}
           </div>
@@ -86,8 +123,15 @@ function MyTeam() {
             <Link to="/community">
               <button>모집중인 팀 보기</button>
             </Link>
-            <button>팀 가입하기</button>
+            <button
+              onClick={() => {
+                setModal(true);
+              }}
+            >
+              팀 가입하기
+            </button>
           </div>
+          {modal && <JoinTeam onClick={onClick} />}
         </div>
       )}
     </div>
