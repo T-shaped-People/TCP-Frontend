@@ -1,9 +1,10 @@
 import { MainHeader, JoinTeam } from "../allFiles";
+import { useNavigate } from "react-router-dom";
 import "../styles/maketeam.css";
-import { Link } from "react-router-dom";
-import React, { useState } from "react";
+import { useState } from "react";
 
 function MakeTeam() {
+  const nav = useNavigate();
   const [modal, setModal] = useState(false);
   const onClick = () => {
     setModal((prev) => !prev);
@@ -16,7 +17,7 @@ function MakeTeam() {
         <div className="maketeam-subdiv">
           <p className="maketeam-subtitle">새 프로젝트를 만들어보세요</p>
           <div className="maketeam-thrdiv">
-            <button className="maketeam-button">새 프로젝트 만들기</button>
+            <button className="maketeam-button" onClick={()=>{ nav('/makeproject') }}>새 프로젝트 만들기</button>
             <li className="maketeam-li">
               <span className="maketeam-other">
                 프로젝트에 참여 받은 것이라면?

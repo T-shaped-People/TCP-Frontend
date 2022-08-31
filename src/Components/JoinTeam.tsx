@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import "../styles/JoinTeam.css";
 
@@ -40,6 +40,7 @@ function JoinTeam({ onClick }: { onClick: any }) {
     sampleCode.includes(code) && setIsCorrect(true);
     setIsConfirm(true);
   };
+
   return (
     <div className="modal" onClick={onClick}>
       <div className="JoinTeam-div" onClick={(e) => e.stopPropagation()}>

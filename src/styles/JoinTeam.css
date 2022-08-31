@@ -29,7 +29,8 @@
 }
 
 .JoinTeam-input{
-    width: 200px;
+    padding: 10px;
+    width: 380px;
     height: 50px;
     font-size: 2em;
     margin: 10px;

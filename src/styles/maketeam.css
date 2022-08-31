@@ -36,6 +36,7 @@
     border: none;
     background-color: #EC994B;
     color: white;
+    cursor: pointer;
 }
 .maketeam-li{
     font-size: 12px;
@@ -45,4 +46,5 @@
 }
 .maketeam-link{
     margin-left: 7em;
+    cursor: pointer;
 }

@@ -1,7 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { MainHeader } from "../allFiles";
 import "../styles/makeProject.css";
+import { useNavigate } from "react-router-dom";
+
+const Modal = ({ teamCode}: {teamCode: string}) =>{
+  const nav = useNavigate();
+  return(
+    <div className="makeproject-modal">
+      <p className="makeproject-modal-p">팀 코드가 생성 되었습니다!</p>
+      <p className="makeproject-modal-p">아래 코드를 팀원들과 공유해 팀에 초대하세요!</p>
+      <p className="makeproject-modal-p"><b>{teamCode}</b></p>
+      <button onClick={()=>{
+        nav('/myteam');
+      }} className="makeproject-modal-button">확인</button>
+    </div>
+  )
+}
 
 export default function MakeProject() {
   const [modal, setModal] = React.useState(false);
@@ -34,15 +49,21 @@ export default function MakeProject() {
         teamId: data.data.teamId,
       });
       setTeamCode([...teamCode, code]);
+      reverseModal();
     } catch (error) {
       console.log(error);
     }
-
     console.log(teamCode);
   };
 
+  const reverseModal = () =>{
+    setModal((prev) => !prev);
+    document.querySelector('.makeProject-shadow').classList.toggle('project-dark');
+  }
+
   return (
     <div className="makeProject-root">
+      <div className="makeProject-shadow"></div>
       <MainHeader />
       <div className="makeProject-div">
         <h1 className="makeProject-title">팀 만들기</h1>
@@ -92,6 +113,7 @@ export default function MakeProject() {
           <button className="makeProject-button" onClick={makeTeam}>
             팀 만들기
           </button>
+          {modal ? <Modal teamCode={teamCode[0].data.teamCode} /> : <></>}
         </div>
       </div>
     </div>
