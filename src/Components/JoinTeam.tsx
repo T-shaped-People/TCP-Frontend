@@ -1,43 +1,32 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
+import { useState } from "react";
+import axios, { AxiosError } from "axios";
 import "../styles/JoinTeam.css";
 
 function JoinTeam({ onClick }: { onClick: any }) {
   const [code, setCode] = useState("");
   const [isConfirm, setIsConfirm] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
-  const [team, setTeam] = useState([]);
-  const [teamCode, setTeamCode] = useState([]);
+  const [text, setText] = useState('');
 
-  useEffect(() => {
-    (async () => {
-      try {
-        setTeam((await getTeam()).data);
-      } catch (error) {
-        console.log(error);
+  const confirm = async () => {{
+    if(code.length < 6) setText('팀 코드가 잘못됐습니다.');
+    else{
+      try{
+        await axios.post('/api/team/join', {
+          teamCode: code,
+        });
+        setIsCorrect(true);
+      }catch(e){
+        if (e instanceof AxiosError) {
+          const error = e.response.status;
+          switch(error){
+            case 409: setText('이미 가입된 팀입니다.'); break;
+            case 404: setText('팀이 없습니다.'); break;
+          }
+        }
       }
-    })();
-    team.map(async (item) => {
-      try {
-        const newCode = await axios.post("/api/team/code", item.id);
-        setTeamCode([...teamCode, newCode]);
-      } catch (error) {
-        console.log(error);
-      }
-    });
-  }, []);
-
-  console.log(teamCode);
-
-  const getTeam = () => {
-    return axios.get("api/team");
-  };
-
-  console.log(team);
-
-  const sampleCode = ["123456", "qwerty"];
-  const confirm = () => {
-    sampleCode.includes(code) && setIsCorrect(true);
+    }
+    }
     setIsConfirm(true);
   };
 
@@ -62,7 +51,7 @@ function JoinTeam({ onClick }: { onClick: any }) {
               onClick()
             ) : (
               <span className="JoinTeam-notCorrect">
-                코드가 올바르지 않습니다.
+                {text}
               </span>
             ))}
         </div>

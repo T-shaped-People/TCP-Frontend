@@ -9,8 +9,8 @@ const socket = io('localhost:3000/chat', {
     transports: ['websocket']
 });
 
-const teamId = 'edfa0783e4dc4fd09e68b71be3ff69ea';
-const roomId = 'a11c92055eba46e690099bd5233bc3c4';
+const teamId = '2acb79f42ab645f4a91056fb8f3086b4';
+const roomId = '1a064af4836348e0834b9b871ca3a078';
 
 export default function Chatting() {
     const [chatList, setChatList] = React.useState<Chat[]>([]);
@@ -42,9 +42,9 @@ export default function Chatting() {
     const initSocket = () => {
         socket.on('chat', (data: Chat) => {
             setChatList(prev => [...prev, data]);
-        })
+        })   
     }
-    
+
     const initChatList = async () => {
         try {
             const chatData = (await getChatList(teamId, roomId)).data.reverse();

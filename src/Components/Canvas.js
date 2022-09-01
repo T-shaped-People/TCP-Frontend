@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import '../styles/Canvas.css';
 import { io } from 'socket.io-client';
 
-const socket = io.connect(`http://13.125.87.53:3000`);
+const socket = io.connect(`http://localhost:3000`);
 
 const Canvas = () => {
 
