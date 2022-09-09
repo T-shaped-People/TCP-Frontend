@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { MdPerson, MdCalendarToday } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { MainHeader, JoinTeam } from "../allFiles";
+import { useNavigate } from "react-router-dom";
 import "../styles/MyTeam.css";
 
 interface Team {
@@ -16,6 +17,7 @@ interface Team {
 }
 
 const TeamList = ({ team }: { team: Team }) => {
+  const nav = useNavigate();
   const { name, leaderNickname, startDate, deadline } = team;
   const getDateDiff = (d1: Date, d2: Date) => {
     const date1 = new Date(d1);
@@ -27,7 +29,9 @@ const TeamList = ({ team }: { team: Team }) => {
 
   const d_day = getDateDiff(startDate, deadline);
   return (
-    <div className="teamList-div">
+    <div className="teamList-div" onClick={()=>{
+      nav(`/team/${team.id}`);
+    }}>
       <h2>{name}</h2>
       <div className="teamList-span-div">
         <span className="teamList-span-div-deadline">

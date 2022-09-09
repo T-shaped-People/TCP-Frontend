@@ -68,9 +68,9 @@ function App() {
           <Route path={"*"} element={<NotFound />} />
           <Route path={"/maketeam"} element={<MakeTeam />}></Route>
           <Route path={"/myteam"} element={<MyTeam />}></Route>
-          <Route path={"/todo"} element={<Todo />}></Route>
+          <Route path={"/team/:teamId/todo"} element={<Todo />}></Route>
           <Route path={"/jointeam"} element={<JoinTeam />} />
-          <Route path="/team" element={<Team/>}></Route>
+          <Route path={"/team/:teamId"} element={<Team/>}></Route>
         </Routes>
       </UserContext.Provider>
     </BrowserRouter>

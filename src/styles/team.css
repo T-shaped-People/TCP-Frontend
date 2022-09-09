@@ -40,14 +40,14 @@
     margin: 10px;
     padding: 10px;
 }
-.team-todo p:nth-child(1){
+.team-mytodo p:nth-child(1){
     font-size: 23px;
     font-weight: bold;
 }
-.team-todo p:nth-child(2){
+.team-mytodo p:nth-child(2){
     margin-top: 30px;
 }
-.team-todo > p {
+.team-mytodo > p {
     margin: 10px;
 }
 .team-calendar-text p:nth-child(1){

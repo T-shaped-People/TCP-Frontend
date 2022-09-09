@@ -1,12 +1,27 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import '../styles/team.css'
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from "@fullcalendar/interaction";
 import { TeamSide } from "../allFiles";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 export default function Team()
 {
+    const nav = useNavigate();
+    const param = useParams();
+
+    const [todo, setTodo] = useState([]);
+ 
+    useEffect(()=>{ 
+        setTodo(getTodo());
+    }, [])
+
+    const getTodo = () => {
+        return axios.get(`/api/todo/${param.teamId}`);
+    }
+    
     return(
         <div className="team-root">
             <TeamSide/>
@@ -16,10 +31,19 @@ export default function Team()
             </div>
             <div className="team">
                 <div className="team-div1">
-                    <div className="team-todo">
-                        <p>My Todo</p>
-                        <p>todo 1</p>
-                        <p>todo 2</p>
+                    <div className="team-todo" onClick={()=>{
+                        nav(`/team/${param.teamId}/todo`)
+                    }}>
+                        <div className="team-mytodo">
+                            <p>My Todo</p>
+                            {/* {todo.map(()=>{
+                                return(
+                                    <div>
+
+                                    </div>
+                                )
+                            })} */}
+                        </div>
                     </div>
                     <div className="team-alarm">
                         <p>알람</p>
