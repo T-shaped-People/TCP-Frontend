@@ -8,7 +8,7 @@ export default function SecSideBar() {
     <div className={"calendar_sidebar"}>
       <div className="paddingyong">
         <img
-          src={"images/bxs_chat.png"}
+          src={"/images/bxs_chat.png"}
           alt={"icon"}
           className={"calendar_sidebar--chaticon"}
         />
@@ -43,7 +43,7 @@ export default function SecSideBar() {
         </div>
         <div className={"calendar_sidebar--call"}>
           <img
-            src={"images/phoneicon.png"}
+            src={"/images/phoneicon.png"}
             alt={"icon"}
             className={"calendar_sidebar--callimg"}
           />
@@ -54,7 +54,7 @@ export default function SecSideBar() {
         </div>
         <div className={"calendar_sidebar--codeshare"}>
           <img
-            src={"images/clarity_code-line.png"}
+            src={"/images/clarity_code-line.png"}
             alt={"icon"}
             className={"calendar_sidebar--codeshareimg"}
           />
@@ -64,7 +64,7 @@ export default function SecSideBar() {
         </div>
         <div className={"calendar_sidebar--product"}>
           <img
-            src={"images/clovericon.png"}
+            src={"/images/clovericon.png"}
             alt={"icon"}
             className={"calendar_sidebar--product--img"}
           />
@@ -81,12 +81,12 @@ export default function SecSideBar() {
         </div>
         <div className={"calendar_sidebar--user--icons"}>
           <img
-            src={"images/micicon.png"}
+            src={"/images/micicon.png"}
             alt={"icon"}
             className={"calendar_sidebar--user--mic"}
           />
           <img
-            src={"images/headphone.png"}
+            src={"/images/headphone.png"}
             alt={"icon"}
             className={"calendar_sidebar--user--head"}
           />

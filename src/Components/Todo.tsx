@@ -5,10 +5,60 @@ import "../styles/Todo.css";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
-function MyTodo({teamId} : {teamId: string}) {
-  return(
-    <div>
+function MyTodo({teamId, func} : {teamId: string, func: any}) {
 
+  const postTodo = async () => {
+    const result = await axios.post('/api/todo/upload', input);
+    if(result != null) {
+      func();
+    }
+    else{
+      setText('실패했습니다.');
+    }
+  }
+
+  const changeData = (e: 
+    | React.ChangeEvent<HTMLInputElement>
+    | React.ChangeEvent<HTMLTextAreaElement>
+    ) => {
+      const {name, value} = e.target;
+      const nextInput = {
+        ...input,
+        [name]: value,
+      };
+      setInput(nextInput);
+  }
+
+  const [input, setInput] = useState({
+    title: '',
+    todo: '',
+    endAt: '',
+    teamId: teamId,
+  });
+  const [text, setText] = useState('');
+
+  return(
+    <div className="mytodo-root">
+      <h1 className="mytodo-title">할 일 등록</h1>
+      <ul className="mytodo-ul">
+        <li className="mytodo-li">
+          <span className="mytodo-span">할 일</span>
+          <input type="text" placeholder="할 일명을 입력하세요." className="mytodo-input" name="title" onChange={(e)=>{ changeData(e) }} />
+        </li>
+        <li className="mytodo-li">
+          <span className="mytodo-span">설명</span>
+          <textarea placeholder="설명을 입력하세요." className="mytodo-textarea" name="todo" onChange={(e)=>{ changeData(e) }} />
+        </li>
+        <li className="mytodo-li">
+          <span className="mytodo-span">마감일</span>
+          <input type="date" className="mytodo-input" name="endAt" onChange={(e)=>{ changeData(e) }} />
+        </li>
+        <div className="mytodo-button-div">
+          <button className="mytodo-button" onClick={postTodo}>등록</button>
+          <button className="mytodo-button" onClick={()=>{func()}}>취소</button>
+        </div>
+      </ul>
+      <span>{text}</span>
     </div>
   )
 }
@@ -44,12 +94,12 @@ function Todo() {
           <h1 className="Todo-title">TODO</h1>
         </div>
         <div className="Todo-content-div">
+        {myTodoModal ? <MyTodo teamId={param.teamId} func={addMyTodo}></MyTodo> : <></>}
           <div className="Todo-content">
             <div className="Todo-content-header">
               <h1 className="Todo-content-title">MY TODO</h1>
               <TiPlus size={24} onClick={addMyTodo} />
             </div>
-            {myTodoModal ? <MyTodo teamId={param.teamId}></MyTodo> : <></>}
             <div className="Todo-content-list">
               <div className="Todo-content-list-line">
                 <span className="Todo-content-list-line-todo">{text}</span>

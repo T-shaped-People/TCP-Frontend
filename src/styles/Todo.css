@@ -68,3 +68,63 @@
     text-align: right;
     color: red;
 }
+
+.mytodo-root{
+    background-color: white;
+    border: 1px solid black;
+    width: 800px;
+    height: 500px;
+    position: absolute;
+    z-index: 2;
+    padding: 20px;
+    font-size: 15px;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+.mytodo-title{
+    font-size: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid lightgray;
+}
+.mytodo-ul{
+    list-style: none;
+}
+.mytodo-li{
+    position: relative;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid lightgray;
+}
+.mytodo-ul li:nth-child(1), li:nth-child(3){
+    height: 6em;
+}
+.mytodo-ul li:nth-child(2){
+    height: 10em;
+}
+.mytodo-span{
+    font-size: 17px;
+}
+.mytodo-input{
+    position: absolute;
+    right: 0;
+    padding: 5px;
+    width: 40em;
+    height: 4em;
+}
+.mytodo-textarea{
+    position: absolute;
+    right: 0;
+    width: 40em;
+    height: 8em;
+    padding: 5px;
+}
+.mytodo-button-div{
+    position: absolute;
+    right: 10px;
+    margin-top: 30px;
+}
+.mytodo-button{
+    width: 80px;
+    height: 30px;
+    margin-right: 10px;
+    cursor: pointer;
+}
