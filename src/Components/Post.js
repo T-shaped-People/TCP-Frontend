@@ -1,0 +1,55 @@
+import React, { useState } from "react";
+import { MainHeader } from "../allFiles";
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import "../styles/Post.css";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
+function Post() {
+  const [content, setContent] = useState('');
+  const [title, setTitle] = useState('');
+  const nav = useNavigate();
+  const writePost = async () => {
+    try {
+      const newPost = {
+        category: 'normal',
+        title: title,
+        content: content,
+      }
+      await axios.post('api/board/post', newPost);
+      console.log(newPost);
+      nav('/community');
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  const cancelPost = () => {
+    nav('/community');
+  }
+  return (
+    <div>
+      <MainHeader />
+      <div className="Post-div">
+        <div className="Post-title-div">
+          <h1 className="Post-title">글쓰기</h1>
+          <input name={title} onChange={e => setTitle(e.target.value)} value={title} className="input-title" />
+        </div>
+        <CKEditor
+          editor={ClassicEditor}
+          data={content}
+          onChange={(event, editor) => {
+            const data = editor.getData();
+            setContent(data);
+          }}
+        />
+        <div className="Post-btn-div">
+          <button onClick={cancelPost}>취소</button>
+          <button onClick={writePost}>글작성</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default Post;

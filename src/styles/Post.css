@@ -1,0 +1,57 @@
+.Post-div{
+    padding-top: 50px;
+}
+
+.input-title{
+    width: 70%;
+    height: 50px;
+    padding-left: 10px;
+}
+
+.Post-title{
+    margin-top: calc(2.5em - 50px);
+    margin-bottom: 0.5em;
+    font-size: 4em;
+}
+
+.Post-title-div{
+    width: 100%;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.ck-blurred.ck.ck-content.ck-editor__editable.ck-rounded-corners.ck-editor__editable_inline{
+    height: 500px;
+}
+
+.ck.ck-content.ck-editor__editable.ck-rounded-corners.ck-editor__editable_inline{
+    height: 500px;
+}
+
+.ck.ck-reset.ck-editor.ck-rounded-corners{
+    width: 70%;
+    margin: 20px auto 0px auto;
+}
+
+.ck.ck-editor__main{
+    height: 500px;
+}
+
+.Post-btn-div{
+    display: flex;
+    gap: 10px;
+    position: absolute;
+    margin-top: 30px;
+    right: 230px;
+}
+
+.Post-btn-div button{
+    background-color: #EC994B;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    width: 120px;
+    height: 40px;
+    margin-bottom: 30px;
+}

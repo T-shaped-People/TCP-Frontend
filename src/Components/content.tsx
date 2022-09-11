@@ -112,7 +112,10 @@ export default function Content() {
             <span className="content-info-date">{content.createdAt}</span>
           </div>
         </div>
-        <p className="content-content">{content.content}</p>
+        <p
+          className="content-content"
+          dangerouslySetInnerHTML={{ __html: content.content }}
+        />
         <div className="write-comment">
           <textarea className="write-comment-input" ref={input} />
           <div className="comment-button-div">
@@ -133,20 +136,18 @@ export default function Content() {
         </div>
       </div>
       <div className="read-comment-root">
-            {comment.map((value) => {
-              if (value.deleted !== true) {
-                return (
-                  <div className="read-comment">
-                    <p className="read-comment-nickname">
-                      {value.nickname}
-                    </p>
-                    <p className="read-comment-date">{value.createdAt}</p>
-                    <p className="read-comment-content">{value.content}</p>
-                  </div>
-                );
-              }
-            })}
-        </div>
+        {comment.map((value) => {
+          if (value.deleted !== true) {
+            return (
+              <div className="read-comment">
+                <p className="read-comment-nickname">{value.nickname}</p>
+                <p className="read-comment-date">{value.createdAt}</p>
+                <p className="read-comment-content">{value.content}</p>
+              </div>
+            );
+          }
+        })}
+      </div>
     </div>
   );
 }

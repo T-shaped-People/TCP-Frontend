@@ -1,13 +1,14 @@
 .community_container{
     box-sizing: border-box;
     margin: 0 auto;
+    padding-top: 50px;
 }
 
 .title{
     text-align: left;
-    margin-top: 2.5em;
+    margin-top: 1.5em;
     margin-bottom: 0.5em;
-    display: block;
+    display: inline-block;
     font-size: 4em;
 }
 
@@ -63,6 +64,17 @@
     white-space: nowrap;
     right: 0;
     position: absolute;
+}
+
+.community-top{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.writePost{
+    display: inline;
+    margin-top: 4em;
 }
 
 @media screen and (max-width: 1380px){

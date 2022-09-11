@@ -2,7 +2,8 @@ import axios from "axios";
 import React from "react";
 import { MainHeader, Sidebar, LoadingPage } from "../allFiles";
 import "../styles/community.css";
-import { useNavigate } from "react-router-dom";
+import { TiPlus } from "react-icons/ti";
+import { Link, useNavigate } from "react-router-dom";
 
 interface Post {
   category: string;
@@ -39,7 +40,12 @@ export default function Community() {
       <MainHeader />
       {loading ? (
         <div className="community_container">
-          <h1 className="title">팀원 모집</h1>
+          <div className="community-top">
+            <h1 className="title">팀원 모집</h1>
+            <Link to={"/post"}>
+              <TiPlus size={48} display="inline" className="writePost" color="black"/>
+            </Link>
+          </div>
           {post.map((value) => {
             const date = value.createdAt.substring(0, 10);
             return (
