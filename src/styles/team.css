@@ -44,9 +44,6 @@
     font-size: 23px;
     font-weight: bold;
 }
-.team-mytodo p:nth-child(2){
-    margin-top: 30px;
-}
 .team-mytodo > p {
     margin: 10px;
 }
@@ -134,4 +131,23 @@
     .team-title > span{
         margin-left: 50em;
     }
+}
+
+.team-mytodo-list{
+    align-items: center;
+    display: flex;
+    padding: 10px;
+    margin-top: 20px;
+    position:relative;
+}
+.team-mytodo-list p:nth-child(1){
+    font-size: 19px;
+}
+.team-mytodo-list p{
+    margin-right: 10px;
+    font-size: 17px;
+}
+.team-mytodo-list-complete{
+    position: absolute;
+    right: 10px;
 }

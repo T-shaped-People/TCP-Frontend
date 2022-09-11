@@ -15,12 +15,13 @@ export default function Team()
     const [todo, setTodo] = useState([]);
  
     useEffect(()=>{ 
-        setTodo(getTodo());
+        axios.get(`/api/todo/incomplete/${param.teamId}`)
+        .then((response)=>{
+            return response
+        }).then((data)=>{
+            setTodo(data.data);
+        })
     }, [])
-
-    const getTodo = () => {
-        return axios.get(`/api/todo/${param.teamId}`);
-    }
     
     return(
         <div className="team-root">
@@ -36,13 +37,14 @@ export default function Team()
                     }}>
                         <div className="team-mytodo">
                             <p>My Todo</p>
-                            {/* {todo.map(()=>{
+                            {todo.map((value)=>{
                                 return(
-                                    <div>
-
+                                    <div className="team-mytodo-list">
+                                        <p>{value.title}</p>
+                                        <p>{value.todo}</p>
                                     </div>
                                 )
-                            })} */}
+                            })}
                         </div>
                     </div>
                     <div className="team-alarm">
