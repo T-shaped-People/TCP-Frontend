@@ -21,9 +21,9 @@ export default function Content() {
   const nav = useNavigate();
   const user = React.useContext(UserContext);
 
-  const input = React.useRef<any>();
-  const [deleted, setDeleted] = React.useState(false); // 삭제는 게시글 작성자만 가능
-  const [reload, setReload] = React.useState(true); // 댓글 재요청용
+  // const input = React.useRef<any>();
+  const [input, setInput] = React.useState("");
+  // const [deleted, setDeleted] = React.useState(false); // 삭제는 게시글 작성자만 가능
   const [comment, setComment] = React.useState<CommentType[]>([]); // 댓글
   const [content, setContent] = React.useState({
     // 글
@@ -42,7 +42,6 @@ export default function Content() {
     (async () => {
       try {
         setContent((await getPost()).data);
-        if (user.usercode === (await getPost()).data.usercode) setDeleted(true);
       } catch (error) {
         if (error instanceof AxiosError && error.response.status === 404) {
           alert("게시글을 찾을 수 없습니다");
@@ -60,34 +59,29 @@ export default function Content() {
         console.log(error);
       }
     })();
-  }, [reload]);
+  }, []);
 
-  const postComment = () => {
-    console.log(input.current.value);
-    if (input.current.value !== null) {
+  const postComment = async () => {
+    console.log(input);
+    if (input !== null) {
       const data = {
         depth: 0,
         parentId: 0,
-        content: input.current.value,
+        content: input,
       };
-      axios
-        .post(`/api/board/comment/${param.postId}`, data)
-        .then((response) => {
-          console.log("성공");
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-      input.current.value = "";
+      try {
+        await axios.post(`/api/board/comment/${param.postId}`, data);
+        setInput("");
+        setComment((await getComment()).data.comments);
+      } catch (error) {
+        console.log(error);
+      }
     }
-  };
-
-  const reloadComment = () => {
-    setReload(!reload);
   };
 
   const deletePost = () => {
     axios.delete(`/api/board/post/${param.postId}`);
+    nav("/community");
   };
 
   const getPost = () => {
@@ -117,20 +111,19 @@ export default function Content() {
           dangerouslySetInnerHTML={{ __html: content.content }}
         />
         <div className="write-comment">
-          <textarea className="write-comment-input" ref={input} />
+          <textarea
+            className="write-comment-input"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+          />
           <div className="comment-button-div">
-            <button onClick={reloadComment} className="reload-button">
-              댓글 새로고침
-            </button>
             <button onClick={postComment} className="write-comment-button">
               작성
             </button>
-            {deleted ? (
+            {content.permission && (
               <button onClick={deletePost} className="delete-button">
                 글 삭제
               </button>
-            ) : (
-              <></>
             )}
           </div>
         </div>
