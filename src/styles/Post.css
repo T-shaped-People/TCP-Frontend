@@ -20,20 +20,20 @@
     text-align: center;
 }
 
-.ck-blurred.ck.ck-content.ck-editor__editable.ck-rounded-corners.ck-editor__editable_inline{
+.Post-div > .ck-blurred.ck.ck-content.ck-editor__editable.ck-rounded-corners.ck-editor__editable_inline{
     height: 500px;
 }
 
-.ck.ck-content.ck-editor__editable.ck-rounded-corners.ck-editor__editable_inline{
+.Post-div > .ck.ck-reset.ck-editor.ck-rounded-corners > .ck.ck-editor__main > .ck.ck-content.ck-editor__editable.ck-rounded-corners.ck-editor__editable_inline{
     height: 500px;
 }
 
-.ck.ck-reset.ck-editor.ck-rounded-corners{
+.Post-div > .ck.ck-reset.ck-editor.ck-rounded-corners{
     width: 70%;
     margin: 20px auto 0px auto;
 }
 
-.ck.ck-editor__main{
+.Post-div > .ck.ck-reset.ck-editor.ck-rounded-corners > .ck.ck-editor__main{
     height: 500px;
 }
 

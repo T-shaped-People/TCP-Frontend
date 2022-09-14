@@ -4,9 +4,10 @@ import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import "../styles/Post.css";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 function Post() {
+  const param = useParams();
   const [content, setContent] = useState('');
   const [title, setTitle] = useState('');
   const nav = useNavigate();
@@ -17,13 +18,28 @@ function Post() {
         title: title,
         content: content,
       }
-      await axios.post('api/board/post', newPost);
+      await axios.post('/api/board/post', newPost);
       console.log(newPost);
       nav('/community');
     } catch (error) {
       console.log(error);
     }
   }
+
+  const modifyPost = async () => {
+    try{
+      const modifyPost = {
+        category: 'normal',
+        title: title,
+        content: content,
+      }
+      await axios.put(`/api/board/post/${param.postId}`, modifyPost);
+      nav("/community");
+    }catch(error){
+      console.log(error);
+    }
+  }
+
   const cancelPost = () => {
     nav('/community');
   }
@@ -32,7 +48,7 @@ function Post() {
       <MainHeader />
       <div className="Post-div">
         <div className="Post-title-div">
-          <h1 className="Post-title">글쓰기</h1>
+          {param.mode === 'post' ? <h1 className="Post-title">글쓰기</h1> : <h1 className="Post-title">글수정</h1>}
           <input name={title} onChange={e => setTitle(e.target.value)} value={title} className="input-title" />
         </div>
         <CKEditor
@@ -45,7 +61,7 @@ function Post() {
         />
         <div className="Post-btn-div">
           <button onClick={cancelPost}>취소</button>
-          <button onClick={writePost}>글작성</button>
+          {param.mode === 'post' ? <button onClick={writePost}>글작성</button> : <button onClick={modifyPost}>글수정</button>}
         </div>
       </div>
     </div>
