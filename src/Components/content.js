@@ -4,17 +4,19 @@ import React from "react";
 import axios, { AxiosError } from "axios";
 import "../styles/content.css";
 import { UserContext } from "../App";
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
-interface CommentType {
-  id: number; // 댓글 id
-  deleted: boolean; // 삭제된 댓글이면 true 아니면 false
-  usercode: number; // 댓글 작성자의 유저 코드
-  nickname: string; // 댓글 작성자의 닉네임
-  depth: number; // 댓글의 깊이, 0 이면 그냥 댓글, 0 이상이면 대댓글
-  createdAt: string; // 작성 날짜
-  content: string; // 댓글의 내용
-  permission: boolean; // 댓글 삭제 권한
-}
+// interface CommentType {
+//   id: number; // 댓글 id
+//   deleted: boolean; // 삭제된 댓글이면 true 아니면 false
+//   usercode: number; // 댓글 작성자의 유저 코드
+//   nickname: string; // 댓글 작성자의 닉네임
+//   depth: number; // 댓글의 깊이, 0 이면 그냥 댓글, 0 이상이면 대댓글
+//   createdAt: string; // 작성 날짜
+//   content: string; // 댓글의 내용
+//   permission: boolean; // 댓글 삭제 권한
+// }
 
 export default function Content() {
   const param = useParams();
@@ -24,7 +26,7 @@ export default function Content() {
   // const input = React.useRef<any>();
   const [input, setInput] = React.useState("");
   // const [deleted, setDeleted] = React.useState(false); // 삭제는 게시글 작성자만 가능
-  const [comment, setComment] = React.useState<CommentType[]>([]); // 댓글
+  const [comment, setComment] = React.useState([]); // 댓글
   const [content, setContent] = React.useState({
     // 글
     commentCnt: 0,
@@ -84,6 +86,10 @@ export default function Content() {
     nav("/community");
   };
 
+  const modifyPost = () => {
+    nav(`/post/modify/${param.postId}`);
+  }
+
   const getPost = () => {
     return axios.get(`/api/board/post/${param.postId}`);
   };
@@ -111,19 +117,32 @@ export default function Content() {
           dangerouslySetInnerHTML={{ __html: content.content }}
         />
         <div className="write-comment">
-          <textarea
+          {/* <textarea
             className="write-comment-input"
             value={input}
             onChange={(e) => setInput(e.target.value)}
+          /> */}
+          <CKEditor
+            editor={ClassicEditor}
+            data={input}
+            onChange={(event, editor) => {
+              const data = editor.getData();
+              setInput(data);
+            }}
           />
           <div className="comment-button-div">
             <button onClick={postComment} className="write-comment-button">
               작성
             </button>
             {content.permission && (
-              <button onClick={deletePost} className="delete-button">
-                글 삭제
-              </button>
+              <div>
+                  <button onClick={deletePost} className="delete-button">
+                  글 삭제
+                </button>
+                <button onClick={modifyPost} className="modify-button">
+                  글 수정
+                </button>
+              </div>
             )}
           </div>
         </div>
