@@ -11,7 +11,6 @@ import {
   NotFound,
   MakeTeam,
   MyTeam,
-  JoinTeam,
   Team,
   Todo,
   Post
@@ -61,17 +60,16 @@ function App() {
         <Routes>
           <Route path={"/"} element={<BeforeLogin />} />
           <Route path={"/makeproject"} element={<MakeProject />} />
-          <Route path={"/canvas"} element={<Canvas />} />
+          <Route path={"/team/teamId:canvas"} element={<Canvas />} />
           <Route path={"/community"} element={<Community />}></Route>
-          <Route path={'/post'} element={<Post />} />
-          <Route path={"/calendar"} element={<Calendar />}></Route>
+          <Route path={"/post/:mode/:postId"} element={<Post />} />
+          <Route path={"/team/:teamId/calendar"} element={<Calendar />}></Route>
           <Route path={"/chatting"} element={<Chatting />}></Route>
           <Route path={"/content/:postId/:page"} element={<Content />}></Route>
           <Route path={"*"} element={<NotFound />} />
           <Route path={"/maketeam"} element={<MakeTeam />}></Route>
           <Route path={"/myteam"} element={<MyTeam />}></Route>
           <Route path={"/team/:teamId/todo"} element={<Todo />}></Route>
-          <Route path={"/jointeam"} element={<JoinTeam />} />
           <Route path={"/team/:teamId"} element={<Team />}></Route>
         </Routes>
       </UserContext.Provider>

@@ -42,7 +42,7 @@ export default function Community() {
         <div className="community_container">
           <div className="community-top">
             <h1 className="title">팀원 모집</h1>
-            <Link to={"/post"}>
+            <Link to={"/post/post/0"}>
               <TiPlus size={48} display="inline" className="writePost" color="black"/>
             </Link>
           </div>
