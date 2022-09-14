@@ -140,8 +140,12 @@
     margin-top: 20px;
     position:relative;
 }
-.team-mytodo-list p:nth-child(1){
+.team-mytodo-title{
     font-size: 19px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 100px;
 }
 .team-mytodo-list p{
     margin-right: 10px;
@@ -150,4 +154,10 @@
 .team-mytodo-list-complete{
     position: absolute;
     right: 10px;
+}
+.team-mytodo-text{
+    width: 500px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }

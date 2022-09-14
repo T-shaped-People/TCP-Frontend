@@ -40,8 +40,8 @@ export default function Team()
                             {todo.map((value)=>{
                                 return(
                                     <div className="team-mytodo-list">
-                                        <p>{value.title}</p>
-                                        <p>{value.todo}</p>
+                                        <p className="team-mytodo-title">{value.title}</p>
+                                        <p className="team-mytodo-text">{value.todo}</p>
                                     </div>
                                 )
                             })}
