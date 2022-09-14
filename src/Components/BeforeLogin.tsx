@@ -7,7 +7,7 @@ import { UserContext } from "../App";
 function BeforeLogin() {
     const navigate = useNavigate();
     const user = useContext(UserContext);
-    if (user.isLogin) navigate('/calendar');
+    if (user.isLogin) navigate("/myteam");
     
     function goOauth() {
         window.location.href = "https://bssm.kro.kr/oauth/login?clientId=4edf448e&redirectURI=http://localhost:3000/api/user/oauth/bsm"

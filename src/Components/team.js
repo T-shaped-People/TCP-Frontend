@@ -15,7 +15,7 @@ export default function Team()
     const [todo, setTodo] = useState([]);
  
     useEffect(()=>{ 
-        axios.get(`/api/todo/incomplete/${param.teamId}`)
+        axios.get(`/api/todo/incompleted/${param.teamId}`)
         .then((response)=>{
             return response
         }).then((data)=>{
@@ -54,7 +54,9 @@ export default function Team()
                     </div>
                 </div>
                 <div className="team-div2"> 
-                    <div className="team-calendar">
+                    <div className="team-calendar" onClick={()=>{
+                        nav(`calendar`)
+                    }}>
                         <div className="team-calendar-size">
                             <FullCalendar
                                 plugins={[dayGridPlugin, interactionPlugin]}
