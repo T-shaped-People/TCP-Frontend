@@ -7,7 +7,7 @@ export default function TeamSide()
         <div className="teamSide-root">
             <img src="/images/tcpicon2.png" alt="icon" className="teamSide-logo"/>
             <Link to="/team">대시보드</Link>
-            <Link to="/">TODO</Link>
+            <Link to="todo">TODO</Link>
             <Link to="/">캘린더</Link>
             <Link to="/">아이디어방</Link>
             <Link to="/">팀관리</Link>

@@ -4,6 +4,7 @@ import { TeamHeader, Sidebar, SecSideBar } from "../allFiles";
 import "../styles/Todo.css";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import Modal from "react-modal";
 
 interface Todo {
   id: number;
@@ -104,18 +105,53 @@ function MyTodo({ teamId, func }: { teamId: string; func: any }) {
 }
 
 const TodoList = ({ item }: { item: Todo }) => {
-  console.log(item);
-  const { title, completed, todo } = item;
+  const { title, completed, todo, nickname, createdAt, endAt } = item;
   const [complete, setComplete] = useState("완료됨");
-  // useEffect(() => {
-  //   completed ? setComplete("완료됨") : setComplete("진행중");
-  // }, []);
+  const [modal, setModal] = useState(false);
+  let created = createdAt.substr(0, 10);
+  let end = endAt.substr(0, 10);
+  Modal.setAppElement("#root");
+  useEffect(() => {
+    completed ? setComplete("완료됨") : setComplete("진행중");
+  }, []);
   return (
     <div>
       <div className="Todo-content-list-line">
-        <span className="Todo-content-list-line-todo">{title}</span>
+        <span
+          className="Todo-content-list-line-todo"
+          onClick={() => setModal(true)}
+        >
+          {title}
+        </span>
         <span className="Todo-content-list-line-complete">{complete}</span>
       </div>
+      <Modal
+        isOpen={modal}
+        onRequestClose={() => setModal(false)}
+        style={{
+          overlay: {
+            backgroundColor: "rgba(0, 0, 0, 0.5)",
+            // width: "calc(100% - 250px)",
+            zIndex: 100,
+          },
+          content: {
+            width: "400px",
+            height: "500px",
+            margin: "auto",
+            borderRadius: "20px",
+            overflowX: "hidden",
+          },
+        }}
+      >
+        <h1 className="modal-title">{title}</h1>
+        <div className="modal-info">
+          <span className="modal-nickname">{nickname}</span>
+          <span className="modal-date">
+            {created} ~ {end}
+          </span>
+        </div>
+        <div className="modal-content">{todo}</div>
+      </Modal>
     </div>
   );
 };
@@ -123,6 +159,7 @@ const TodoList = ({ item }: { item: Todo }) => {
 function Todo() {
   const [myTodoModal, setMyTodoModal] = useState(false);
   const [todo, setTodo] = useState<Todo[]>([]);
+  const [isCompletedTodo, setIsCompletedTodo] = useState(false);
   const param = useParams();
 
   const addMyTodo = () => {
@@ -138,10 +175,16 @@ function Todo() {
         console.log(error);
       }
     })();
-  }, []);
+  }, [isCompletedTodo]);
+
+  const showCompletedTodo = () => {
+    setIsCompletedTodo((prev) => !prev);
+  };
 
   const getTodo = () => {
-    return axios.get(`/api/todo/${param.teamId}`);
+    if (isCompletedTodo)
+      return axios.get(`/api/todo/completed/${param.teamId}`);
+    else return axios.get(`/api/todo/incompleted/${param.teamId}`);
   };
   return (
     <div className="Todo-root">
@@ -161,7 +204,17 @@ function Todo() {
           <div className="Todo-content">
             <div className="Todo-content-header">
               <h1 className="Todo-content-title">MY TODO</h1>
-              <TiPlus size={24} onClick={addMyTodo} />
+              <span
+                className="Todo-content-completed"
+                onClick={showCompletedTodo}
+              >
+                Completed TODO
+              </span>
+              <TiPlus
+                size={24}
+                onClick={addMyTodo}
+                className="Todo-content-new"
+              />
             </div>
             <div className="Todo-content-list">
               {todo.map((item: Todo) => {

@@ -6,26 +6,29 @@ function JoinTeam({ onClick }: { onClick: any }) {
   const [code, setCode] = useState("");
   const [isConfirm, setIsConfirm] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
-  const [text, setText] = useState('');
+  const [text, setText] = useState("");
 
-  const confirm = async () => {{
-    if(code.length < 6) setText('팀 코드가 잘못됐습니다.');
-    else{
-      try{
-        await axios.post('/api/team/join', {
+  const confirm = async () => {
+    if (code.length < 6) setText("팀 코드가 잘못됐습니다.");
+    else {
+      try {
+        await axios.post("/api/team/join", {
           teamCode: code,
         });
         setIsCorrect(true);
-      }catch(e){
+      } catch (e) {
         if (e instanceof AxiosError) {
           const error = e.response.status;
-          switch(error){
-            case 409: setText('이미 가입된 팀입니다.'); break;
-            case 404: setText('팀이 없습니다.'); break;
+          switch (error) {
+            case 409:
+              setText("이미 가입된 팀입니다.");
+              break;
+            case 404:
+              setText("팀이 없습니다.");
+              break;
           }
         }
       }
-    }
     }
     setIsConfirm(true);
   };
@@ -50,9 +53,7 @@ function JoinTeam({ onClick }: { onClick: any }) {
             (isCorrect ? (
               onClick()
             ) : (
-              <span className="JoinTeam-notCorrect">
-                {text}
-              </span>
+              <span className="JoinTeam-notCorrect">{text}</span>
             ))}
         </div>
         <button className="JoinTeam-confirm" onClick={() => confirm()}>

@@ -66,7 +66,7 @@ function MyTeam() {
         console.log(error);
       }
     })();
-    haveTeam = team.length > 0 ? true : false;
+    haveTeam = team.length > 0;
   }, []);
 
   console.log(team);
