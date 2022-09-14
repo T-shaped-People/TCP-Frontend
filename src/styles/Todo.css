@@ -34,6 +34,21 @@
     position: relative;
 }
 
+.Todo-content-header{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.Todo-content-completed{
+    font-size: 16px;
+}
+
+.Todo-content-new{
+    position: absolute;
+    right: 20px;
+}
+
 .Todo-content-title{
     margin: 20px;
     display: inline-block;
@@ -127,4 +142,23 @@
     height: 30px;
     margin-right: 10px;
     cursor: pointer;
+}
+
+.modal-title{
+    margin: 20px;
+}
+
+.modal-info{
+    display: flex;
+    justify-content: space-between;
+}
+
+.modal-nickname{
+    margin-right: 20px;
+}
+
+.modal-content{
+    width: 358px;
+    font-size: 1.8em;
+    padding: 10px;
 }
