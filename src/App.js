@@ -64,7 +64,7 @@ function App() {
           <Route path={"/community"} element={<Community />}></Route>
           <Route path={"/post/:mode/:postId"} element={<Post />} />
           <Route path={"/team/:teamId/calendar"} element={<Calendar />}></Route>
-          <Route path={"/chatting"} element={<Chatting />}></Route>
+          <Route path={"/team/:teamId/:roomId/chatting"} element={<Chatting />}></Route>
           <Route path={"/content/:postId/:page"} element={<Content />}></Route>
           <Route path={"*"} element={<NotFound />} />
           <Route path={"/maketeam"} element={<MakeTeam />}></Route>
