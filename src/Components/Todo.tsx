@@ -108,16 +108,37 @@ function MyTodo({ teamId, func }: { teamId: string; func: any }) {
   );
 }
 
-const TodoList = ({ item }: { item: Todo }) => {
+const TodoList = ({
+  item,
+  modal,
+  setModal,
+}: {
+  item: Todo;
+  modal: boolean;
+  setModal: any;
+}) => {
   const { title, completed, todo, nickname, createdAt, endAt, id } = item;
-  const [complete, setComplete] = useState("진행중");
-  const [modal, setModal] = useState(false);
+  const [complete, setComplete] = useState({
+    complete: "",
+    completeBtn: "",
+    disabled: false,
+  });
   const param = useParams();
   let created = createdAt.substr(0, 10);
   let end = endAt.substr(0, 10);
   Modal.setAppElement("#root");
   useEffect(() => {
-    completed ? setComplete("완료됨") : setComplete("진행중");
+    completed
+      ? setComplete({
+          complete: "완료됨",
+          completeBtn: "완료됨",
+          disabled: true,
+        })
+      : setComplete({
+          complete: "진행중",
+          completeBtn: "완료하기",
+          disabled: false,
+        });
   }, [item]);
 
   const completeTodo = async () => {
@@ -132,14 +153,16 @@ const TodoList = ({ item }: { item: Todo }) => {
     <div>
       <div className="Todo-content-list-line" onClick={() => setModal(true)}>
         <span className="Todo-content-list-line-todo">{title}</span>
-        <span className="Todo-content-list-line-complete">{complete}</span>
+        <span className="Todo-content-list-line-complete">
+          {complete.complete}
+        </span>
       </div>
       <Modal
         isOpen={modal}
         onRequestClose={() => setModal(false)}
         style={{
           overlay: {
-            backgroundColor: "rgba(0, 0, 0, 0.5)",
+            backgroundColor: "rgba(0, 0, 0, 0.1)",
             zIndex: 100,
           },
           content: {
@@ -153,8 +176,12 @@ const TodoList = ({ item }: { item: Todo }) => {
       >
         <div className="modal-top">
           <h1 className="modal-title">{title}</h1>
-          <button className="modal-btn" onClick={() => completeTodo()}>
-            완료하기
+          <button
+            className="modal-btn"
+            onClick={() => completeTodo()}
+            disabled={complete.disabled}
+          >
+            {complete.completeBtn}
           </button>
         </div>
         <div className="modal-info">
@@ -171,6 +198,7 @@ const TodoList = ({ item }: { item: Todo }) => {
 
 function Todo() {
   const [myTodoModal, setMyTodoModal] = useState(false);
+  const [modal, setModal] = useState(false);
   const [todo, setTodo] = useState<Todo[]>([]);
   const [isCompletedTodo, setIsCompletedTodo] = useState(false);
   const [incompleted, setIncompleted] = useState("Completed TODO");
@@ -189,7 +217,7 @@ function Todo() {
         console.log(error);
       }
     })();
-  }, [isCompletedTodo, myTodoModal, incompleted]);
+  }, [isCompletedTodo, myTodoModal, incompleted, modal]);
 
   const showCompletedTodo = () => {
     setIsCompletedTodo((prev) => !prev);
@@ -229,7 +257,14 @@ function Todo() {
             </div>
             <div className="Todo-content-list">
               {todo.map((item: Todo) => {
-                return <TodoList item={item} key={item.id} />;
+                return (
+                  <TodoList
+                    item={item}
+                    key={item.id}
+                    modal={modal}
+                    setModal={setModal}
+                  />
+                );
               })}
             </div>
           </div>
