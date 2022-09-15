@@ -5,6 +5,8 @@ import "../styles/chatting.css";
 import { io } from "socket.io-client";
 import { Chat } from "../types/chat";
 import { useNavigate, useParams } from "react-router-dom";
+import { TiPlus } from "react-icons/ti";
+import Modal from "react-modal";
 
 interface ChatTeam {
   teamId: string;
@@ -18,6 +20,8 @@ const socket = io("localhost:3000/chat", {
 
 export default function Chatting() {
   const [chatList, setChatList] = React.useState<Chat[]>([]);
+  const [modal, setModal] = useState(false);
+  const [teamName, setTeamName] = useState("");
   const param = useParams();
   const { teamId, roomId } = param;
   const chatInputRef = React.useRef<HTMLInputElement>(null);
@@ -63,6 +67,25 @@ export default function Chatting() {
       name: "준",
     },
   ]);
+
+  Modal.setAppElement("#root");
+
+  const createChatRoom = () => {
+    setModal(true);
+  };
+
+  const postChatRoom = async () => {
+    try {
+      const response = await axios.post("/api/chat", {
+        teamId: teamId,
+        roomTitle: teamName,
+      });
+      console.log(response);
+      setModal(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const initChatList = async () => {
     try {
@@ -124,15 +147,47 @@ export default function Chatting() {
           />
         </div>
         <div>
+          <TiPlus
+            size={32}
+            onClick={() => {
+              createChatRoom();
+            }}
+          />
+          <Modal
+            isOpen={modal}
+            onRequestClose={() => setModal(false)}
+            style={{
+              overlay: {
+                backgroundColor: "rgba(0, 0, 0, 0.5)",
+                zIndex: 100,
+              },
+              content: {
+                width: "300px",
+                height: "200px",
+                margin: "auto",
+                borderRadius: "20px",
+                overflowX: "hidden",
+              },
+            }}
+          >
+            <span>팀 이름을 입력하세요</span>
+            <input
+              type="text"
+              placeholder="팀 이름"
+              value={teamName}
+              onChange={(e) => setTeamName(e.target.value)}
+            />
+            <button onClick={() => postChatRoom()}>확인</button>
+          </Modal>
           {chatTeam.map((item: ChatTeam) => {
             return (
               <button
                 onClick={() => {
                   nav(`/team/${item.teamId}/${item.roomId}/chatting`);
                 }}
-                className='chatting-select'
+                className="chatting-select"
               >
-                {item.name.slice(0,2)}
+                {item.name.slice(0, 2)}
               </button>
             );
           })}
