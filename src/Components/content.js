@@ -136,7 +136,7 @@ export default function Content() {
             </button>
             {content.permission && (
               <div>
-                  <button onClick={deletePost} className="delete-button">
+                <button onClick={deletePost} className="delete-button">
                   글 삭제
                 </button>
                 <button onClick={modifyPost} className="modify-button">
