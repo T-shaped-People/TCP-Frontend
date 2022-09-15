@@ -161,3 +161,6 @@
     white-space: nowrap;
     overflow: hidden;
 }
+button{
+    cursor: pointer;
+}

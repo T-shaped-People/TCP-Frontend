@@ -18,11 +18,15 @@ interface Todo {
 
 function MyTodo({ teamId, func }: { teamId: string; func: any }) {
   const postTodo = async () => {
-    const result = await axios.post("/api/todo/upload", input);
-    if (result != null) {
-      func();
-    } else {
-      setText("실패했습니다.");
+    try {
+      const result = await axios.post("/api/todo/upload", input);
+      if (result != null) {
+        func();
+      } else {
+        setText("실패했습니다.");
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -105,24 +109,29 @@ function MyTodo({ teamId, func }: { teamId: string; func: any }) {
 }
 
 const TodoList = ({ item }: { item: Todo }) => {
-  const { title, completed, todo, nickname, createdAt, endAt } = item;
-  const [complete, setComplete] = useState("완료됨");
+  const { title, completed, todo, nickname, createdAt, endAt, id } = item;
+  const [complete, setComplete] = useState("진행중");
   const [modal, setModal] = useState(false);
+  const param = useParams();
   let created = createdAt.substr(0, 10);
   let end = endAt.substr(0, 10);
   Modal.setAppElement("#root");
   useEffect(() => {
     completed ? setComplete("완료됨") : setComplete("진행중");
-  }, []);
+  }, [item]);
+
+  const completeTodo = async () => {
+    try {
+      await axios.put(`/api/todo/modify/${param.teamId}/${id}`);
+      setModal(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div>
-      <div className="Todo-content-list-line">
-        <span
-          className="Todo-content-list-line-todo"
-          onClick={() => setModal(true)}
-        >
-          {title}
-        </span>
+      <div className="Todo-content-list-line" onClick={() => setModal(true)}>
+        <span className="Todo-content-list-line-todo">{title}</span>
         <span className="Todo-content-list-line-complete">{complete}</span>
       </div>
       <Modal
@@ -131,7 +140,6 @@ const TodoList = ({ item }: { item: Todo }) => {
         style={{
           overlay: {
             backgroundColor: "rgba(0, 0, 0, 0.5)",
-            // width: "calc(100% - 250px)",
             zIndex: 100,
           },
           content: {
@@ -143,7 +151,12 @@ const TodoList = ({ item }: { item: Todo }) => {
           },
         }}
       >
-        <h1 className="modal-title">{title}</h1>
+        <div className="modal-top">
+          <h1 className="modal-title">{title}</h1>
+          <button className="modal-btn" onClick={() => completeTodo()}>
+            완료하기
+          </button>
+        </div>
         <div className="modal-info">
           <span className="modal-nickname">{nickname}</span>
           <span className="modal-date">
@@ -160,6 +173,7 @@ function Todo() {
   const [myTodoModal, setMyTodoModal] = useState(false);
   const [todo, setTodo] = useState<Todo[]>([]);
   const [isCompletedTodo, setIsCompletedTodo] = useState(false);
+  const [incompleted, setIncompleted] = useState("Completed TODO");
   const param = useParams();
 
   const addMyTodo = () => {
@@ -175,10 +189,11 @@ function Todo() {
         console.log(error);
       }
     })();
-  }, [isCompletedTodo]);
+  }, [isCompletedTodo, myTodoModal, incompleted]);
 
   const showCompletedTodo = () => {
     setIsCompletedTodo((prev) => !prev);
+    setIncompleted(isCompletedTodo ? "Completed TODO" : "Incompleted TODO");
   };
 
   const getTodo = () => {
@@ -196,11 +211,7 @@ function Todo() {
           <h1 className="Todo-title">TODO</h1>
         </div>
         <div className="Todo-content-div">
-          {myTodoModal ? (
-            <MyTodo teamId={param.teamId} func={addMyTodo}></MyTodo>
-          ) : (
-            <></>
-          )}
+          {myTodoModal && <MyTodo teamId={param.teamId} func={addMyTodo} />}
           <div className="Todo-content">
             <div className="Todo-content-header">
               <h1 className="Todo-content-title">MY TODO</h1>
@@ -208,7 +219,7 @@ function Todo() {
                 className="Todo-content-completed"
                 onClick={showCompletedTodo}
               >
-                Completed TODO
+                {incompleted}
               </span>
               <TiPlus
                 size={24}

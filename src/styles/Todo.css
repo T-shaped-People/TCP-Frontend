@@ -46,6 +46,7 @@
 
 .Todo-content-new{
     position: absolute;
+    cursor: pointer;
     right: 20px;
 }
 
@@ -64,6 +65,7 @@
     gap: 10px;
     flex-direction: column;
     padding: 10px;
+    overflow: auto;
 }
 
 .Todo-content-list-line{
@@ -74,6 +76,10 @@
 
 .Todo-content-list-line-todo{
     display: inline-block;
+    width: 300px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
     width: 300px;
 }
 
@@ -144,8 +150,28 @@
     cursor: pointer;
 }
 
+.modal-top{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .modal-title{
     margin: 20px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    display: inline-block;
+    width: 300px;
+}
+
+.modal-btn{
+    border-radius: 20px;
+    color: white;
+    font-size: 1.6em;
+    width: 100px;
+    height: 50px;
+    background-color: #EC994B;
 }
 
 .modal-info{
@@ -160,5 +186,7 @@
 .modal-content{
     width: 358px;
     font-size: 1.8em;
+    white-space: normal;
+    word-break: break-all;
     padding: 10px;
 }
