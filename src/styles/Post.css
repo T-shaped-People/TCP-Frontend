@@ -20,10 +20,6 @@
     text-align: center;
 }
 
-.Post-div > .ck-blurred.ck.ck-content.ck-editor__editable.ck-rounded-corners.ck-editor__editable_inline{
-    height: 500px;
-}
-
 .Post-div > .ck.ck-reset.ck-editor.ck-rounded-corners > .ck.ck-editor__main > .ck.ck-content.ck-editor__editable.ck-rounded-corners.ck-editor__editable_inline{
     height: 500px;
 }
