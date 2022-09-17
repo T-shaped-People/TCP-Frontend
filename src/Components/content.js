@@ -18,6 +18,10 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 //   permission: boolean; // 댓글 삭제 권한
 // }
 
+const comments = (comment) => {
+  
+}
+
 export default function Content() {
   const param = useParams();
   const nav = useNavigate();
@@ -57,6 +61,7 @@ export default function Content() {
     (async () => {
       try {
         setComment((await getComment()).data.comments);
+        console.log((await getComment()).data.comments);
       } catch (error) {
         console.log(error);
       }
@@ -116,7 +121,24 @@ export default function Content() {
           className="content-content"
           dangerouslySetInnerHTML={{ __html: content.content }}
         />
-        <div className="write-comment">
+      </div>
+      <div className="read-comment-root">
+        {comment.map((value) => {
+          if (value.deleted !== true) {
+            function createMarkup() {
+              return {__html: value.content};
+            }
+            return (
+              <div className="read-comment">
+                <p className="read-comment-nickname">{value.nickname}</p>
+                <p className="read-comment-date">{value.createdAt}</p>
+                <p className="read-comment-content" dangerouslySetInnerHTML={createMarkup()}></p>
+              </div>
+            );
+          }
+        })}
+      </div>
+      <div className="write-comment">
           {/* <textarea
             className="write-comment-input"
             value={input}
@@ -146,20 +168,6 @@ export default function Content() {
             )}
           </div>
         </div>
-      </div>
-      <div className="read-comment-root">
-        {comment.map((value) => {
-          if (value.deleted !== true) {
-            return (
-              <div className="read-comment">
-                <p className="read-comment-nickname">{value.nickname}</p>
-                <p className="read-comment-date">{value.createdAt}</p>
-                <p className="read-comment-content">{value.content}</p>
-              </div>
-            );
-          }
-        })}
-      </div>
     </div>
   );
 }
