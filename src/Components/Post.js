@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { MainHeader } from "../allFiles";
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
@@ -11,6 +11,19 @@ function Post() {
   const [content, setContent] = useState('');
   const [title, setTitle] = useState('');
   const nav = useNavigate();
+
+  useEffect(()=>{
+    if(!(param.mode === 'post')) {
+      axios.get(`/api/board/post/${param.postId}`)
+      .then((response)=>{
+        return response;
+      }).then((data)=>{        
+        setTitle(data.data.title);
+        setContent(data.data.content);
+      })
+    }
+  }, [])
+
   const writePost = async () => {
     try {
       const newPost = {
