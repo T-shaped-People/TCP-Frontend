@@ -16,10 +16,26 @@ interface Todo {
   todo: string;
 }
 
+interface teamMember {
+  usercode: number;
+  teamId: string;
+  nickname: string;
+}
+
 function MyTodo({ teamId, func }: { teamId: string; func: any }) {
+  const [userCode, setUserCode] = useState(0);
+  const [teamMemberList, setTeamMemberList] = useState<teamMember[]>([]);
+
   const postTodo = async () => {
     try {
+      console.log(userCode);
       const result = await axios.post("/api/todo/upload", input);
+      const mentionResult = await axios.post("/api/todo/mention", {
+        todoId: result.data.id,
+        teamId: teamId,
+        mentionUsercode: userCode,
+      });
+      console.log(mentionResult);
       if (result != null) {
         func();
       } else {
@@ -41,6 +57,21 @@ function MyTodo({ teamId, func }: { teamId: string; func: any }) {
       [name]: value,
     };
     setInput(nextInput);
+  };
+
+  const selectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const { value } = e.target;
+    console.log(value);
+    setUserCode(Number(value));
+  };
+
+  const getMemberList = async () => {
+    try {
+      const response = await axios(`/api/team/${teamId}/member`);
+      setTeamMemberList(response.data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const [input, setInput] = useState({
@@ -88,6 +119,27 @@ function MyTodo({ teamId, func }: { teamId: string; func: any }) {
               changeData(e);
             }}
           />
+        </li>
+        <li className="mytodo-li">
+          <span className="mytodo-span">언급하기</span>
+          <select
+            className="mytodo-input"
+            value={userCode}
+            name="mention"
+            onFocus={() => getMemberList()}
+            onChange={(e) => {
+              selectChange(e);
+            }}
+          >
+            <option value={0}></option>
+            {teamMemberList.map((item) => {
+              return (
+                <option value={item.usercode} key={item.usercode}>
+                  {item.nickname}
+                </option>
+              );
+            })}
+          </select>
         </li>
         <div className="mytodo-button-div">
           <button className="mytodo-button" onClick={postTodo}>
