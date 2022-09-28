@@ -55,7 +55,7 @@ function MyTodo({ teamId, func }: { teamId: string; func: any }) {
     <div className="mytodo-root">
       <h1 className="mytodo-title">할 일 등록</h1>
       <ul className="mytodo-ul">
-        <li className="mytodo-li">
+        <li className="mytodo-li-1">
           <span className="mytodo-span">할 일</span>
           <input
             type="text"
@@ -67,7 +67,7 @@ function MyTodo({ teamId, func }: { teamId: string; func: any }) {
             }}
           />
         </li>
-        <li className="mytodo-li">
+        <li className="mytodo-li-2">
           <span className="mytodo-span">설명</span>
           <textarea
             placeholder="설명을 입력하세요."
@@ -78,7 +78,7 @@ function MyTodo({ teamId, func }: { teamId: string; func: any }) {
             }}
           />
         </li>
-        <li className="mytodo-li">
+        <li className="mytodo-li-3">
           <span className="mytodo-span">마감일</span>
           <input
             type="date"

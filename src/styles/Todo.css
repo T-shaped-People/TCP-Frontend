@@ -115,10 +115,10 @@
     align-items: center;
     border-bottom: 1px solid lightgray;
 }
-.mytodo-ul li:nth-child(1), li:nth-child(3){
+.mytodo-li-1, .mytodo-li-3{
     height: 6em;
 }
-.mytodo-ul li:nth-child(2){
+.mytodo-li-2{
     height: 10em;
 }
 .mytodo-span{
