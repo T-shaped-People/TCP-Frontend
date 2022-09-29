@@ -13,7 +13,7 @@ import {
   MyTeam,
   Team,
   Todo,
-  Post
+  Post,
 } from "./allFiles";
 import axios, { AxiosError } from "axios";
 import "./styles/App.css";

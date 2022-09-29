@@ -18,6 +18,7 @@ import Team from "./Components/team";
 import TeamSide from "./Components/teamSide";
 import Todo from "./Components/Todo";
 import Post from "./Components/Post";
+import Comment from "./Components/comment";
 
 export {
   TeamHeader,
@@ -40,4 +41,5 @@ export {
   TeamSide,
   Todo,
   Post,
+  Comment
 };
