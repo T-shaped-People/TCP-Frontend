@@ -72,6 +72,10 @@ export default function Content() {
   const getComment = () => {
     return axios.get(`/api/board/comment/${param.postId}`);
   };
+ 
+  const deleteComment = (id) => {
+    axios.delete(`/api/board/comment/${param.postId}/${id}`);
+  }
 
   return (
     <div className="content-root">
@@ -93,9 +97,14 @@ export default function Content() {
         />
       </div>
       <div className="read-comment-root">
-        {comment.map((value) => {
+        {comment.map((value)=>{
           if (value.deleted !== true) {
-            <Comment postId={param.postId} comment={value} />
+            return <Comment postId={param.postId} comment={value} deleteComment={deleteComment} />
+          }
+          else {
+            return <div className="deleted-comment">
+              <p>삭제된 댓글입니다.</p>
+            </div>
           }
         })}
       </div>
