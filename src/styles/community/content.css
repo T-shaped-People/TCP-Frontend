@@ -44,6 +44,7 @@
     margin-top: 30px;
     font-size: 15px;
     width: 65em;
+    margin-left: 20px;
 }
 .write-comment{
     width: 100%;
@@ -107,25 +108,8 @@
     display: flex;
     margin-bottom: 5em;
 }
-.read-comment-root{
-    margin-left: 28em;
-    margin-top: 10em;
-}
-.read-comment{
+.deleted-comment{
     font-size: 15px;
-    max-width: 60em;
-    overflow: scroll;
-}
-.read-comment::-webkit-scrollbar{
-    display: none;
-}
-.read-comment-date{
-    font-size: 12px;
-    margin-top: 10px;
-}
-.read-comment-content{
-    margin-top: 20px;
-    padding-bottom: 20px;
 }
 @media screen and (min-width:0px) and (max-width:1380px) {
     

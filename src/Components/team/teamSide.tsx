@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import '../styles/teamSide.css'
+import '../../styles/team/teamSide.css'
 
 export default function TeamSide()
 {
