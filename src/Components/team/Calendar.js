@@ -1,5 +1,5 @@
-import {TeamHeader, SecSideBar, Sidebar} from '../allFiles';
-import "../styles/calendar.css"
+import {TeamHeader, SecSideBar, Sidebar} from '../../allFiles';
+import "../../styles/team/calendar.css"
 import FullCalendar from '@fullcalendar/react';
 import timeGridPlugin from "@fullcalendar/timegrid";
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -67,7 +67,6 @@ export default function Calendar() {
       (async()=>{
         try{
           if(input.content !== "" && input.startDate !== "" && input.endDate !== ""){
-            console.log(input);
             await axios.post(`/api/calendar/upload/`, input);
           }
           else{
@@ -77,34 +76,23 @@ export default function Calendar() {
           }
           const newArray = [];
           const viewCalendar = (await getCalendar()).data;
-          viewCalendar.map((value) => {
-            const newSchedule = {
-              title: value.content,
-              start: value.startDate.substring(0, 10),
-              end: value.endDate.substring(0, 10),
-            }
-            newArray.push(newSchedule);
-          })
+          console.log(viewCalendar)
+          for(let value of viewCalendar) {
+              const newSchedule = {
+                  id: value.id,
+                  title: value.content,
+                  start: value.startDate.substring(0, 10),
+                  // end: value.endDate.substring(0, 8) + String(Number(value.endDate.substring(0, 10).split("-")[2]) + 1),
+                    end: value.endDate.substring(0, 10)
+              }
+              newArray.push(newSchedule);
+          }
           setSchedule(newArray);
         }catch(error){
           console.log(error);
         }
       })();
     }, [refreshCalendar])
-
-    const testPostCalendar = async () => {
-      try{
-        const data = {
-          teamId: param.teamId,
-          endDate: '2022-09-15',
-          startDate: '2022-09-13',
-          content: '테스트5',
-        }
-        await axios.post('/api/calendar/upload', data);
-      }catch(error){
-        console.log(error);
-      }
-    }
 
     const getCalendar = async () => {
       return axios.get(`/api/calendar/${param.teamId}`);
@@ -116,6 +104,39 @@ export default function Calendar() {
 
     const openModal = () =>{
       setModal(true);
+    }
+
+    const changeEvent = async (info) => {
+        console.log(info.event)
+
+        let start = new Date(info.event._instance.range.start).toLocaleDateString();
+        let end = new Date(info.event._instance.range.end).toLocaleDateString();
+
+        start = start.replace(/\s/g, '');
+        start = start.split(".");
+
+        end = end.replace(/\s/g, '');
+        end = end.split(".");
+
+
+        const startDate = start[0] + "-" + start[1].padStart(2, '0') + "-" + start[2].padStart(2, '0');
+        const endDate = end[0] + "-" + end[1].padStart(2, '0') + "-" + end[2].padStart(2, '0');
+
+        const data = {
+            id: info.event._def.publicId,
+            content: info.event._def.title,
+            startDate: startDate,
+            endDate: endDate
+        }
+
+        console.log(data);
+
+        try{
+           await axios.put('/api/calendar', data);
+           setRefreshCalendar((prev) => !prev);
+        }catch(error){
+            console.log(error);
+        }
     }
 
     return(
@@ -140,6 +161,8 @@ export default function Calendar() {
                       eventColor={'#F2921D'}
                       height={'100%'}
                       events={schedule}
+                      eventDrop={(info)=> changeEvent(info)}
+                      eventResize={(info) => changeEvent(info)}
                   />
                 </div>
             </div>
@@ -161,7 +184,6 @@ export default function Calendar() {
               className="popup">
               <CalendarInput closeModal={closeModal} setRefreshCalendar={setRefreshCalendar} setInput={setInput} input={input} />
             </Modal>
-            <button onClick={testPostCalendar}>클릭</button>
         </div>
     )
 }
