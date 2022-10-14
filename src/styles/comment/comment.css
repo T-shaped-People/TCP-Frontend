@@ -34,9 +34,3 @@
 .read-comment-delete:hover{
     color: red;
 }
-.read-comment-more{
-    border: none;
-    position: absolute;
-    right: 10px;
-    bottom: 10px;
-}

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { TiPlus } from "react-icons/ti";
-import { TeamHeader, Sidebar, SecSideBar } from "../allFiles";
-import "../styles/Todo.css";
+import { TeamHeader, Sidebar, SecSideBar } from "../../allFiles";
+import "../../styles/team/Todo.css";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import Modal from "react-modal";
