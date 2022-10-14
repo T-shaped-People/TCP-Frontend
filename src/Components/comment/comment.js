@@ -1,6 +1,8 @@
-import '../styles/comment.css';
-import { Recomment } from '../allFiles';
+import '../../styles/comment/comment.css';
+import { Recomment } from '../../allFiles';
 import { useState } from 'react';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 function PostComment({postComment})
 {
@@ -13,13 +15,14 @@ function PostComment({postComment})
 
 export default function Comment({ postId, comment, deleteComment })
 {
+    const [input, setInput] = useState("");
     const [change, setChange] = useState(false);
     const createMarkup = () => {
         return {__html: comment.content};
     }
 
     const postComment = () => {
-
+        setChange((prev)=>!prev);
     }
 
     const created = comment.createdAt;
@@ -37,7 +40,18 @@ export default function Comment({ postId, comment, deleteComment })
                 {comment.permission && <button onClick={()=> deleteComment(comment.id) } className="read-comment-delete">
                     삭제
                     </button>}
-                <button className='read-comment-post' >댓글 달기</button>
+                <button className='read-comment-post' onClick={postComment} >댓글 달기</button>
+                {change && 
+                <div className="write-comment">
+                    <CKEditor
+                    editor={ClassicEditor}
+                    data={input}
+                    onChange={(event, editor) => {
+                        const data = editor.getData();
+                        setInput(data);
+                    }}
+                    />
+                </div>}
             {comment.child && comment.child.map((value)=>{
                 if (value.deleted !== true) {
                     return <Recomment postId={postId} comment={value} deleteComment={deleteComment} />
