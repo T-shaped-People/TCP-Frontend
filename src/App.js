@@ -60,7 +60,7 @@ function App() {
         <Routes>
           <Route path={"/"} element={<BeforeLogin />} />
           <Route path={"/makeproject"} element={<MakeProject />} />
-          <Route path={"/team/teamId:canvas"} element={<Canvas />} />
+          <Route path={"/team/:teamId/canvas"} element={<Canvas />} />
           <Route path={"/community"} element={<Community />}></Route>
           <Route path={"/post/:mode/:postId"} element={<Post />} />
           <Route path={"/team/:teamId/calendar"} element={<Calendar />}></Route>

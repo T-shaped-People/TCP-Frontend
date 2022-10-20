@@ -13,7 +13,6 @@ export default function Team() {
   const param = useParams();
   const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(false);
-
   const [todo, setTodo] = useState([]);
   const [notice, setNotice] = useState([]);
 

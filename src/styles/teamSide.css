@@ -25,3 +25,7 @@
     background: none;
     margin-top: 20em;
 }
+
+.teamSide-button:nth-child(odd){
+    margin-top: 1em;
+}
