@@ -1,4 +1,5 @@
-import '../styles/Recomment.css';
+import '../../styles/comment/Recomment.css';
+import styled from 'styled-components'
 
 export default function Recomment({ postId, comment, deleteComment })
 {
@@ -10,9 +11,25 @@ export default function Recomment({ postId, comment, deleteComment })
     const realHour = Number(hour) < 10 ? "0" + String(hour) : String(hour);
     const date = created.substring(0, 10) + " " + realHour + "시 " + created.substring(14, 16) + "분 " + created.substring(17, 19)+"초";
 
+    const ReReadComment = styled.div`
+        width: 100%;
+        font-size: 15px;
+        max-width: 65em;
+        margin-left: 20px;
+        margin-top: 20px;
+        overflow: scroll;
+        position: relative;
+        background-color: rgb(239, 239, 239);
+        padding: 10px;
+        border-radius: 10px;
+        &::-webkit-scrollbar{
+            display: none;
+        }
+    `
+
     return(
         <>
-            <div className="re-read-comment">
+            <ReReadComment>
                 <p className="re-read-comment-nickname">{comment.nickname}</p>
                 <p className="re-read-comment-date">{date}</p>
                 <p className="re-read-comment-content" dangerouslySetInnerHTML={createMarkup()}></p>
@@ -24,12 +41,12 @@ export default function Recomment({ postId, comment, deleteComment })
                     return <Recomment postId={postId} comment={value} deleteComment={deleteComment} />
                 }
                 else {
-                return <div className="re-deleted-comment">
+                return <div className="deleted-comment">
                         <p>삭제된 댓글입니다.</p>
                     </div>
                 }
             })}
-            </div>
+            </ReReadComment>
         </>
     )
 }
