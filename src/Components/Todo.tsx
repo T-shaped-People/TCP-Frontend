@@ -224,7 +224,9 @@ const TodoList = ({ item }: { item: Todo }) => {
 function Todo() {
   const [myTodoModal, setMyTodoModal] = useState(false);
   const [todo, setTodo] = useState<Todo[]>([]);
+  const [allTodo, setAllTodo] = useState<Todo[]>([]);
   const [isCompletedTodo, setIsCompletedTodo] = useState([false, false]);
+  const [todoIndex, setTodoIndex] = useState(0);
   // const [isCompletedTodo, setIsCompletedTodo] = useState(false);
   const param = useParams();
 
@@ -235,23 +237,23 @@ function Todo() {
   useEffect(() => {
     (async () => {
       try {
-        const response = await getTodo();
+        const response = await getTodo(todoIndex);
+        console.log(response);
         setTodo(response.data);
       } catch (error) {
         console.log(error);
       }
     })();
-  }, [isCompletedTodo, myTodoModal]);
+  }, [isCompletedTodo, myTodoModal, todoIndex]);
 
   const showCompletedTodo = (index: number) => {
     let newIsCompletedTodo = isCompletedTodo;
     newIsCompletedTodo[index] = !newIsCompletedTodo[index];
-    // setIsCompletedTodo(newIsCompletedTodo);
     setIsCompletedTodo([...newIsCompletedTodo]);
   };
 
-  const getTodo = () => {
-    if (isCompletedTodo)
+  const getTodo = (index: number) => {
+    if (isCompletedTodo[index])
       return axios.get(`/api/todo/completed/${param.teamId}`);
     else return axios.get(`/api/todo/incompleted/${param.teamId}`);
   };
@@ -271,10 +273,12 @@ function Todo() {
               <h1 className="Todo-content-title">MY TODO</h1>
               <span
                 className="Todo-content-completed"
-                onClick={() => showCompletedTodo(0)}
+                onClick={() => {
+                  showCompletedTodo(0);
+                  setTodoIndex(0);
+                }}
               >
                 {!isCompletedTodo[0] ? "Completed TODO" : "Incompleted TODO"}
-                {/* {!isCompletedTodo ? "Completed TODO" : "Incompleted TODO"} */}
               </span>
               <TiPlus
                 size={24}
@@ -288,15 +292,17 @@ function Todo() {
               })}
             </div>
           </div>
-          <div className="Todo-content">
+          {/* <div className="Todo-content">
             <div className="Todo-content-header">
               <h1 className="Todo-content-title">ALL TODO</h1>
               <span
                 className="Todo-content-completed"
-                onClick={() => showCompletedTodo(1)}
+                onClick={() => {
+                  showCompletedTodo(1);
+                  setTodoIndex(1);
+                }}
               >
                 {!isCompletedTodo[1] ? "Completed TODO" : "Incompleted TODO"}
-                {/* {!isCompletedTodo ? "Completed TODO" : "Incompleted TODO"} */}
               </span>
               <TiPlus
                 size={24}
@@ -305,11 +311,11 @@ function Todo() {
               />
             </div>
             <div className="Todo-content-list">
-              {todo.map((item: Todo) => {
+              {allTodo.map((item: Todo) => {
                 return <TodoList item={item} key={item.id} />;
               })}
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

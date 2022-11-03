@@ -10,7 +10,7 @@ function BeforeLogin() {
 
   function goOauth() {
     window.location.href =
-      "https://bssm.kro.kr/oauth/login?clientId=4edf448e&redirectURI=http://localhost:3000/api/user/oauth/bsm";
+      "https://auth.bssm.kro.kr/oauth?clientId=4edf448e&redirectURI=http://localhost:3000/api/user/oauth/bsm";
   }
   return (
     <div className={"root-div"}>

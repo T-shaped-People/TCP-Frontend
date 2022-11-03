@@ -97,12 +97,12 @@ export default function Team() {
           </div>
           <div className="team-notice">
             <p>공지사항</p>
-            {notice.filter((value, i) => i < 2).map((item) => {
-              return <>
+            {notice.reverse().filter((value, i) => i < 2).map((item) => {
+              return <Link to={'/'}>
                 <div className="team-notice-list">
                   <span className="team-notice-title">{item.title}</span>
                 </div>
-              </>
+              </Link>
             })}
             <Link to={'/post/notice/0'} state={{ teamId: param.teamId }} className='notice-plus'>
               {isAdmin && !loading && <TiPlus size={24} color="black" />}
