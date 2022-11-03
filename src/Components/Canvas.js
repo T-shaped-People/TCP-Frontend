@@ -14,7 +14,7 @@ const Canvas = () => {
 
     // 기본 검정색
     const [color, setColor] = useState('black');
-    const [prevposition, setPrevposition] = useState({prevX: 0, prevY: 0});
+    const [prevposition, setPrevposition] = useState({ prevX: 0, prevY: 0 });
 
     useEffect(() => {
         const canvas = canvasRef.current;
@@ -36,7 +36,7 @@ const Canvas = () => {
         const { offsetX, offsetY } = nativeEvent;
 
         setIsDrawing(true);
-        setPrevposition({prevX: offsetX, prevY: offsetY});
+        setPrevposition({ prevX: offsetX, prevY: offsetY });
     }
 
     // 캔버스에서 마우스가 떼졌을 때
@@ -51,7 +51,7 @@ const Canvas = () => {
             // 움직이기
             let before = 10000;
             // && 뒤는 비동기라 바뀌지 않는것에 대비해서 넣음
-            if (isDrawing && before !== prevposition.prevX){
+            if (isDrawing && before !== prevposition.prevX) {
                 before = prevposition.prevX;
                 // 소켓 통신
                 socket.emit('draw', {
@@ -64,13 +64,13 @@ const Canvas = () => {
                 // 함수 사용
                 drawLine(ctx, prevposition.prevX, prevposition.prevY, offsetX, offsetY, color);
                 // 이전의 위치 변경하기
-                setPrevposition({prevX: offsetX, prevY: offsetY});
+                setPrevposition({ prevX: offsetX, prevY: offsetY });
             }
         }
         // 소켓 받기
         socket.on('draw', (data) => drawLine(ctx, data.x1, data.y1, data.x2, data.y2, data.color));
     }
-    
+
     // 색상 변경
     const changeColor = (c) => {
         setColor(c);
@@ -82,11 +82,11 @@ const Canvas = () => {
 
     const drawLine = (context, x1, y1, x2, y2, color) => {
         context.fillStyle = color;
-        const dist = distance(x1, y1, x2, y2); 
-        const ang = getAngle(x2 - x1, y2 - y1); 
-        for(let i = 0;i < dist;i++) context.fillRect(Math.round(x1 + Math.cos(ang) * i), Math.round(y1 + Math.sin(ang) * i), 5, 5);
+        const dist = distance(x1, y1, x2, y2);
+        const ang = getAngle(x2 - x1, y2 - y1);
+        for (let i = 0; i < dist; i++) context.fillRect(Math.round(x1 + Math.cos(ang) * i), Math.round(y1 + Math.sin(ang) * i), 5, 5);
     }
-    
+
     return (
         <div className="Canvas">
             <canvas ref={canvasRef}
