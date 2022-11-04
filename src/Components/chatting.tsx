@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios, { Axios, AxiosError, AxiosPromise } from "axios";
 import { TeamHeader, Sidebar, SecSideBar } from "../allFiles";
 import "../styles/chatting.css";
@@ -9,9 +9,10 @@ import { TiPlus } from "react-icons/ti";
 import Modal from "react-modal";
 
 interface ChatTeam {
+  title: any;
   teamId: string;
   roomId: string;
-  name: string;
+  createdAt: string;
 }
 
 const socket = io("localhost:3000/chat", {
@@ -25,6 +26,18 @@ export default function Chatting() {
   const param = useParams();
   const { teamId, roomId } = param;
   const chatInputRef = React.useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const response = await axios.get("/api/chat/room");
+        console.log(response);
+        setChatTeam(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  }, []);
 
   const send = () => {
     if (chatInputRef.current?.value) {
@@ -55,18 +68,7 @@ export default function Chatting() {
     });
   };
 
-  const [chatTeam, setChatTeam] = useState<ChatTeam[]>([
-    {
-      teamId: "2f5062091293414a9cab4c9d0f5da692",
-      roomId: "",
-      name: "엄",
-    },
-    {
-      teamId: "2f5062091293414a9cab4c9d0f5da692",
-      roomId: "",
-      name: "준",
-    },
-  ]);
+  const [chatTeam, setChatTeam] = useState<ChatTeam[]>([]);
 
   Modal.setAppElement("#root");
 
@@ -170,10 +172,10 @@ export default function Chatting() {
               },
             }}
           >
-            <span>팀 이름을 입력하세요</span>
+            <span>채팅방 이름을 입력하세요</span>
             <input
               type="text"
-              placeholder="팀 이름"
+              placeholder="채팅방 이름"
               value={teamName}
               onChange={(e) => setTeamName(e.target.value)}
             />
@@ -187,7 +189,7 @@ export default function Chatting() {
                 }}
                 className="chatting-select"
               >
-                {item.name.slice(0, 2)}
+                {item.title.slice(0, 2)}
               </button>
             );
           })}
