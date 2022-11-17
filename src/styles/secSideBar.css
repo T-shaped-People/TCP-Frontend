@@ -4,7 +4,7 @@
     margin-top: 50px;
     width: 190px;
     height: -webkit-fill-available;
-    background-color: #15133C;   
+    background-color: #15133C;
 }
 .paddingyong{
     padding-left: 1em;
@@ -152,7 +152,7 @@
     height: 23px;
     background-color: orange;
     border-radius: 20px;
-    
+
 }
 .calendar_sidebar--user > p {
     color: white;
