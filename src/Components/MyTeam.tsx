@@ -29,9 +29,12 @@ const TeamList = ({ team }: { team: Team }) => {
 
   const d_day = getDateDiff(startDate, deadline);
   return (
-    <div className="teamList-div" onClick={()=>{
-      nav(`/team/${team.id}`);
-    }}>
+    <div
+      className="teamList-div"
+      onClick={() => {
+        nav(`/team/${team.id}`);
+      }}
+    >
       <h2>{name}</h2>
       <div className="teamList-span-div">
         <span className="teamList-span-div-deadline">
@@ -52,8 +55,8 @@ const TeamList = ({ team }: { team: Team }) => {
 function MyTeam() {
   const [modal, setModal] = useState(false);
   const [team, setTeam] = useState([]);
-  let haveTeam: boolean = true;
-  // const [haveTeam, setHaveTeam] = useState(true);
+  // let haveTeam: boolean = true;
+  const [haveTeam, setHaveTeam] = useState(true);
   const onClick = () => {
     setModal((prev) => !prev);
   };
@@ -61,15 +64,16 @@ function MyTeam() {
   useEffect(() => {
     (async () => {
       try {
-        setTeam((await getTeam()).data);
+        const response = await getTeam();
+        setTeam(response.data);
+        setHaveTeam(response.data.length > 0);
       } catch (error) {
         console.log(error);
       }
     })();
-    haveTeam = team.length > 0;
   }, []);
 
-  console.log(team);
+  console.log(haveTeam);
 
   const getTeam = () => {
     return axios.get("api/team");

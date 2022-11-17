@@ -4,6 +4,10 @@ nav {
     border-bottom: 4px solid #3F3C6D;
 }
 
+.nav--left{
+    margin-left: 50px;
+}
+
 .team-header--speech {
     width: 30px;
     height: 30px;
