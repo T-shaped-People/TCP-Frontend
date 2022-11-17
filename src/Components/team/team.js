@@ -4,7 +4,7 @@ import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
-import { TeamSide } from "../../allFiles";
+import { TeamHeader, SecSideBar, Sidebar } from "../../allFiles";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { TiPlus } from "react-icons/ti";
@@ -16,6 +16,7 @@ export default function Team() {
   const [loading, setLoading] = useState(false);
   const [todo, setTodo] = useState([]);
   const [notice, setNotice] = useState([]);
+  const [team, setTeam] = useState({});
 
   useEffect(() => {
     axios.get(`/api/todo/incompleted/${param.teamId}`)
@@ -31,6 +32,7 @@ export default function Team() {
       try {
         setLoading(true);
         const response = await axios.get(`/api/team/${param.teamId}`);
+        setTeam(response.data);
         const userResponse = await axios.get('/api/user');
         if (response.data.leaderId === userResponse.data.usercode) {
           setIsAdmin(true);
@@ -47,11 +49,13 @@ export default function Team() {
 
   return (
     <div className="team-root">
-      <TeamSide />
-      <div className="team-title">
-        <h1>프로젝트 명</h1>
+      <TeamHeader />
+      <Sidebar />
+      {/* <SecSideBar /> */}
+      {/* <div className="team-title">
+        <h1>{team.name}</h1>
         <span>마감까지 D-기한</span>
-      </div>
+      </div> */}
       <div className="team">
         <div className="team-div1">
           <div className="team-todo" onClick={() => {

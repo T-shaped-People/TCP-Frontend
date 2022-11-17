@@ -29,6 +29,9 @@ const MainHeader = () => {
             <Link to="/myteam" className="nav--link">
               나의 팀
             </Link>
+            <Link to="/maketeam" className="nav--link">
+              팀 만들기
+            </Link>
           </div>
         </div>
         <div className="nav--right">
