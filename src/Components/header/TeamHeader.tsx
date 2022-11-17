@@ -44,7 +44,7 @@ const TeamHeader = () => {
               className="team-header--speech"
             />
           </li>
-          <li>
+          <li onClick={()=> navigate('todo') } style={{cursor: "pointer"}}>
             <img
               src="/images/carbon_notebook.png"
               alt="icon"

@@ -1,6 +1,6 @@
 import TeamHeader from "./Components/header/TeamHeader";
 import MainHeader from "./Components/header/MainHeader";
-import Sidebar from "./Components/Sidebar";
+import Sidebar from "./Components/team/Sidebar";
 import MakeProject from "./Components/makeProject";
 import Chatting from "./Components/team/chatting";
 import Canvas from "./Components/team/Canvas";

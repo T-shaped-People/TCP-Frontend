@@ -21,7 +21,6 @@ export default function TeamSide() {
   // };
   return (
     <div className="teamSide-root">
-      <img src="/images/tcpicon2.png" alt="icon" className="teamSide-logo" />
       <Link to="/team">대시보드</Link>
       <Link to="todo">TODO</Link>
       <Link to="/">캘린더</Link>
