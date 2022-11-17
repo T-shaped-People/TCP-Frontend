@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
-import '../styles/Canvas.css';
+import '../../styles/team/Canvas.css';
 import { io } from 'socket.io-client';
 
 const socket = io.connect(`http://localhost:3000`);

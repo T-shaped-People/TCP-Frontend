@@ -1,7 +1,7 @@
 import axios from "axios";
 import React from "react";
-import { MainHeader, Sidebar, LoadingPage } from "../allFiles";
-import "../styles/community.css";
+import { MainHeader, Sidebar, LoadingPage } from "../../allFiles";
+import "../../styles/community/community.css";
 import { TiPlus } from "react-icons/ti";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -18,7 +18,6 @@ interface Post {
 export default function Community() {
   const [post, setPost] = React.useState<Post[]>([]);
   const [page, setPage] = React.useState(1);
-  const [loading, setLoading] = React.useState(false);
 
   const nav = useNavigate();
 
@@ -31,14 +30,12 @@ export default function Community() {
       .then((data) => {
         console.log(data.data.posts);
         setPost(data.data.posts);
-        setLoading(true);
       });
   }, [page]);
 
   return (
     <main className="community--main">
       <MainHeader />
-      {loading ? (
         <div className="community_container">
           <div className="community-top">
             <h1 className="title">팀원 모집</h1>
@@ -63,9 +60,6 @@ export default function Community() {
             );
           })}
         </div>
-      ) : (
-        <LoadingPage />
-      )}
     </main>
   );
 }

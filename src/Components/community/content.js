@@ -1,8 +1,8 @@
-import { MainHeader, Comment } from "../allFiles";
+import { MainHeader, Comment } from "../../allFiles";
 import { useParams, useNavigate } from "react-router-dom";
 import React from "react";
 import axios, { AxiosError } from "axios";
-import "../styles/content.css";
+import "../../styles/community/content.css";
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 

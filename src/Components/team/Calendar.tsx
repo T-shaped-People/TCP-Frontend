@@ -1,18 +1,45 @@
-import { TeamHeader, SecSideBar, Sidebar } from '../allFiles';
-import "../styles/calendar.css"
-import FullCalendar from '@fullcalendar/react';
+import { TeamHeader, SecSideBar, Sidebar } from '../../allFiles';
+import "../../styles/team/calendar.css"
+import FullCalendar, { EventDropArg } from '@fullcalendar/react';
 import timeGridPlugin from "@fullcalendar/timegrid";
 import dayGridPlugin from '@fullcalendar/daygrid';
-import interactionPlugin from "@fullcalendar/interaction";
+import interactionPlugin, { EventResizeDoneArg } from "@fullcalendar/interaction";
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { AiOutlinePlusSquare } from 'react-icons/ai'
 import Modal from 'react-modal';
 
-function CalendarInput({ closeModal, setRefreshCalendar, setInput, input }) {
+interface CalendarIn{
+  closeModal: () => void
+  setRefreshCalendar: React.Dispatch<React.SetStateAction<boolean>>
+  setInput: React.Dispatch<React.SetStateAction<{
+    teamId: string;
+    endDate: string;
+    startDate: string;
+    content: string;
+  }>>
+  input: any
+}
+
+interface CalendarScheduleListType{
+  id: number
+  usercode: string
+  teamId: string
+  startDate: string
+  endDate: string
+  content: string
+}
+
+interface CalendarScheduleType{
+  title: string
+  start: string
+  end: string
+}
+
+function CalendarInput({ closeModal, setRefreshCalendar, setInput, input }: CalendarIn) {
   const onChange = (
-    e
+    e: React.ChangeEvent<HTMLInputElement>
   ) => {
     const { name, value } = e.target;
     const nextInputs = {
@@ -51,6 +78,7 @@ function CalendarInput({ closeModal, setRefreshCalendar, setInput, input }) {
 }
 
 export default function Calendar() {
+
   const [schedule, setSchedule] = useState([]);
   const [modal, setModal] = useState(false);
   const [refreshCalendar, setRefreshCalendar] = useState(false);
@@ -74,10 +102,11 @@ export default function Calendar() {
           input.endDate = "";
           input.startDate = "";
         }
-        const newArray = [];
-        const viewCalendar = (await getCalendar()).data;
-        viewCalendar.map((value) => {
+        const newArray: CalendarScheduleType[] = [];
+        const viewCalendar: CalendarScheduleListType[] = (await getCalendar()).data;
+        viewCalendar.map((value: CalendarScheduleListType) => {
           const newSchedule = {
+            id: value.id,
             title: value.content,
             start: value.startDate.substring(0, 10),
             end: value.endDate.substring(0, 10),
@@ -91,20 +120,6 @@ export default function Calendar() {
     })();
   }, [refreshCalendar])
 
-  const testPostCalendar = async () => {
-    try {
-      const data = {
-        teamId: param.teamId,
-        endDate: '2022-09-15',
-        startDate: '2022-09-13',
-        content: '테스트5',
-      }
-      await axios.post('/api/calendar/upload', data);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
   const getCalendar = async () => {
     return axios.get(`/api/calendar/${param.teamId}`);
   }
@@ -115,6 +130,23 @@ export default function Calendar() {
 
   const openModal = () => {
     setModal(true);
+  }
+
+  const ScheduleDrag = (event: (EventDropArg | EventResizeDoneArg)) => {
+    const {start, end} = event.event._instance.range;
+    const {publicId, title} = event.event._def
+    const convertStart: Array<string> = ((start.toLocaleDateString()).replaceAll(' ', '')).split('.')
+    const convertEnd: Array<string> = ((end.toLocaleDateString()).replaceAll(' ', '')).split('.')
+
+    const newStart = `${convertStart[0]}-${convertStart[1].padStart(2, "0")}-${convertStart[2].padStart(2, "0")}`
+    const newEnd = `${convertEnd[0]}-${convertEnd[1]}-${convertEnd[2]}`
+
+    axios.put('/api/calendar', {
+      id: publicId,
+      endDate: newEnd,
+      startDate: newStart,
+      content: title
+    })
   }
 
   return (
@@ -139,6 +171,8 @@ export default function Calendar() {
             eventColor={'#F2921D'}
             height={'100%'}
             events={schedule}
+            eventDrop={ScheduleDrag}
+            eventResize={ScheduleDrag}
           />
         </div>
       </div>
@@ -160,7 +194,6 @@ export default function Calendar() {
         className="popup">
         <CalendarInput closeModal={closeModal} setRefreshCalendar={setRefreshCalendar} setInput={setInput} input={input} />
       </Modal>
-      <button onClick={testPostCalendar}>클릭</button>
     </div>
   )
 }

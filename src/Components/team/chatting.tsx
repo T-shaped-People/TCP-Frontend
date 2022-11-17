@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios, { Axios, AxiosError, AxiosPromise } from "axios";
-import { TeamHeader, Sidebar, SecSideBar } from "../allFiles";
-import "../styles/chatting.css";
+import { TeamHeader, Sidebar, SecSideBar } from "../../allFiles";
+import "../../styles/team/chatting.css";
 import { io } from "socket.io-client";
-import { Chat } from "../types/chat";
+import { Chat } from "../../types/chat";
 import { useNavigate, useParams } from "react-router-dom";
 import { TiPlus } from "react-icons/ti";
 import Modal from "react-modal";

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { MainHeader } from "../allFiles";
+import { MainHeader } from "../../allFiles";
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import "../styles/Post.css";
+import "../../styles/community/Post.css";
 import axios from "axios";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 

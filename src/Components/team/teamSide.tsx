@@ -1,6 +1,6 @@
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
-import "../styles/teamSide.css";
+import "../../styles/team/teamSide.css";
 
 export default function TeamSide() {
   const param = useParams();

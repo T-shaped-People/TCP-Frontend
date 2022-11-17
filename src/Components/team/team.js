@@ -1,9 +1,10 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
-import '../styles/team.css'
+import '../../styles/team/team.css'
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
-import { TeamHeader, SecSideBar, Sidebar } from "../allFiles";
+import { TeamHeader, SecSideBar, Sidebar } from "../../allFiles";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { TiPlus } from "react-icons/ti";
