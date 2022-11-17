@@ -14,6 +14,7 @@ interface Post {
   nickname: string;
   title: string;
   usercode: number;
+  img: string;
 }
 export default function Community() {
   const [post, setPost] = React.useState<Post[]>([]);
@@ -40,25 +41,34 @@ export default function Community() {
           <div className="community-top">
             <h1 className="title">팀원 모집</h1>
             <Link to={"/post/post/0"}>
-              <TiPlus size={48} display="inline" className="writePost" color="black"/>
+              <TiPlus
+                size={48}
+                display="inline"
+                className="writePost"
+                color="black"
+              />
             </Link>
           </div>
-          {post.map((value) => {
-            const date = value.createdAt.substring(0, 10);
-            return (
-              <span
-                className="board"
-                onClick={() => {
-                  nav(`/content/${value.id}/${page}`);
-                }}
-              >
-                <h3 className="board--title">{value.title}</h3>
-                <span className="board--stack"></span>
-                <span className="board--recruit"></span>
-                <span className="board--date">{date}</span>
-              </span>
-            );
-          })}
+          <div className="board-root">
+            {post.map((value) => {
+              const date = value.createdAt.substring(0, 10);
+              return (
+                <div
+                  className="board"
+                  onClick={() => {
+                    nav(`/content/${value.id}/${page}`);
+                  }}
+                >
+                  <img src={value.img} alt="팀 모집 사진"></img>
+                  <h3 className="board--title">{value.title}</h3>
+                  <span>{value.nickname}</span>
+                  {/* <span className="board--stack"></span>
+                  <span className="board--recruit"></span> */}
+                  <span className="board--date">{date}</span>
+                </div>
+              );
+            })}
+          </div>
         </div>
     </main>
   );

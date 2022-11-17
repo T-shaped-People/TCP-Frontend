@@ -32,10 +32,14 @@
     border-left: none;
     display: flex;
     align-items: center;
-    height: 10%;
+    height: 400px;
     position: relative;
     width: 1300px;
     cursor: pointer;
+}
+
+.board-root{
+    display: flex;
 }
 
 .board--title{

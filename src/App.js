@@ -73,6 +73,7 @@ function App() {
           <Route path={"/team/:teamId/calendar"} element={<Calendar />}></Route>
           <Route path={"/team/:teamId/:roomId/chatting"} element={<Chatting />}></Route>
           <Route path={"/team/:teamId"} element={<Team />}></Route>
+          <Route path={"/jointeam"} element={<JoinTeam />} />
         </Routes>
       </UserContext.Provider>
     </BrowserRouter>

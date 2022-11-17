@@ -25,7 +25,7 @@ export default function Team() {
       }).then((data) => {
         setTodo(data.data);
       })
-  }, []);
+  }, [param]);
 
   useEffect(() => {
     const getTeamInfo = async () => {
@@ -116,7 +116,7 @@ export default function Team() {
 
           <div className="team-direct">
             <p>바로가기</p>
-            <Link to="https://www.figma.com/file/X60Jy15c8mHbCHmM31bZaT/tcp-design">피그마</Link>
+            <a href="https://www.figma.com/file/X60Jy15c8mHbCHmM31bZaT/tcp-design">피그마</a>
           </div>
         </div>
       </div>

@@ -14,6 +14,7 @@ import LoadingPage from "./Components/loadingPage";
 import NotFound from "./Components/NotFound";
 import MyTeam from "./Components/MyTeam";
 import JoinTeam from "./Components/JoinTeam";
+<<<<<<< Updated upstream
 import Team from "./Components/team/team";
 import TeamSide from "./Components/team/teamSide";
 import Todo from "./Components/team/Todo";
@@ -21,6 +22,12 @@ import Post from "./Components/community/Post";
 import Comment from "./Components/comment/comment";
 import Recomment from "./Components/comment/Recomment";
 import Notice from "./Components/Notice";
+=======
+import Team from "./Components/team";
+import TeamSide from "./Components/teamSide";
+import Todo from "./Components/Todo";
+import Post from "./Components/Post";
+>>>>>>> Stashed changes
 
 export {
   TeamHeader,
