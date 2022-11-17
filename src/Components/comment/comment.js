@@ -1,4 +1,4 @@
-import '../../styles/comment/comment.css';
+import '../../styles/comment/Recomment.css';
 import { Recomment } from '../../allFiles';
 import { useState } from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
