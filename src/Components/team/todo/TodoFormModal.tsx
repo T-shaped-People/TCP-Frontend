@@ -2,9 +2,9 @@ import axios from "axios";
 import { useState } from "react";
 import { TeamMemberType } from "./TodoType";
 
-type MyTodoType = { 
+type MyTodoType = {
     teamId: string,
-    toggleMyTodoModal: () => void 
+    toggleMyTodoModal: () => void
 }
 
 type InputStateType = {
@@ -14,9 +14,19 @@ type InputStateType = {
     teamId: string
 }
 
-const MyTodo = ({ teamId, toggleMyTodoModal }: MyTodoType ) => {
+const MyTodo = ({ teamId, toggleMyTodoModal }: MyTodoType) => {
+
+    const initialInputState: InputStateType = {
+        title: "",
+        todo: "",
+        endAt: "",
+        teamId: teamId,
+    }
+
     const [userCode, setUserCode] = useState<number>(0);
     const [teamMemberList, setTeamMemberList] = useState<TeamMemberType[]>([]);
+    const [input, setInput] = useState<InputStateType>(initialInputState);
+    const [text, setText] = useState<string>("");
 
     const postTodo = async () => {
         try {
@@ -26,7 +36,7 @@ const MyTodo = ({ teamId, toggleMyTodoModal }: MyTodoType ) => {
                 teamId: teamId,
                 mentionUsercode: userCode,
             });
-            if (result != null) {
+            if (result && mentionResult) {
                 toggleMyTodoModal();
             } else {
                 setText("실패했습니다.");
@@ -61,21 +71,13 @@ const MyTodo = ({ teamId, toggleMyTodoModal }: MyTodoType ) => {
         }
     };
 
-    const [input, setInput] = useState<InputStateType>({
-        title: "",
-        todo: "",
-        endAt: "",
-        teamId: teamId,
-    });
-    const [text, setText] = useState<string>("");
-
     return (
         <div className="mytodo-root">
             <div className="mytodo-header">
                 <h1 className="mytodo-title">할 일 등록</h1>
                 <div
                     className="mytodo-button"
-                    onClick={() => { toggleMyTodoModal(); }}
+                    onClick={toggleMyTodoModal}
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -123,12 +125,12 @@ const MyTodo = ({ teamId, toggleMyTodoModal }: MyTodoType ) => {
                         className="mytodo-input"
                         value={userCode}
                         name="mention"
-                        onFocus={() => getMemberList()}
+                        onFocus={getMemberList}
                         onChange={(e) => {
                             selectChange(e);
                         }}
                     >
-                        <option value={0}></option>
+                        <option disabled selected hidden>언급할 팀원을 선택하세요</option>
                         {teamMemberList.map((item) => {
                             return (
                                 <option value={item.usercode} key={item.usercode}>
@@ -142,7 +144,7 @@ const MyTodo = ({ teamId, toggleMyTodoModal }: MyTodoType ) => {
                     <div className="mytodo-button-div">
                         <div
                             className="mytodo-button-cancel"
-                            onClick={() => { toggleMyTodoModal(); }}
+                            onClick={toggleMyTodoModal}
                         >
                             취소
                         </div>

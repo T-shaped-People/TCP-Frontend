@@ -26,7 +26,6 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    height: calc(100% - 50px);
 }
 
 .Todo-content {

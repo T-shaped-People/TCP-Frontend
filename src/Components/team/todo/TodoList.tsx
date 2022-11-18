@@ -16,7 +16,7 @@ const TodoList = ({ item }: TodoListType) => {
     Modal.setAppElement("#root");
 
     useEffect(() => {
-        completed ? setComplete("완료됨") : setComplete("진행중");
+        completed ? setComplete("완료됨") : setComplete("진행 중");
     }, [item]);
 
     return (
@@ -39,21 +39,20 @@ const TodoList = ({ item }: TodoListType) => {
                         height: "500px",
                         margin: "auto",
                         borderRadius: "20px",
-                        borderStartEndRadius: "20px",
                         overflowX: "hidden",
                         boxShadow: "0 1px 2px rgba(0, 0, 0, 0.40)"
                     },
                 }}
             >
-            <TodoModal
-                id={id}
-                title={title}
-                setModal={setModal}
-                nickname={nickname}
-                created={created}
-                end={end}
-                todo={todo}
-            />
+                <TodoModal
+                    id={id}
+                    title={title}
+                    setModal={setModal}
+                    nickname={nickname}
+                    created={created}
+                    end={end}
+                    todo={todo}
+                />
             </Modal>
         </div>
     );
