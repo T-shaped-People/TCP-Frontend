@@ -15,7 +15,7 @@ interface ChatTeam {
   createdAt: string;
 }
 
-const socket = io("localhost:3000/chat", {
+const socket = io("43.201.36.11:3000/chat", {
   transports: ["websocket"],
 });
 
