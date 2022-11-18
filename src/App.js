@@ -14,7 +14,8 @@ import {
   Team,
   Todo,
   Post,
-  Notice
+  Notice,
+  JoinTeam
 } from "./allFiles";
 import axios, { AxiosError } from "axios";
 import "./styles/App.css";
