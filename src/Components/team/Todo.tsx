@@ -165,8 +165,8 @@ const TodoList = ({ item }: { item: Todo }) => {
   const [complete, setComplete] = useState("진행중");
   const [modal, setModal] = useState(false);
   const param = useParams();
-  let created = createdAt.substr(0, 10);
-  let end = endAt.substr(0, 10);
+  let created = createdAt.substring(0, 10);
+  let end = endAt.substring(0, 10);
   Modal.setAppElement("#root");
   useEffect(() => {
     completed ? setComplete("완료됨") : setComplete("진행중");
@@ -184,6 +184,7 @@ const TodoList = ({ item }: { item: Todo }) => {
     <div>
       <div className="Todo-content-list-line" onClick={() => setModal(true)}>
         <span className="Todo-content-list-line-todo">{title}</span>
+        <span className="Todo-content-list-line-date">{created}</span>
         <span className="Todo-content-list-line-complete">{complete}</span>
       </div>
       <Modal
@@ -205,9 +206,11 @@ const TodoList = ({ item }: { item: Todo }) => {
       >
         <div className="modal-top">
           <h1 className="modal-title">{title}</h1>
-          <button className="modal-btn" onClick={() => completeTodo()}>
-            완료하기
-          </button>
+          <div className="modal-btn" onClick={() => completeTodo()}>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
         </div>
         <div className="modal-info">
           <span className="modal-nickname">{nickname}</span>
@@ -238,7 +241,6 @@ function Todo() {
     (async () => {
       try {
         const response = await getTodo(todoIndex);
-        console.log(response);
         setTodo(response.data);
       } catch (error) {
         console.log(error);
@@ -264,7 +266,7 @@ function Todo() {
       <SecSideBar />
       <div className="Todo">
         <div className="Todo-title-div">
-          <h1 className="Todo-title">TODO</h1>
+          <h1 className="Todo-title">Todos</h1>
         </div>
         <div className="Todo-content-div">
           {myTodoModal && <MyTodo teamId={param.teamId} func={addMyTodo} />}
