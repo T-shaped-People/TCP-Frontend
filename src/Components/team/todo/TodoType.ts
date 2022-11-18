@@ -1,4 +1,4 @@
-export interface Todo {
+export interface TodoType {
     id: number;
     completed: boolean;
     nickname: string;
@@ -8,7 +8,7 @@ export interface Todo {
     todo: string;
 }
 
-export interface teamMember {
+export interface TeamMemberType {
     usercode: number;
     teamId: string;
     nickname: string;

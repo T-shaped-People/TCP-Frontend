@@ -6,15 +6,15 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import Modal from "react-modal";
 import MyTodo from "./TodoFormModal";
-import { Todo , teamMember } from "./TodoType";
+import { TodoType, TeamMemberType } from "./TodoType";
 import TodoList from "./TodoList";
 
 
-function TodoContainer() {
-  const [myTodoModal, setMyTodoModal] = useState(false);
-  const [todo, setTodo] = useState<Todo[]>([]);
-  const [isCompletedTodo, setIsCompletedTodo] = useState([false, false]);
-  const [todoIndex, setTodoIndex] = useState(0);
+const Todo = () => {
+  const [myTodoModal, setMyTodoModal] = useState<boolean>(false);
+  const [todo, setTodo] = useState<TodoType[]>([]);
+  const [isCompletedTodo, setIsCompletedTodo] = useState<boolean[]>([false, false]);
+  const [todoIndex, setTodoIndex] = useState<number>(0);
 
   const param = useParams();
 
@@ -44,6 +44,7 @@ function TodoContainer() {
       return axios.get(`/api/todo/completed/${param.teamId}`);
     else return axios.get(`/api/todo/incompleted/${param.teamId}`);
   };
+
   return (
     <div className="Todo-root">
       <TeamHeader />
@@ -93,39 +94,15 @@ function TodoContainer() {
               />
             </div>
             <div className="Todo-content-list">
-              {todo.map((item: Todo) => {
+              {todo.map((item: TodoType) => {
                 return <TodoList item={item} key={item.id} />;
               })}
             </div>
           </div>
-          {/* <div className="Todo-content">
-            <div className="Todo-content-header">
-              <h1 className="Todo-content-title">ALL TODO</h1>
-              <span
-                className="Todo-content-completed"
-                onClick={() => {
-                  showCompletedTodo(1);
-                  setTodoIndex(1);
-                }}
-              >
-                {!isCompletedTodo[1] ? "Completed TODO" : "Incompleted TODO"}
-              </span>
-              <TiPlus
-                size={24}
-                onClick={addMyTodo}
-                className="Todo-content-new"
-              />
-            </div>
-            <div className="Todo-content-list">
-              {allTodo.map((item: Todo) => {
-                return <TodoList item={item} key={item.id} />;
-              })}
-            </div>
-          </div> */}
         </div>
       </div>
     </div>
   );
 }
 
-export default TodoContainer;
+export default Todo;

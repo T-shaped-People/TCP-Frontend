@@ -16,7 +16,7 @@ import MyTeam from "./Components/MyTeam";
 import JoinTeam from "./Components/JoinTeam";
 import Team from "./Components/team/team";
 import TeamSide from "./Components/team/teamSide";
-import TodoContainer from "./Components/team/todo/Todo";
+import TodoType from "./Components/team/todo/Todo";
 import Post from "./Components/community/Post";
 import Comment from "./Components/comment/comment";
 import Recomment from "./Components/comment/Recomment";
@@ -41,7 +41,7 @@ export {
   JoinTeam,
   Team,
   TeamSide,
-  TodoContainer as Todo,
+  TodoType as Todo,
   Post,
   Comment,
   Recomment,
