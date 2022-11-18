@@ -3,10 +3,34 @@ import '../../styles/team/team.css'
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from "@fullcalendar/interaction";
-import { TeamHeader, TeamSide, Sidebar } from "../../allFiles";
+import { TeamHeader, Sidebar } from "../../allFiles";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import {useEffect, useLayoutEffect, useState} from "react";
 import { TiPlus } from "react-icons/ti";
+
+interface UpcomingSchedule {
+  id: number
+  usercode: number
+  teamId: string
+  startDate: string
+  endDate: string
+  content: string
+}
+
+interface CalendarScheduleListType{
+  id: number
+  usercode: string
+  teamId: string
+  startDate: string
+  endDate: string
+  content: string
+}
+
+interface CalendarScheduleType{
+  title: string
+  start: string
+  end: string
+}
 
 export default function Team() {
   const nav = useNavigate();
@@ -15,36 +39,47 @@ export default function Team() {
   const [loading, setLoading] = useState(false);
   const [todo, setTodo] = useState([]);
   const [notice, setNotice] = useState([]);
-  const [team, setTeam] = useState({});
+  const [upcoming, setUpcoming] = useState<UpcomingSchedule[]>([]);
+  const [schedule, setSchedule] = useState([]);
 
-  useEffect(() => {
-    axios.get(`/api/todo/incompleted/${param.teamId}`)
-      .then((response) => {
-        return response
-      }).then((data) => {
-        setTodo(data.data);
-      })
-  }, []);
-
-  useEffect(() => {
+  useLayoutEffect(() => {
     const getTeamInfo = async () => {
       try {
+        axios.get(`/api/todo/incompleted/${param.teamId}`)
+            .then((response) => {
+              return response
+            }).then((data) => {
+          setTodo(data.data);
+        })
         setLoading(true);
         const response = await axios.get(`/api/team/${param.teamId}`);
-        setTeam(response.data);
         const userResponse = await axios.get('/api/user');
         if (response.data.leaderId === userResponse.data.usercode) {
           setIsAdmin(true);
         }
         const noticeResponse = await axios.get(`/api/alarm/${param.teamId}`);
         setNotice(noticeResponse.data);
+        const upcoming = await axios.get(`/api/calendar/upcoming/${param.teamId}`)
+        setUpcoming(upcoming.data);
+        const newArray: CalendarScheduleType[] = [];
+        const viewCalendar: CalendarScheduleListType[] = (await axios.get(`/api/calendar/${param.teamId}`)).data;
+        viewCalendar.map((value: CalendarScheduleListType) => {
+          const newSchedule = {
+            id: value.id,
+            title: value.content,
+            start: value.startDate.substring(0, 10),
+            end: value.endDate.substring(0, 10),
+          }
+          newArray.push(newSchedule);
+        })
+        setSchedule(newArray);
       } catch (error) {
         console.log(error);
       }
     }
     getTeamInfo();
     setLoading(false);
-  }, [])
+  }, [param.teamId])
 
   return (
     <div className="team-root">
@@ -86,17 +121,27 @@ export default function Team() {
               <FullCalendar
                 plugins={[dayGridPlugin, interactionPlugin]}
                 editable={true}
+                headerToolbar={{
+                  left: "title",
+                  center: "",
+                  right: ""
+                }}
                 initialView="dayGridMonth"
                 eventDisplay={'block'}
                 eventTextColor={'#FFF'}
                 eventColor={'#F2921D'}
                 height={'100%'}
+                events={schedule}
               />
             </div>
             <div className="team-calendar-text">
               <p>예정된 일정</p>
-              <p>00일: 이거하기</p>
-              <p>00일: 저거하기</p>
+              {upcoming.map((value: UpcomingSchedule)=>{
+                const date = (new Date(value.endDate).toLocaleDateString()).replaceAll(".", '')
+                return(
+                    <p>{date}까지 : {value.content}</p>
+                )
+              })}
             </div>
           </div>
           <div className="team-notice">

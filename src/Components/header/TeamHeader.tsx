@@ -44,15 +44,12 @@ const TeamHeader = () => {
               className="team-header--speech"
             />
           </li>
-          <li onClick={()=> navigate('todo') } style={{cursor: "pointer"}}>
+          <li onClick={()=> navigate('todo') } className={"team-header-todo"}>
             <img
               src="/images/carbon_notebook.png"
               alt="icon"
               className="team-header--notebook"
             />
-          </li>
-          <li>
-            <input type="text" className="team-header--input" />
           </li>
           <li className="header--username">
             <img
