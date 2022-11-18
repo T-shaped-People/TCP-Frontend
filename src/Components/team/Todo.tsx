@@ -22,22 +22,20 @@ interface teamMember {
   nickname: string;
 }
 
-function MyTodo({ teamId, func }: { teamId: string; func: any }) {
+function MyTodo({ teamId, toggleMyTodoModal }: { teamId: string; toggleMyTodoModal: any }) {
   const [userCode, setUserCode] = useState(0);
   const [teamMemberList, setTeamMemberList] = useState<teamMember[]>([]);
 
   const postTodo = async () => {
     try {
-      console.log(userCode);
       const result = await axios.post("/api/todo/upload", input);
       const mentionResult = await axios.post("/api/todo/mention", {
         todoId: result.data.id,
         teamId: teamId,
         mentionUsercode: userCode,
       });
-      console.log(mentionResult);
       if (result != null) {
-        func();
+        toggleMyTodoModal();
       } else {
         setText("실패했습니다.");
       }
@@ -61,7 +59,6 @@ function MyTodo({ teamId, func }: { teamId: string; func: any }) {
 
   const selectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { value } = e.target;
-    console.log(value);
     setUserCode(Number(value));
   };
 
@@ -84,7 +81,17 @@ function MyTodo({ teamId, func }: { teamId: string; func: any }) {
 
   return (
     <div className="mytodo-root">
-      <h1 className="mytodo-title">할 일 등록</h1>
+      <div className="mytodo-header">
+        <h1 className="mytodo-title">할 일 등록</h1>
+        <div
+          className="mytodo-button"
+          onClick={() => { toggleMyTodoModal(); }}
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </div>
+      </div>
       <ul className="mytodo-ul">
         <li className="mytodo-li-1">
           <span className="mytodo-span">할 일</span>
@@ -141,18 +148,18 @@ function MyTodo({ teamId, func }: { teamId: string; func: any }) {
             })}
           </select>
         </li>
-        <div className="mytodo-button-div">
-          <button className="mytodo-button" onClick={postTodo}>
-            등록
-          </button>
-          <button
-            className="mytodo-button"
-            onClick={() => {
-              func();
-            }}
-          >
-            취소
-          </button>
+        <div>
+          <div className="mytodo-button-div">
+            <div
+              className="mytodo-button-cancel"
+              onClick={() => { toggleMyTodoModal(); }}
+            >
+              취소
+            </div>
+            <div className="mytodo-button-submit" onClick={postTodo}>
+              등록
+            </div>
+          </div>
         </div>
       </ul>
       <span>{text}</span>
@@ -200,7 +207,9 @@ const TodoList = ({ item }: { item: Todo }) => {
             height: "500px",
             margin: "auto",
             borderRadius: "20px",
+            borderStartEndRadius: "20px",
             overflowX: "hidden",
+            boxShadow: "0 1px 2px rgba(0, 0, 0, 0.40)"
           },
         }}
       >
@@ -227,13 +236,12 @@ const TodoList = ({ item }: { item: Todo }) => {
 function Todo() {
   const [myTodoModal, setMyTodoModal] = useState(false);
   const [todo, setTodo] = useState<Todo[]>([]);
-  const [allTodo, setAllTodo] = useState<Todo[]>([]);
   const [isCompletedTodo, setIsCompletedTodo] = useState([false, false]);
   const [todoIndex, setTodoIndex] = useState(0);
-  // const [isCompletedTodo, setIsCompletedTodo] = useState(false);
+
   const param = useParams();
 
-  const addMyTodo = () => {
+  const toggleMyTodoModal = () => {
     setMyTodoModal((prev) => !prev);
   };
 
@@ -269,7 +277,26 @@ function Todo() {
           <h1 className="Todo-title">Todos</h1>
         </div>
         <div className="Todo-content-div">
-          {myTodoModal && <MyTodo teamId={param.teamId} func={addMyTodo} />}
+          <Modal
+            isOpen={myTodoModal}
+            onRequestClose={() => setMyTodoModal(false)}
+            style={{
+              overlay: {
+                backgroundColor: "rgba(0, 0, 0, 0.5)",
+                zIndex: 100,
+              },
+              content: {
+                width: "45%",
+                height: "85%",
+                margin: "auto",
+                borderRadius: "20px",
+                borderStartEndRadius: "20px",
+                boxShadow: "0 1px 2px rgba(0, 0, 0, 0.40)"
+              },
+            }}
+          >
+            <MyTodo teamId={param.teamId} toggleMyTodoModal={toggleMyTodoModal} />
+          </Modal>
           <div className="Todo-content">
             <div className="Todo-content-header">
               <h1 className="Todo-content-title">MY TODO</h1>
@@ -284,7 +311,7 @@ function Todo() {
               </span>
               <TiPlus
                 size={24}
-                onClick={addMyTodo}
+                onClick={toggleMyTodoModal}
                 className="Todo-content-new"
               />
             </div>
