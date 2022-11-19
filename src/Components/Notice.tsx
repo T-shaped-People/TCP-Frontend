@@ -9,6 +9,7 @@ function Notice() {
       <TeamHeader />
       <Sidebar />
       <SecSideBar />
+      
     </div>
   );
 }

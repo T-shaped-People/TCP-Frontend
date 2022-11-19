@@ -4,16 +4,22 @@ import { MainHeader, Sidebar, LoadingPage } from "../../allFiles";
 import "../../styles/community/community.css";
 import { TiPlus } from "react-icons/ti";
 import { Link, useNavigate } from "react-router-dom";
+import { AiOutlineEye } from "react-icons/ai";
+import { FaRegComment } from "react-icons/fa";
 
 interface Post {
   category: string;
-  commendCnt: number;
+  commentCnt: number;
   createdAt: string;
   hit: number;
   id: number;
   nickname: string;
   title: string;
   usercode: number;
+  img: string;
+  description: string;
+  teamColor: string;
+  field: string;
 }
 export default function Community() {
   const [post, setPost] = React.useState<Post[]>([]);
@@ -23,7 +29,7 @@ export default function Community() {
 
   React.useEffect(() => {
     axios
-      .get(`/api/board/post?category=normal&limit=5&page=${page}`)
+      .get(`/api/board/post?category=normal&limit=15&page=${page}`)
       .then((response) => {
         return response;
       })
@@ -36,30 +42,68 @@ export default function Community() {
   return (
     <main className="community--main">
       <MainHeader />
-        <div className="community_container">
-          <div className="community-top">
-            <h1 className="title">팀원 모집</h1>
-            <Link to={"/post/post/0"}>
-              <TiPlus size={48} display="inline" className="writePost" color="black"/>
-            </Link>
-          </div>
-          {post.map((value) => {
-            const date = value.createdAt.substring(0, 10);
+      <div className="community_container">
+        <div className="community-top">
+          <h1 className="title">팀원 모집</h1>
+          <Link to={"/post/post/0"}>
+            <TiPlus
+              size={48}
+              display="inline"
+              className="writePost"
+              color="black"
+            />
+          </Link>
+        </div>
+        <div className="board-root">
+          {post.map((item) => {
+            const date = item.createdAt.substring(0, 10);
+            console.log(item.teamColor);
             return (
-              <span
+              <div
                 className="board"
                 onClick={() => {
-                  nav(`/content/${value.id}/${page}`);
+                  nav(`/content/${item.id}/${page}`);
                 }}
               >
-                <h3 className="board--title">{value.title}</h3>
-                <span className="board--stack"></span>
-                <span className="board--recruit"></span>
-                <span className="board--date">{date}</span>
-              </span>
+                {/* <img
+                  src={"/images/bsmicon.png"}
+                  alt="팀 사진"
+                  className="board--img"
+                /> */}
+                <div
+                  className="board--img"
+                  style={{
+                    backgroundColor: item.teamColor
+                      ? "#" + item.teamColor
+                      : "black",
+                  }}
+                ></div>
+                <div className="board--card">
+                  <div className="board--title--line">
+                    <h3 className="board--title">{item.title}</h3>
+                  </div>
+                  {/* <span className="board--stack"></span>
+                  <span className="board--recruit"></span> */}
+                  <div className="board--sub--line">
+                    <span className="board--nick">by {item.nickname}</span>
+                    <AiOutlineEye size={16} />
+                    &nbsp;
+                    <span className="board--nick">{item.hit}</span>
+                    <FaRegComment size={12} />
+                    &nbsp;
+                    <span className="board--nick">{item.commentCnt}</span>
+                  </div>
+                  <div className="board--content">
+                    <span className="recruit">{item.field}</span>
+                    {item.description}
+                  </div>
+                  <span className="board--date">{date}</span>
+                </div>
+              </div>
             );
           })}
         </div>
+      </div>
     </main>
   );
 }

@@ -5,13 +5,17 @@ import axios, { AxiosError } from "axios";
 import "../../styles/community/content.css";
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { AiOutlineEye } from "react-icons/ai";
+import { FaRegComment } from "react-icons/fa";
+// import { connect } from "http2";
+
 
 export default function Content() {
   const param = useParams();
   const nav = useNavigate();
 
   const [input, setInput] = React.useState("");
-  const [comment, setComment] = React.useState([]); 
+  const [comment, setComment] = React.useState([]);
   const [content, setContent] = React.useState({});
 
   React.useEffect(() => {
@@ -72,32 +76,54 @@ export default function Content() {
   const getComment = () => {
     return axios.get(`/api/board/comment/${param.postId}`);
   };
- 
+
   const deleteComment = (id) => {
     axios.delete(`/api/board/comment/${param.postId}/${id}`);
   }
+
+  const getTextColorByBackgroundColor = (hexColor) => {
+    const rgb = parseInt(hexColor, 16)
+    const r = (rgb >> 16) & 0xff
+    const g = (rgb >> 8) & 0xff
+    const b = (rgb >> 0) & 0xff
+    const luma = 0.2126 * r + 0.7152 * g + 0.0722 * b
+    return luma < 127.5 ? "white" : "black"
+    // return luma < 200 ? "white" : "black"
+  }
+
+  console.log(getTextColorByBackgroundColor())
 
   return (
     <div className="content-root">
       <MainHeader />
       <div className="content">
-        <div className="content-header">
+        <div className="content-header" style={{ backgroundColor: "#" + content.teamColor, color: getTextColorByBackgroundColor(content.teamColor) }}>
           <h1 className="content-title">{content.title}</h1>
           <p className="content-nickname">{content.nickname}</p>
           <div className="content-info">
-            <span className="content-info-comment">
-              댓글: {content.commentCnt}
-            </span>
+            <AiOutlineEye size={16} />
+            &nbsp;
+            <span className="content-info-view">{content.hit}</span>
+            <FaRegComment size={12} />
+            &nbsp;
+            <span className="content-info-view">{content.commentCnt}</span>
             <span className="content-info-date">{content.createdAt}</span>
           </div>
         </div>
-        <p
-          className="content-content"
-          dangerouslySetInnerHTML={{ __html: content.content }}
-        />
+        <div>
+          <h2 className="content-sub">프로젝트 소개</h2>
+          <p
+            className="content-content"
+            dangerouslySetInnerHTML={{ __html: content.content }}
+          />
+          <h2 className="content-sub">모집 분야</h2>
+          <p
+            className="content-content"
+          >{content.field}</p>
+        </div>
       </div>
       <div className="read-comment-root">
-        {comment.map((value)=>{
+        {comment.map((value) => {
           if (value.deleted !== true) {
             return <Comment postId={param.postId} comment={value} deleteComment={deleteComment} />
           }
@@ -109,30 +135,30 @@ export default function Content() {
         })}
       </div>
       <div className="write-comment">
-          <CKEditor
-            editor={ClassicEditor}
-            data={input}
-            onChange={(event, editor) => {
-              const data = editor.getData();
-              setInput(data);
-            }}
-          />
-          <div className="comment-button-div">
-            <button onClick={postComment} className="write-comment-button">
-              작성
-            </button>
-            {content.permission && (
-              <div>
-                <button onClick={deletePost} className="delete-button">
-                  글 삭제
-                </button>
-                <button onClick={modifyPost} className="modify-button">
-                  글 수정
-                </button>
-              </div>
-            )}
-          </div>
+        <CKEditor
+          editor={ClassicEditor}
+          data={input}
+          onChange={(event, editor) => {
+            const data = editor.getData();
+            setInput(data);
+          }}
+        />
+        <div className="comment-button-div">
+          <button onClick={postComment} className="write-comment-button">
+            작성
+          </button>
+          {content.permission && (
+            <div>
+              <button onClick={deletePost} className="delete-button">
+                글 삭제
+              </button>
+              <button onClick={modifyPost} className="modify-button">
+                글 수정
+              </button>
+            </div>
+          )}
         </div>
+      </div>
     </div>
   );
 }
