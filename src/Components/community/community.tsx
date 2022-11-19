@@ -18,6 +18,8 @@ interface Post {
   usercode: number;
   img: string;
   description: string;
+  teamColor: string;
+  field: string;
 }
 export default function Community() {
   const [post, setPost] = React.useState<Post[]>([]);
@@ -55,6 +57,7 @@ export default function Community() {
         <div className="board-root">
           {post.map((item) => {
             const date = item.createdAt.substring(0, 10);
+            console.log(item.teamColor);
             return (
               <div
                 className="board"
@@ -62,11 +65,19 @@ export default function Community() {
                   nav(`/content/${item.id}/${page}`);
                 }}
               >
-                <img
+                {/* <img
                   src={"/images/bsmicon.png"}
                   alt="팀 사진"
                   className="board--img"
-                />
+                /> */}
+                <div
+                  className="board--img"
+                  style={{
+                    backgroundColor: item.teamColor
+                      ? "#" + item.teamColor
+                      : "black",
+                  }}
+                ></div>
                 <div className="board--card">
                   <div className="board--title--line">
                     <h3 className="board--title">{item.title}</h3>
@@ -82,7 +93,10 @@ export default function Community() {
                     &nbsp;
                     <span className="board--nick">{item.commentCnt}</span>
                   </div>
-                  <div className="board--content">{item.description}</div>
+                  <div className="board--content">
+                    <span className="recruit">{item.field}</span>
+                    {item.description}
+                  </div>
                   <span className="board--date">{date}</span>
                 </div>
               </div>

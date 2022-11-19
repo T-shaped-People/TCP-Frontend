@@ -6,17 +6,16 @@ import "../../styles/community/Post.css";
 import axios from "axios";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useForm } from 'react-hook-form'
-
 function Post() {
   const param = useParams();
   const location = useLocation();
   const [content, setContent] = useState('');
   const [title, setTitle] = useState('');
+  const [color, setColor] = useState('');
   const nav = useNavigate();
   const {
     register,
     handleSubmit,
-    formState: { isSubmitting },
   } = useForm();
   useEffect(() => {
     if (param.mode === 'modify') {
@@ -37,6 +36,8 @@ function Post() {
         title: data.title,
         description: data.description,
         content: content,
+        field: data.field,
+        teamColor: color,
       }
       await axios.post('/api/board/post', newPost);
       console.log(newPost);
@@ -79,6 +80,11 @@ function Post() {
     nav('/community');
   }
 
+  const onChangeColor = (e) => {
+    // if (/[0-9a-fA-F]{1,6}/g.test(e.target.value)) {
+      setColor(e.target.value)
+    // }
+  }
 
   return (
     <div>
@@ -87,8 +93,20 @@ function Post() {
         <div className="Post-div">
           <div className="Post-title-div">
             {param.mode === 'post' ? <h1 className="Post-title">글쓰기</h1> : (param.mode === 'modify' ? <h1 className="Post-title">글수정</h1> : <h1 className="Post-title">공지사항</h1>)}
+            <h2 className="post-sub">제목</h2>
             <input {...register('title')} className="input-title" placeholder="제목" />
-            <input {...register('description')} className="input-title" placeholder="설명" />
+            <h2 className="post-sub">한 줄 소개</h2>
+            <input {...register('description')} className="input-title" placeholder="한 줄 소개" />
+            <div className="post-div-short">
+              <h2 className="post-sub-short">모집 분야</h2>
+              <input {...register('field')} className="input-title-short" placeholder="모집 분야" /><br />
+            </div>
+            <div className="post-div-short">
+              <h2 className="post-sub-short">팀 컬러</h2>
+              <div className="content-color" style={{ backgroundColor: '#' + (color ? color : '000') }}></div>
+              <input value={color} maxLength='6' className="input-title-short" placeholder="000000" onChange={(e) => onChangeColor(e)} />
+            </div>
+            <h2 className="post-sub">팀 상세 설명</h2>
           </div>
           <CKEditor
             editor={ClassicEditor}
