@@ -1,7 +1,7 @@
-import "../styles/sidebar.css";
+import "../../styles/team/sidebar.css";
 import { Link, useNavigate } from "react-router-dom";
 import React, { useState, useEffect, useContext } from "react";
-import { UserContext } from "../App";
+import { UserContext } from "../../App";
 import axios from "axios";
 function Sidebar() {
   const [team, setTeam] = useState([]);

@@ -5,7 +5,7 @@ nav {
 }
 
 .nav--left{
-    margin-left: 50px;
+    margin-left: 100px;
 }
 
 .team-header--speech {
@@ -37,4 +37,13 @@ nav {
 .team-header--person {
     width: 28px;
     height: 28px;
+}
+
+.team-header-todo{
+    cursor: pointer;
+    margin-right: 3em;
+}
+
+.team-header-todo:hover{
+    transform: scale(1.1);
 }

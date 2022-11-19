@@ -9,7 +9,7 @@ const MainHeader = () => {
   return (
     <header className="main_header">
       <nav>
-        <div className="nav--left rows">
+        <div className="rows">
           <div className="nav--menus rows">
             <img
               src="/images/tcpicon2.png"

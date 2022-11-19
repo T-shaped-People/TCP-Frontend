@@ -6,7 +6,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin, { EventResizeDoneArg } from "@fullcalendar/interaction";
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AiOutlinePlusSquare } from 'react-icons/ai'
 import Modal from 'react-modal';
 
