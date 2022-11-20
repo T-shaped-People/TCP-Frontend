@@ -6,7 +6,6 @@ import { UserContext } from "../../App";
 const MainHeader = () => {
   const navigate = useNavigate();
   const user = useContext(UserContext);
-  // if (!user.isLogin) navigate("/");
   return (
     <header className="main_header">
       <nav>

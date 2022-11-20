@@ -26,12 +26,13 @@ const TeamHeader = () => {
       try {
         const response = await axios.get(`/api/team/${param.teamId}`);
         setTeam(response.data);
+        console.log(response);
       } catch (error) {
         console.log(error);
       }
     };
     getTeamInfo();
-  }, []);
+  }, [param]);
   return (
     <header className="team-header">
       <nav>

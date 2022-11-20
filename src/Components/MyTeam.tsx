@@ -19,15 +19,16 @@ interface Team {
 const TeamList = ({ team }: { team: Team }) => {
   const nav = useNavigate();
   const { name, leaderNickname, startDate, deadline } = team;
-  const getDateDiff = (d1: Date, d2: Date) => {
-    const date1 = new Date(d1);
+  const getDateDiff = (d2: Date) => {
+    const date1 = new Date();
     const date2 = new Date(d2);
     const diffDate = date1.getTime() - date2.getTime();
 
-    return Math.abs(diffDate / (1000 * 60 * 60 * 24)); // 밀리세컨 * 초 * 분 * 시 = 일
+    return Math.round(Math.abs(diffDate / (1000 * 60 * 60 * 24))); // 밀리세컨 * 초 * 분 * 시 = 일
   };
 
-  const d_day = getDateDiff(startDate, deadline);
+  console.log(new Date().getTime(), new Date(deadline).getTime())
+  const d_day = getDateDiff(deadline);
   return (
     <div
       className="teamList-div"
