@@ -84,8 +84,6 @@ export default function Team() {
   return (
     <div className="team-root">
       <TeamHeader />
-      <Sidebar />
-      {/* <SecSideBar /> */}
       {/* <div className="team-title">
         <h1>{team.name}</h1>
         <span>마감까지 D-기한</span>

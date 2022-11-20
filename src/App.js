@@ -37,20 +37,20 @@ export const UserContext = createContext(userInfo);
 function App() {
   const [user, setUser] = React.useState(userInfo);
 
-  React.useEffect(() => {
-    (async () => {
-      try {
-        setUser({
-          ...(await getUserInfo()).data,
-          isLogin: true,
-        });
-      } catch (error) {
-        if (error instanceof AxiosError && error.response?.status === 401) {
-          setUser((prev) => ({ ...prev, isLogin: false }));
-        }
-      }
-    })();
-  }, []);
+    React.useEffect(() => {
+        (async () => {
+            try {
+                setUser({
+                    ...(await getUserInfo()).data,
+                    isLogin: true,
+                });
+            } catch (error) {
+                if (error instanceof AxiosError && error.response?.status === 401) {
+                    setUser((prev) => ({ ...prev, isLogin: false }));
+                }
+            }
+        })();
+    }, []);
 
   const getUserInfo = () => {
     return axios.get("/api/user", { withCredentials: true });

@@ -1,17 +1,9 @@
-import React from "react";
 import { useParams } from "react-router-dom";
-import { TeamHeader, Sidebar, SecSideBar } from "../allFiles";
+import { TeamHeader } from "../allFiles";
 function Notice() {
-  const param = useParams();
-  console.log(param)
-  return (
-    <div>
-      <TeamHeader />
-      <Sidebar />
-      <SecSideBar />
-      
-    </div>
-  );
+    return (
+        <TeamHeader />
+    );
 }
 
 export default Notice;

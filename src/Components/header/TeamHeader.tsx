@@ -4,6 +4,8 @@ import "../../styles/header/team-header.css";
 import { UserContext } from "../../App";
 import axios from "axios";
 import TeamType from "../../types/team";
+import Sidebar from "../team/Sidebar";
+import SecSideBar from "../secSideBar";
 
 const TeamHeader = () => {
   const [team, setTeam] = useState<TeamType>({
@@ -18,7 +20,6 @@ const TeamHeader = () => {
   });
   const navigate = useNavigate();
   const user = useContext(UserContext);
-  if (!user.isLogin) navigate("/");
   const param = useParams();
 
   useEffect(() => {
@@ -34,35 +35,39 @@ const TeamHeader = () => {
     getTeamInfo();
   }, [param]);
   return (
-    <header className="team-header">
-      <nav>
-        <div className="nav--left">{team.name}</div>
-        <ul className="nav--right rows">
-          <li>
-            <img
-              src="/images/speechbubble.png"
-              alt="icon"
-              className="team-header--speech"
-            />
-          </li>
-          <li onClick={()=> navigate('todo') } className={"team-header-todo"}>
-            <img
-              src="/images/carbon_notebook.png"
-              alt="icon"
-              className="team-header--notebook"
-            />
-          </li>
-          <li className="header--username">
-            <img
-              src="/images/person.png"
-              alt="icon"
-              className="team-header--person"
-            />
-            <span>{user.nickname}</span>
-          </li>
-        </ul>
-      </nav>
-    </header>
+    <>
+        <header className="team-header">
+            <nav>
+                <div className="nav--left">{team.name}</div>
+                <ul className="nav--right rows">
+                    <li>
+                        <img
+                            src="/images/speechbubble.png"
+                            alt="icon"
+                            className="team-header--speech"
+                        />
+                    </li>
+                    <li onClick={()=> navigate('todo') } className={"team-header-todo"}>
+                        <img
+                            src="/images/carbon_notebook.png"
+                            alt="icon"
+                            className="team-header--notebook"
+                        />
+                    </li>
+                    <li className="header--username">
+                        <img
+                            src="/images/person.png"
+                            alt="icon"
+                            className="team-header--person"
+                        />
+                        <span>{user.nickname}</span>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+        <Sidebar />
+        <SecSideBar />
+    </>
   );
 };
 

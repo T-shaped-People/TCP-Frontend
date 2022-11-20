@@ -1,4 +1,4 @@
-import { TeamHeader, SecSideBar, Sidebar } from '../../allFiles';
+import { TeamHeader } from '../../allFiles';
 import "../../styles/team/calendar.css"
 import FullCalendar, { EventDropArg } from '@fullcalendar/react';
 import timeGridPlugin from "@fullcalendar/timegrid";
@@ -152,9 +152,7 @@ export default function Calendar() {
   return (
     <div className={"calendar-root"}>
       <TeamHeader />
-      <Sidebar />
       <div className={"sideAndSide"}>
-        <SecSideBar />
         <div className={"calendar"}>
           <FullCalendar
             plugins={[dayGridPlugin, interactionPlugin, timeGridPlugin]}

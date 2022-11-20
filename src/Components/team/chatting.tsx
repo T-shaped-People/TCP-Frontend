@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import axios, { Axios, AxiosError, AxiosPromise } from "axios";
-import { TeamHeader, Sidebar, SecSideBar } from "../../allFiles";
+import axios, { AxiosError, AxiosPromise } from "axios";
+import { TeamHeader } from "../../allFiles";
 import "../../styles/team/chatting.css";
 import { io } from "socket.io-client";
 import { Chat } from "../../types/chat";
@@ -121,8 +121,6 @@ export default function Chatting() {
   return (
     <div className="chatting-div">
       <TeamHeader />
-      <Sidebar />
-      <SecSideBar />
       <div className="chatting-main-div">
         <span className="chatting-channel">채팅</span>
         <div className="chatting-chat-div">
