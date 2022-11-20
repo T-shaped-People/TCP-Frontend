@@ -1,21 +1,15 @@
 .team-header 
 nav {
     max-width: 100% !important;
-    border-bottom: 4px solid #3F3C6D;
 }
 
-.nav--left{
-    margin-left: 100px;
-}
-
-.team-header--speech {
-    width: 30px;
-    height: 30px;
+.nav--left {
+    margin-left: 60px;
 }
 
 .team-header--notebook {
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
 }
 
 .team-header--username {
@@ -35,15 +29,15 @@ nav {
 }
 
 .team-header--person {
-    width: 28px;
-    height: 28px;
+    width: 23px;
+    height: 23px;
 }
 
-.team-header-todo{
+.team-header-todo {
     cursor: pointer;
-    margin-right: 3em;
+    margin-right: 20px;
 }
 
-.team-header-todo:hover{
+.team-header-todo:hover {
     transform: scale(1.1);
 }

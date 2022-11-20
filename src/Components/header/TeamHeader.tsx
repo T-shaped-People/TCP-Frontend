@@ -23,7 +23,8 @@ const TeamHeader = () => {
   const param = useParams();
 
   useEffect(() => {
-    const getTeamInfo = async () => {
+    console.log(param);
+    (async () => {
       try {
         const response = await axios.get(`/api/team/${param.teamId}`);
         setTeam(response.data);
@@ -31,8 +32,7 @@ const TeamHeader = () => {
       } catch (error) {
         console.log(error);
       }
-    };
-    getTeamInfo();
+    })();
   }, [param]);
   return (
     <>
@@ -40,13 +40,6 @@ const TeamHeader = () => {
             <nav>
                 <div className="nav--left">{team.name}</div>
                 <ul className="nav--right rows">
-                    <li>
-                        <img
-                            src="/images/speechbubble.png"
-                            alt="icon"
-                            className="team-header--speech"
-                        />
-                    </li>
                     <li onClick={()=> navigate('todo') } className={"team-header-todo"}>
                         <img
                             src="/images/carbon_notebook.png"

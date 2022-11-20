@@ -6,9 +6,9 @@
     gap: 10px;
     height: 100%;
     width: 60px;
-    background-color: #15133C;
+    background-color: #28273b;
     text-align: left;
-    border-right: 4px solid #3F3C6D;
+    box-shadow: 5px 5px 5px #00000044;
     z-index: 3;
 }
 

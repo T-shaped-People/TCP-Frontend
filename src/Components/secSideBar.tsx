@@ -22,31 +22,31 @@ export default function SecSideBar() {
   }, []);
 
   return (
-    <div className={"calendar_sidebar"}>
-        <div>
+    <div className={"side-bar"}>
+        <div className={"side-bar-menu"}>
             <img
                 src={"/images/bxs_chat.png"}
                 alt={"icon"}
                 className={"icon"}
             />
-            <ul className={"calendar_sidebar--side"}>
+            <ul className={"side-bar--side"}>
                 {chatRoomList.map(room => (
                     <li onClick={() => nav(`/team/${room.teamId}/${room.id}/chatting`)}>
                         {room.title}
                     </li>
                 ))}
             </ul>
-            <div className={"calendar_sidebar--call"}>
+            <div className={"side-bar--call"}>
                 <img
                     src={"/images/phoneicon.png"}
                     alt={"icon"}
                     className={"icon"}
                 />
-                <div className={"calendar_sidebar--call--div"}>
+                <div className={"side-bar--call--div"}>
                 </div>
-                <span className={"calendar_sidebar--list"}>백엔드 회의</span>
+                <span className={"side-bar--list"}>백엔드 회의</span>
             </div>
-            <div className={"calendar_sidebar--codeshare"}>
+            <div className={"side-bar--codeshare"}>
                 <img
                     src={"/images/clarity_code-line.png"}
                     alt={"icon"}
@@ -57,22 +57,10 @@ export default function SecSideBar() {
                 </p>
             </div>
         </div>
-        <div className={"calendar_sidebar--user"}>
-            <div className={"calendar_sidebar--user--div"}>
-                <div className={"calendar_sidebar--userimg"}></div>
+        <div className={"side-bar--user"}>
+            <div className={"side-bar--user--div"}>
+                <div className={"side-bar--userimg"}></div>
                 <p className={'secSideBar-nickname'}>{user.nickname}</p>
-            </div>
-            <div className={"calendar_sidebar--user--icons"}>
-                <img
-                    src={"/images/micicon.png"}
-                    alt={"icon"}
-                    className={"calendar_sidebar--user--mic"}
-                />
-                <img
-                    src={"/images/headphone.png"}
-                    alt={"icon"}
-                    className={"calendar_sidebar--user--head"}
-                />
             </div>
         </div>
     </div>

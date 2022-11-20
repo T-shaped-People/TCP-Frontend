@@ -68,7 +68,7 @@ function App() {
           <Route path={"*"} element={<NotFound />} />
           <Route path={"/maketeam"} element={<MakeTeam />}></Route>
           <Route path={"/myteam"} element={<MyTeam />}></Route>
-          <Route path={"/team/*"} element={<Team />}></Route>
+          <Route path={"/team/:teamId/*"} element={<Team />}></Route>
           <Route path={"/jointeam"} element={<JoinTeam />} />
         </Routes>
       </UserContext.Provider>

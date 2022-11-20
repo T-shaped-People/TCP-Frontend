@@ -8,14 +8,13 @@ export default function Team() {
         <>
             <TeamHeader />
             <Routes>
-                <Route path={":teamId/canvas"} element={<Canvas />} />
-                <Route path={"*"} element={<NotFound />} />
-                <Route path={":teamId/notice/:postId"} element={<Notice />}></Route>
-                <Route path={":teamId/todo"} element={<Todo />}></Route>
-                <Route path={":teamId/calendar"} element={<Calendar />}></Route>
-                <Route path={":teamId/:roomId/chatting"} element={<Chatting />}></Route>
-                <Route path={":teamId"} element={<TeamDashboard />}></Route>
+                <Route path={"canvas"} element={<Canvas />} />
+                <Route path={"notice/:postId"} element={<Notice />}></Route>
+                <Route path={"todo"} element={<Todo />}></Route>
+                <Route path={"calendar"} element={<Calendar />}></Route>
+                <Route path={":roomId/chatting"} element={<Chatting />}></Route>
+                <Route path={""} element={<TeamDashboard />}></Route>
             </Routes>
         </>
-      );
+    );
 }
