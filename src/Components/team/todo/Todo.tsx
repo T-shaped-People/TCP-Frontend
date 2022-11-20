@@ -48,7 +48,6 @@ const Todo = () => {
 
     return (
         <div className="Todo-root">
-            <TeamHeader />
             <div className="Todo">
                 <div className="Todo-title-div">
                     <h1 className="Todo-title">Todos</h1>

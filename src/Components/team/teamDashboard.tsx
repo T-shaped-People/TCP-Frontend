@@ -3,9 +3,8 @@ import '../../styles/team/team.css'
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from "@fullcalendar/interaction";
-import { TeamHeader, Sidebar } from "../../allFiles";
 import axios from "axios";
-import {useEffect, useLayoutEffect, useState} from "react";
+import { useLayoutEffect, useState} from "react";
 import { TiPlus } from "react-icons/ti";
 
 interface UpcomingSchedule {
@@ -32,7 +31,7 @@ interface CalendarScheduleType{
   end: string
 }
 
-export default function Team() {
+export default function TeamDashboard() {
   const nav = useNavigate();
   const param = useParams();
   const [isAdmin, setIsAdmin] = useState(false);
@@ -83,7 +82,6 @@ export default function Team() {
 
   return (
     <div className="team-root">
-      <TeamHeader />
       {/* <div className="team-title">
         <h1>{team.name}</h1>
         <span>마감까지 D-기한</span>
