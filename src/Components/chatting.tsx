@@ -5,7 +5,7 @@ import '../styles/chatting.css';
 import { io } from 'socket.io-client';
 import { Chat } from '../types/chat';
 
-const socket = io('localhost:3000/chat', {
+const socket = io("http://43.201.36.11:3000/chat", {
     transports: ['websocket']
 });
 
@@ -46,6 +46,10 @@ export default function Chatting() {
     }
     
     const initChatList = async () => {
+        socket.emit('chat:room-join', {
+            teamId,
+            roomId
+        });
         try {
             const chatData = (await getChatList(teamId, roomId)).data.reverse();
             // 채팅 목록이 없으면
@@ -60,7 +64,7 @@ export default function Chatting() {
                 alert('알 수 없는 에러가 발생하였습니다');
             }
         }
-    }
+  };
 
     const getChatList = (teamId: string, roomId: string, startChatId: number = 0): AxiosPromise<Chat[]> => {
         return axios.get(`/api/chat/${teamId}/${roomId}/${startChatId}`, {withCredentials: true}); 
