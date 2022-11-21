@@ -10,7 +10,7 @@ a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, bo
   vertical-align: inherit;
   font-family: inherit;
 }
-html, body, #root{
+html, body, #root {
   height: 100%;
   width: 100%;
 }

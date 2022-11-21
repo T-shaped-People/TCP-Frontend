@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { TiPlus } from "react-icons/ti";
-import { TeamHeader, Sidebar, SecSideBar } from "../../../allFiles";
+import { TeamHeader } from "../../../allFiles";
 import "../../../styles/team/Todo.css";
 import axios from "axios";
 import { useParams } from "react-router-dom";

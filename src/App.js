@@ -37,20 +37,20 @@ export const UserContext = createContext(userInfo);
 function App() {
   const [user, setUser] = React.useState(userInfo);
 
-  React.useEffect(() => {
-    (async () => {
-      try {
-        setUser({
-          ...(await getUserInfo()).data,
-          isLogin: true,
-        });
-      } catch (error) {
-        if (error instanceof AxiosError && error.response?.status === 401) {
-          setUser((prev) => ({ ...prev, isLogin: false }));
-        }
-      }
-    })();
-  }, []);
+    React.useEffect(() => {
+        (async () => {
+            try {
+                setUser({
+                    ...(await getUserInfo()).data,
+                    isLogin: true,
+                });
+            } catch (error) {
+                if (error instanceof AxiosError && error.response?.status === 401) {
+                    setUser((prev) => ({ ...prev, isLogin: false }));
+                }
+            }
+        })();
+    }, []);
 
   const getUserInfo = () => {
     return axios.get("/api/user", { withCredentials: true });
@@ -62,18 +62,13 @@ function App() {
         <Routes>
           <Route path={"/"} element={<BeforeLogin />} />
           <Route path={"/makeproject"} element={<MakeProject />} />
-          <Route path={"/team/:teamId/canvas"} element={<Canvas />} />
           <Route path={"/community"} element={<Community />}></Route>
           <Route path={"/post/:mode/:postId"} element={<Post />} />
           <Route path={"/content/:postId/:page"} element={<Content />}></Route>
           <Route path={"*"} element={<NotFound />} />
           <Route path={"/maketeam"} element={<MakeTeam />}></Route>
           <Route path={"/myteam"} element={<MyTeam />}></Route>
-          <Route path={"/team/:teamId/notice/:postId"} element={<Notice />}></Route>
-          <Route path={"/team/:teamId/todo"} element={<Todo />}></Route>
-          <Route path={"/team/:teamId/calendar"} element={<Calendar />}></Route>
-          <Route path={"/team/:teamId/:roomId/chatting"} element={<Chatting />}></Route>
-          <Route path={"/team/:teamId"} element={<Team />}></Route>
+          <Route path={"/team/:teamId/*"} element={<Team />}></Route>
           <Route path={"/jointeam"} element={<JoinTeam />} />
         </Routes>
       </UserContext.Provider>

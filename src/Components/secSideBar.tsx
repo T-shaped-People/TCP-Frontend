@@ -1,97 +1,111 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import "../styles/secSideBar.css";
 import { UserContext } from "../App";
+import axios from 'axios';
+import { useNavigate, useParams } from 'react-router-dom';
+import Modal from "react-modal";
+
+interface ChatRoom {
+    title: any;
+    teamId: string;
+    id: string;
+    createdAt: string;
+  }
 
 export default function SecSideBar() {
     const user = useContext(UserContext);
+    const [chatRoomList, setChatRoomList] = useState<ChatRoom[]>([]);
+    const nav = useNavigate();
+    const param = useParams();
+    const { teamId, roomId } = param;
+    const [modal, setModal] = useState(false);
+    const [teamName, setTeamName] = useState("");
+    Modal.setAppElement("#root");
+
+    useEffect(() => {
+        (async () => {
+            setChatRoomList((await axios.get(`/api/chat/room/${teamId}`)).data);
+        })();
+    }, [teamId]);
+
+    const createChatRoom = async () => {
+        await axios.post("/api/chat", {
+            teamId,
+            roomTitle: teamName,
+        });
+        setModal(false);
+    };
+
     return (
-        <div className={"calendar_sidebar"}>
-            <div className="paddingyong">
-                <img
-                    src={"/images/bxs_chat.png"}
-                    alt={"icon"}
-                    className={"calendar_sidebar--chaticon"}
-                />
-                <div className={"calendar_sidebar--side"}>
-                    <details className={"calendar_sidebar--list"}>
-                        <summary className={"calendar_sidebar--list--summary"}>
-                            백엔드
-                        </summary>
-                        <ul>
-                            <li>test</li>
-                            <li>test2</li>
-                        </ul>
-                    </details>
-                    <details className={"calendar_sidebar--list"}>
-                        <summary className={"calendar_sidebar--list--summary"}>
-                            디자인 팀
-                        </summary>
-                        <ul>
-                            <li>test</li>
-                            <li>test2</li>
-                        </ul>
-                    </details>
-                    <details className={"calendar_sidebar--list"}>
-                        <summary className={"calendar_sidebar--list--summary"}>
-                            프론트엔드
-                        </summary>
-                        <ul>
-                            <li>test</li>
-                            <li>test2</li>
-                        </ul>
-                    </details>
-                </div>
-                <div className={"calendar_sidebar--call"}>
+        <div className='side-bar'>
+            <div className='side-bar-menu'>
+                <div className='rows'>
                     <img
-                        src={"/images/phoneicon.png"}
-                        alt={"icon"}
-                        className={"calendar_sidebar--callimg"}
+                        src='/images/bxs_chat.png'
+                        alt='icon'
+                        className='icon'
                     />
-                    <div className={"calendar_sidebar--call--div"}>
-                        <div></div>
-                        <span className={"calendar_sidebar--list"}>백엔드 회의</span>
-                    </div>
+                    <span className='side-bar--add' onClick={() => setModal(true)}>+</span>
                 </div>
-                <div className={"calendar_sidebar--codeshare"}>
+                <ul className='side-bar--side'>
+                    {chatRoomList.map(room => (
+                        <li onClick={() => nav(`/team/${room.teamId}/${room.id}/chatting`)}>
+                            {room.title}
+                        </li>
+                    ))}
+                </ul>
+                <div className='side-bar--call'>
                     <img
-                        src={"/images/clarity_code-line.png"}
-                        alt={"icon"}
-                        className={"calendar_sidebar--codeshareimg"}
+                        src='/images/phoneicon.png'
+                        alt='icon'
+                        className='icon'
                     />
-                    <p className={"calendar_codeshare"}>
+                    <div className='side-bar--call--div'></div>
+                    <span className='side-bar--list'>백엔드 회의</span>
+                </div>
+                <div className='side-bar--codeshare'>
+                    <img
+                        src='/images/clarity_code-line.png'
+                        alt='icon'
+                        className='icon'
+                    />
+                    <p className='calendar_codeshare'>
                         여기를 눌러 새로운 코드 공유방을 생성하세요.
                     </p>
                 </div>
-                <div className={"calendar_sidebar--product"}>
-                    <img
-                        src={"/images/clovericon.png"}
-                        alt={"icon"}
-                        className={"calendar_sidebar--product--img"}
-                    />
-                    <div className={"calendar_sidebar--product--div"}>
-                        <div>4</div>
-                        <span className={"calendar_sidebar--list"}>상품 기능 아이디어</span>
-                    </div>
+            </div>
+            <div className='side-bar--user'>
+                <div className='side-bar--user--div'>
+                    <div className='side-bar--userimg'></div>
+                    <p className='secSideBar-nickname'>{user.nickname}</p>
                 </div>
             </div>
-            <div className={"calendar_sidebar--user"}>
-                <div className={"calendar_sidebar--user--div"}>
-                    <div className={"calendar_sidebar--userimg"}></div>
-                    <p className={'secSideBar-nickname'}>{user.nickname}</p>
-                </div>
-                <div className={"calendar_sidebar--user--icons"}>
-                    <img
-                        src={"/images/micicon.png"}
-                        alt={"icon"}
-                        className={"calendar_sidebar--user--mic"}
-                    />
-                    <img
-                        src={"/images/headphone.png"}
-                        alt={"icon"}
-                        className={"calendar_sidebar--user--head"}
-                    />
-                </div>
-            </div>
+            <Modal
+                isOpen={modal}
+                onRequestClose={() => setModal(false)}
+                style={{
+                overlay: {
+                    backgroundColor: "rgba(0, 0, 0, 0.5)",
+                    zIndex: 100,
+                },
+                content: {
+                    width: "300px",
+                    height: "200px",
+                    margin: "auto",
+                    borderRadius: "20px",
+                    overflowX: "hidden",
+                },
+                }}
+            >
+                <span>채팅방 이름을 입력하세요</span>
+                <input
+                    type="text"
+                    placeholder="채팅방 이름"
+                    value={teamName}
+                    onChange={(e) => setTeamName(e.target.value)}
+                />
+                <button onClick={() => createChatRoom()}>확인</button>
+            </Modal>
         </div>
     );
 }
