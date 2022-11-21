@@ -1,97 +1,68 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import "../styles/secSideBar.css";
 import { UserContext } from "../App";
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
+interface ChatRoom {
+    title: any;
+    teamId: string;
+    id: string;
+    createdAt: string;
+  }
 
 export default function SecSideBar() {
-    const user = useContext(UserContext);
-    return (
-        <div className={"calendar_sidebar"}>
-            <div className="paddingyong">
+  const user = useContext(UserContext);
+  const [chatRoomList, setChatRoomList] = useState<ChatRoom[]>([]);
+  const nav = useNavigate();
+  useEffect(() => {
+    (async () => {
+        setChatRoomList((await axios.get("/api/chat/room")).data);
+    })();
+  }, []);
+
+  return (
+    <div className={"side-bar"}>
+        <div className={"side-bar-menu"}>
+            <img
+                src={"/images/bxs_chat.png"}
+                alt={"icon"}
+                className={"icon"}
+            />
+            <ul className={"side-bar--side"}>
+                {chatRoomList.map(room => (
+                    <li onClick={() => nav(`/team/${room.teamId}/${room.id}/chatting`)}>
+                        {room.title}
+                    </li>
+                ))}
+            </ul>
+            <div className={"side-bar--call"}>
                 <img
-                    src={"/images/bxs_chat.png"}
+                    src={"/images/phoneicon.png"}
                     alt={"icon"}
-                    className={"calendar_sidebar--chaticon"}
+                    className={"icon"}
                 />
-                <div className={"calendar_sidebar--side"}>
-                    <details className={"calendar_sidebar--list"}>
-                        <summary className={"calendar_sidebar--list--summary"}>
-                            백엔드
-                        </summary>
-                        <ul>
-                            <li>test</li>
-                            <li>test2</li>
-                        </ul>
-                    </details>
-                    <details className={"calendar_sidebar--list"}>
-                        <summary className={"calendar_sidebar--list--summary"}>
-                            디자인 팀
-                        </summary>
-                        <ul>
-                            <li>test</li>
-                            <li>test2</li>
-                        </ul>
-                    </details>
-                    <details className={"calendar_sidebar--list"}>
-                        <summary className={"calendar_sidebar--list--summary"}>
-                            프론트엔드
-                        </summary>
-                        <ul>
-                            <li>test</li>
-                            <li>test2</li>
-                        </ul>
-                    </details>
+                <div className={"side-bar--call--div"}>
                 </div>
-                <div className={"calendar_sidebar--call"}>
-                    <img
-                        src={"/images/phoneicon.png"}
-                        alt={"icon"}
-                        className={"calendar_sidebar--callimg"}
-                    />
-                    <div className={"calendar_sidebar--call--div"}>
-                        <div></div>
-                        <span className={"calendar_sidebar--list"}>백엔드 회의</span>
-                    </div>
-                </div>
-                <div className={"calendar_sidebar--codeshare"}>
-                    <img
-                        src={"/images/clarity_code-line.png"}
-                        alt={"icon"}
-                        className={"calendar_sidebar--codeshareimg"}
-                    />
-                    <p className={"calendar_codeshare"}>
-                        여기를 눌러 새로운 코드 공유방을 생성하세요.
-                    </p>
-                </div>
-                <div className={"calendar_sidebar--product"}>
-                    <img
-                        src={"/images/clovericon.png"}
-                        alt={"icon"}
-                        className={"calendar_sidebar--product--img"}
-                    />
-                    <div className={"calendar_sidebar--product--div"}>
-                        <div>4</div>
-                        <span className={"calendar_sidebar--list"}>상품 기능 아이디어</span>
-                    </div>
-                </div>
+                <span className={"side-bar--list"}>백엔드 회의</span>
             </div>
-            <div className={"calendar_sidebar--user"}>
-                <div className={"calendar_sidebar--user--div"}>
-                    <div className={"calendar_sidebar--userimg"}></div>
-                    <p className={'secSideBar-nickname'}>{user.nickname}</p>
-                </div>
-                <div className={"calendar_sidebar--user--icons"}>
-                    <img
-                        src={"/images/micicon.png"}
-                        alt={"icon"}
-                        className={"calendar_sidebar--user--mic"}
-                    />
-                    <img
-                        src={"/images/headphone.png"}
-                        alt={"icon"}
-                        className={"calendar_sidebar--user--head"}
-                    />
-                </div>
+            <div className={"side-bar--codeshare"}>
+                <img
+                    src={"/images/clarity_code-line.png"}
+                    alt={"icon"}
+                    className={"icon"}
+                />
+                <p className={"calendar_codeshare"}>
+                    여기를 눌러 새로운 코드 공유방을 생성하세요.
+                </p>
             </div>
         </div>
-    );
+        <div className={"side-bar--user"}>
+            <div className={"side-bar--user--div"}>
+                <div className={"side-bar--userimg"}></div>
+                <p className={'secSideBar-nickname'}>{user.nickname}</p>
+            </div>
+        </div>
+    </div>
+  );
 }

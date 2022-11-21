@@ -8,6 +8,7 @@ header {
     justify-content: center;
     color: white;
     top: 0;
+    box-shadow: 5px 5px 5px #00000044;
 }
 
 header 
@@ -39,12 +40,13 @@ li {
     gap: 10px;
 }
 
-.nav--link{
+.nav--link {
     padding: 0 20px;
     color: white;
 }
-.nav--logo{
+.nav--logo {
     height: 40px;
+    padding: 5px;
     cursor: pointer;
     vertical-align: middle;
 }

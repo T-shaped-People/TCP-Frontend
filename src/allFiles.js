@@ -14,7 +14,8 @@ import LoadingPage from "./Components/loadingPage";
 import NotFound from "./Components/NotFound";
 import MyTeam from "./Components/MyTeam";
 import JoinTeam from "./Components/JoinTeam";
-import Team from "./Components/team/team";
+import TeamDashboard from "./Components/team/teamDashboard";
+import Team from "./Components/team/index";
 import TeamSide from "./Components/team/teamSide";
 import TodoType from "./Components/team/todo/Todo";
 import Post from "./Components/community/Post";
@@ -39,6 +40,7 @@ export {
   NotFound,
   MyTeam,
   JoinTeam,
+  TeamDashboard,
   Team,
   TeamSide,
   TodoType as Todo,

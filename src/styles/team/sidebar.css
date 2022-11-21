@@ -1,37 +1,58 @@
-.sidebar{
+.sidebar {
     position: fixed;
     display: flex;
-    height: 100%;
-    width: 90px;
-    background-color: #15133C;
     flex-direction: column;
     align-items: center;
+    gap: 10px;
+    height: 100%;
+    width: 60px;
+    background-color: #28273b;
     text-align: left;
-    border-right: 4px solid #3F3C6D;
+    box-shadow: 5px 5px 5px #00000044;
     z-index: 3;
 }
 
-.sidebar--square{
-    width: 55px;
-    height: 55px;
-    margin-top: 25px;
-    border-radius: 15px;
-    line-height: 55px;
-    text-align: center;
-    font-size: 24px;
-    font-weight: bold;
-    color: white;
-}
-
-.sidebar--tcp{
-    margin-top: 15px;
+.sidebar--tcp {
     width: 50px;
     height: 50px;
+    padding: 10px;
     cursor: pointer;
 }
 
-.sidebar--plus{
-    margin-top: 30px;
-    width: 20px;
-    height: 20px;
+.sidebar ul {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.sidebar li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 45px;
+    height: 45px;
+    border-radius: 15px;
+    font-size: 20px;
+    font-weight: bold;
+    background-color: var(--team-color);
+    transition: .25s;
+    cursor: pointer;
+}
+
+.sidebar li:hover {
+    background-color: rgba(255, 255, 255, .2);
+}
+
+.sidebar li a {
+    color: white;
+}
+
+.sidebar--plus {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 45px;
+    height: 45px;
+    padding: 12px;
 }

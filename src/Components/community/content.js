@@ -97,7 +97,7 @@ export default function Content() {
     <div className="content-root">
       <MainHeader />
       <div className="content">
-        <div className="content-header" style={{ backgroundColor: "#" + content.teamColor, color: getTextColorByBackgroundColor(content.teamColor) }}>
+        <div className="content-header" style={{ backgroundColor: content.teamColor ? "#" + content.teamColor : 'black', color: getTextColorByBackgroundColor(content.teamColor) }}>
           <h1 className="content-title">{content.title}</h1>
           <p className="content-nickname">{content.nickname}</p>
           <div className="content-info">

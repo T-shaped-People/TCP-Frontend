@@ -1,78 +1,77 @@
-.calendar_sidebar{
+.side-bar {
     position: fixed;
     margin-left: 60px;
     margin-top: 50px;
     width: 190px;
     height: -webkit-fill-available;
     background-color: #15133C;
+    box-shadow: 5px 5px 5px #00000044;
+    display: flex;
+    flex-direction: column;
+    z-index: 3;
 }
-.paddingyong{
-    padding-left: 1em;
-    margin-top: 10px;
+
+.side-bar .icon {
+    margin-left: 10px;
+    width: 25px;
+    height: 25px;
 }
-.calendar_sidebar--list{
+
+.side-bar-menu {
+    padding: 15px 5px;
+}
+
+.side-bar--list {
     font-family: 'Noto Sans KR', sans-serif;
     font-size: 14px;
     font-weight: 400;
     color: #B2B9C7;
-    padding-left: 10px;
     margin-bottom: 8px;
 }
-.calendar_sidebar--side{
-    margin: 0 20px 0 20px;
-}
-.calendar_sidebar--list > ul > li{
-    padding-left: 20px;
+
+.side-bar--side li {
+    padding: 7px 20px;
     list-style: none;
     font-family: 'Noto Sans KR', sans-serif;
-    font-size: 12px;
-}
-.calendar_sidebar--list--summary {
-    list-style: none;
-    font-family: 'Noto Sans KR', sans-serif;
-    font-size: 14px;
+    font-size: 16px;
+    color: white;
+    cursor: pointer;
+    border-radius: 7px;
+    color: #B2B9C7;
+    transition: .25s;
 }
 
-.calendar_sidebar--list--summary::-webkit-details-marker {
-    display: none;
+.side-bar--side li:hover {
+    background-color: rgba(255, 255, 255, .2);
 }
-.calendar_sidebar--list--summary::after {
-    padding-left: 5px;
-    content: "v";
-}
-.calendar_sidebar--list[open] .calendar_sidebar--list--summary:after {
-    content: "^";
-}
-.calendar_sidebar--call{
-    margin-top: 50px;
-}
-.calendar_sidebar--callimg{
-    width: 25px;
-    height: 25px;
-}
-.calendar_sidebar--call > span{
+
+.side-bar--call > span {
     margin-top: 8px;
 }
-.calendar_sidebar--call--div{
+
+.side-bar--call--div {
     display: flex;
     flex-direction: row;
     align-items: center;
     margin-left: 3px;
 }
-.calendar_sidebar--call--div > div{
+
+.side-bar--call--div > div {
     background-color: #36B37E;
     width: 13px;
     height: 13px;
     border-radius: 20px;
     margin-bottom: 8px;
 }
-.calendar_sidebar--codeshare{
+
+.side-bar--codeshare {
     margin-top: 50px;
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
-.calendar_codeshare{
+
+.calendar_codeshare {
     color: white;
     font-family: 'Noto Sans';
     font-style: normal;
@@ -81,84 +80,45 @@
     color: #B2B9C7;
     padding-right: 5px;
 }
-.calendar_sidebar--codeshareimg{
+
+.side-bar--codeshare .icon {
     width: 35px;
     height: 30px;
 }
-.calendar_sidebar--product{
-    display: flex;
-    flex-direction: column;
-    margin-top: 80px;
-}
-.calendar_sidebar--product--img{
-    width: 23px;
-    height: 20px;
-}
-.calendar_sidebar--product--div{
-    display: flex;
-    flex-direction: row;
-    margin-top: 15px;
-    align-items: center;
-}
-.calendar_sidebar--product--div > span{
-    font-size: 14px;
-    color: #B2B9C7;
-    font-family: 'Noto Sans KR', sans-serif;
-    font-style: normal;
-}
-.calendar_sidebar--product--div > div{
-    width: 17px;
-    height: 17px;
-    background-color: #F5952D;
-    border-radius: 20px;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 8px;
-}
 
-.calendar_sidebar--user{
-    display: flex;
-    height: 40px;
-    width: 190px;
-    align-items: center;
-    background-color: #3F3C6D;
+.side-bar--user {
     position: absolute;
     bottom: 0;
-    justify-content: space-between;
-    /* padding-right: 1.7em; */
-}
-
-.calendar_sidebar--user--div {
-    color: white;
-    margin-left: 5px;
     display: flex;
     align-items: center;
-    gap: 5px;
+    height: 40px;
+    width: 100%;
+    font-size: 13px;
+    background-color: #494759;
 }
-.calendar_sidebar--user--mic{
-    width: 9px;
-    height: 16px;
+
+.side-bar--user--div  {
+    color: white;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    gap: 10px;
 }
-.calendar_sidebar--user--head{
-    margin-right: 10px;
-    margin-left: 10px;
-    width: 15px;
-    height: 12px;
-}
-.calendar_sidebar--userimg{
+
+.side-bar--userimg {
     width: 23px;
     height: 23px;
     background-color: orange;
     border-radius: 20px;
 
 }
-.calendar_sidebar--user > p {
+
+.side-bar--user > p  {
     color: white;
     margin-left: 5px;
 }
-.secSideBar-nickname{
+
+.secSideBar-nickname {
     display: block;
     width: 100px;
     text-overflow: ellipsis;
