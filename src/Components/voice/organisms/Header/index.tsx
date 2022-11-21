@@ -1,6 +1,10 @@
 import { HeaderContainer, Toolbar } from './style';
 
-const Header = ({ title }) => {
+type HeaderProps = {
+  title: string
+}
+
+const Header = ({ title }: HeaderProps) => {
   return (
     <HeaderContainer>
       <Toolbar>
