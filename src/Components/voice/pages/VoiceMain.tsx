@@ -1,16 +1,16 @@
 import React, { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import styles from '../../../styles/call/call.css';
+import '../../../styles/call/call.css';
 import { Button } from '../atoms';
 import { Header } from '../organisms';
 import { OrganismsMain } from '../organisms';
 
 const VoiceMain = () => {
   let navigate = useNavigate();
-  const inputRef = useRef();
+  const inputRef = useRef<HTMLInputElement>();
 
   return (
-    <div className={styles.container}>
+    <div className="voice-main-container">
       <Header title="WebRTC Example" />
       <OrganismsMain full>
         <div style={{ color: 'white', display: 'flex' }}>
