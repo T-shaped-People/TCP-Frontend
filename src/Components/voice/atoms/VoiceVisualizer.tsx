@@ -8,7 +8,11 @@ const VoiceVisualizerContainer = styled.div`
   justify-content: center;
 `;
 
-export const VoiceVisualizer = ({ id }) => {
+type VoiceVisualizerType = {
+  id: string 
+}
+
+export const VoiceVisualizer = ({ id }: VoiceVisualizerType) => {
   return (
     <VoiceVisualizerContainer>
       <canvas id={`canvas-${id}`} width="100" height="50" />
