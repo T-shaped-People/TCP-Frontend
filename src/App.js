@@ -15,7 +15,9 @@ import {
   Todo,
   Post,
   Notice,
-  JoinTeam
+  JoinTeam,
+  CallMain,
+  CallRoom
 } from "./allFiles";
 import axios, { AxiosError } from "axios";
 import "./styles/App.css";
@@ -70,6 +72,8 @@ function App() {
           <Route path={"/myteam"} element={<MyTeam />}></Route>
           <Route path={"/team/:teamId/*"} element={<Team />}></Route>
           <Route path={"/jointeam"} element={<JoinTeam />} />
+          <Route path={"/callmain"} element={<CallMain />} />
+          <Route path={"/callmain/:room"} element={<CallRoom/ >} />
         </Routes>
       </UserContext.Provider>
     </BrowserRouter>

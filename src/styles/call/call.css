@@ -1,0 +1,18 @@
+/* TODO :: class명 바꾸기 */
+
+.container {
+    min-height: 100vh;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+  
+.main {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: calc(100vh - 64px);
+    background-color: #1c1c1e;
+}
+  

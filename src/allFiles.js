@@ -22,6 +22,8 @@ import Post from "./Components/community/Post";
 import Comment from "./Components/comment/comment";
 import Recomment from "./Components/comment/Recomment";
 import Notice from "./Components/Notice";
+import CallMain from "./Components/call/CallMain";
+import CallRoom from "./Components/call/CallRoom";
 
 export {
   TeamHeader,
@@ -47,5 +49,7 @@ export {
   Post,
   Comment,
   Recomment,
-  Notice
+  Notice,
+  CallMain,
+  CallRoom
 };
