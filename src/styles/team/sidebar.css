@@ -27,9 +27,6 @@
 }
 
 .sidebar li {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     width: 45px;
     height: 45px;
     border-radius: 15px;
@@ -45,6 +42,11 @@
 }
 
 .sidebar li a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
     color: white;
 }
 

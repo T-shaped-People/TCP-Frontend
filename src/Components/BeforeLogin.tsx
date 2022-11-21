@@ -6,7 +6,7 @@ import { UserContext } from "../App";
 function BeforeLogin() {
   const navigate = useNavigate();
   const user = useContext(UserContext);
-  // if (user.isLogin) navigate("/myteam");
+  if (user.isLogin) navigate("/myteam");
 
   function goOauth() {
     window.location.href =

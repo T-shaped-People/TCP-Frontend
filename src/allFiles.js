@@ -2,7 +2,7 @@ import TeamHeader from "./Components/header/TeamHeader";
 import MainHeader from "./Components/header/MainHeader";
 import Sidebar from "./Components/team/Sidebar";
 import MakeProject from "./Components/makeProject";
-import Chatting from "./Components/team/chatting";
+import Chat from "./Components/team/chat/chat";
 import Canvas from "./Components/team/Canvas";
 import BeforeLogin from "./Components/BeforeLogin";
 import SecSideBar from "./Components/secSideBar";
@@ -28,7 +28,7 @@ export {
   MainHeader,
   Sidebar,
   MakeProject,
-  Chatting,
+  Chat,
   Canvas,
   BeforeLogin,
   SecSideBar,
