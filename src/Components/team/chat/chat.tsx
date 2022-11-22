@@ -31,9 +31,6 @@ export default function Chatting() {
     useEffect(() => {
         if (!roomId) return;
         initChatList();
-        (async () => {
-            console.log(await getTeamInfo());
-        })();
     }, [roomId]);
 
     useEffect(() => {
@@ -106,12 +103,6 @@ export default function Chatting() {
         setLoading(false);
     };
 
-    const getTeamInfo = async () => {
-        return axios.get(`/api/chat/${teamId}/${roomId}`, {
-            withCredentials: true,
-        });
-    }
-
     const sendChat = (event?: FormEvent<HTMLFormElement>) => {
         event?.preventDefault();
         if (!chatInputRef.current?.value) {
@@ -136,8 +127,8 @@ export default function Chatting() {
     };
 
     return (
-        <div className="chat">
-            <ul className="chat--item-list" ref={chatListRef}>
+        <>
+            <ul className="chat--item-list scroll-bar" ref={chatListRef}>
                 {startChatId > 1 || startChatId == 0? <li className='chat--load' ref={chatLoadRef}></li>: null}
                 {chatList.map((chat) => <ChatItem {...chat} />)}
             </ul>
@@ -157,6 +148,6 @@ export default function Chatting() {
                     />
                 </button>
             </form>
-        </div>
+        </>
     );
 }

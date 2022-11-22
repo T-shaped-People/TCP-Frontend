@@ -1,0 +1,11 @@
+.team-section {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+    margin-left: 250px;
+    width: calc(100% - 250px);
+    height: calc(100% - 50px);
+    background-color: #36393f;
+}

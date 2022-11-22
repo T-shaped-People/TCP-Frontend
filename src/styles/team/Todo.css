@@ -1,14 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
 
-.Todo-root {
-    height: 100%;
-    font-family: 'Noto Sans KR', sans-serif;
-}
-
 .Todo {
-    padding-top: 50px;
-    padding-left: 250px;
+    width: 100%;
     height: 100%;
+    background-color: white;
 }
 
 .Todo-title-div {

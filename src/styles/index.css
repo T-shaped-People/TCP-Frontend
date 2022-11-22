@@ -44,3 +44,20 @@ a {
   display: flex;
   align-items: center;
 }
+
+:is(
+    body,
+    .scroll-bar
+)::-webkit-scrollbar {
+    width: 20px;
+}
+
+:is(
+    body,
+    .scroll-bar
+)::-webkit-scrollbar-thumb {
+    background-color: #ffffff;
+    border-radius: 10px;
+    border: 8px solid transparent;
+    background-clip: padding-box;
+}
