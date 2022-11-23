@@ -1,11 +1,12 @@
-import { Link, useNavigate, useParams } from "react-router-dom";
-import '../../styles/team/team.css'
+import { useNavigate, useParams } from "react-router-dom";
+import '../../styles/team/dashboard.css'
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from "@fullcalendar/interaction";
-import axios from "axios";
 import { useLayoutEffect, useState} from "react";
-import { TiPlus } from "react-icons/ti";
+import { ajax, HttpMethod } from "../../util/ajax";
+import { TodoType } from "./todo/TodoType";
+import { Alarm } from "../../types/alarm";
 
 interface UpcomingSchedule {
   id: number
@@ -16,7 +17,7 @@ interface UpcomingSchedule {
   content: string
 }
 
-interface CalendarScheduleListType{
+interface RawSchedule {
   id: number
   usercode: string
   teamId: string
@@ -25,7 +26,7 @@ interface CalendarScheduleListType{
   content: string
 }
 
-interface CalendarScheduleType{
+interface Schedule {
   title: string
   start: string
   end: string
@@ -34,132 +35,117 @@ interface CalendarScheduleType{
 export default function TeamDashboard() {
   const nav = useNavigate();
   const param = useParams();
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [todo, setTodo] = useState([]);
-  const [notice, setNotice] = useState([]);
-  const [upcoming, setUpcoming] = useState<UpcomingSchedule[]>([]);
-  const [schedule, setSchedule] = useState([]);
+  const [todoList, setTodoList] = useState<TodoType[]>([]);
+  const [alarmList, setAlarmList] = useState<Alarm[]>([]);
+  const [upcomingList, setUpcomingList] = useState<UpcomingSchedule[]>([]);
+  const [scheduleList, setScheduleList] = useState<Schedule[]>([]);
 
-  useLayoutEffect(() => {
-    const getTeamInfo = async () => {
-      try {
-        axios.get(`/api/todo/incompleted/${param.teamId}`)
-            .then((response) => {
-              return response
-            }).then((data) => {
-          setTodo(data.data);
-        })
-        setLoading(true);
-        const response = await axios.get(`/api/team/${param.teamId}`);
-        const userResponse = await axios.get('/api/user');
-        if (response.data.leaderId === userResponse.data.usercode) {
-          setIsAdmin(true);
-        }
-        const noticeResponse = await axios.get(`/api/alarm/${param.teamId}`);
-        setNotice(noticeResponse.data);
-        const upcoming = await axios.get(`/api/calendar/upcoming/${param.teamId}`)
-        setUpcoming(upcoming.data);
-        const newArray: CalendarScheduleType[] = [];
-        const viewCalendar: CalendarScheduleListType[] = (await axios.get(`/api/calendar/${param.teamId}`)).data;
-        viewCalendar.map((value: CalendarScheduleListType) => {
-          const newSchedule = {
-            id: value.id,
-            title: value.content,
-            start: value.startDate.substring(0, 10),
-            end: value.endDate.substring(0, 10),
-          }
-          newArray.push(newSchedule);
-        })
-        setSchedule(newArray);
-      } catch (error) {
-        console.log(error);
-      }
+    useLayoutEffect(() => {
+        getDashboardInfo();
+    }, [param.teamId]);
+
+    const getDashboardInfo = async () => {
+        const [todos, alarms, schedules, upcomings] = await Promise.all([
+            ajax<TodoType[]>({
+                url: `/api/todo/${param.teamId}`,
+                method: HttpMethod.GET
+            }),
+            ajax<Alarm[]>({
+                url: `/api/alarm/${param.teamId}`,
+                method: HttpMethod.GET
+            }),
+            ajax<RawSchedule[]>({
+                url: `/api/calendar/${param.teamId}`,
+                method: HttpMethod.GET
+            }),
+            ajax<UpcomingSchedule[]>({
+                url: `/api/calendar/upcoming/${param.teamId}`,
+                method: HttpMethod.GET
+            })
+        ]);
+        setTodoList(todos);
+        setScheduleList(schedules.map(schedule => ({
+            id: schedule.id,
+            title: schedule.content,
+            start: schedule.startDate.substring(0, 10),
+            end: schedule.endDate.substring(0, 10),
+        })));
+        setAlarmList(alarms);
+        setUpcomingList(upcomings);
     }
-    getTeamInfo();
-    setLoading(false);
-  }, [param.teamId])
 
-  return (
-    <div className="team-root">
-      {/* <div className="team-title">
-        <h1>{team.name}</h1>
-        <span>마감까지 D-기한</span>
-      </div> */}
-      <div className="team">
-        <div className="team-div1">
-          <div className="team-todo" onClick={() => {
-            nav(`/team/${param.teamId}/todo`)
-          }}>
-            <div className="team-mytodo">
-              <p>My Todo</p>
-              {todo.filter((value, i) => i < 5).map((value) => {
-                return (
-                  <div className="team-mytodo-list">
-                    <p className="team-mytodo-title">{value.title}</p>
-                    <p className="team-mytodo-text">{value.todo}</p>
-                  </div>
-                )
-              })}
-            </div>
-          </div>
-          <div className="team-alarm">
-            <p>알람</p>
-            <p>누구가 당신한테 이것을 하였습니다.</p>
-            <p>공지사항이 추가되었습니다.</p>
-          </div>
-        </div>
-        <div className="team-div2">
-          <div className="team-calendar" onClick={() => {
-            nav(`calendar`)
-          }}>
-            <div className="team-calendar-size">
-              <FullCalendar
-                plugins={[dayGridPlugin, interactionPlugin]}
-                editable={true}
-                headerToolbar={{
-                  left: "title",
-                  center: "",
-                  right: ""
-                }}
-                initialView="dayGridMonth"
-                eventDisplay={'block'}
-                eventTextColor={'#FFF'}
-                eventColor={'#F2921D'}
-                height={'100%'}
-                events={schedule}
-              />
-            </div>
-            <div className="team-calendar-text">
-              <p>예정된 일정</p>
-              {upcoming.map((value: UpcomingSchedule)=>{
-                const date = (new Date(value.endDate).toLocaleDateString()).replaceAll(".", '')
-                return(
-                    <p>{date}까지 : {value.content}</p>
-                )
-              })}
-            </div>
-          </div>
-          <div className="team-notice">
-            <p>공지사항</p>
-            {notice.reverse().filter((value, i) => i < 2).map((item) => {
-              return <Link to={'/'}>
-                <div className="team-notice-list">
-                  <span className="team-notice-title">{item.title}</span>
+    return (
+        <div className="dashboard scroll-bar">
+            <div className="dashboard--top-wrap">
+                <div className="dashboard--content todo scroll-bar" onClick={() => nav(`/team/${param.teamId}/todo`)}>
+                    <h4>Todos</h4>
+                    <ul>{
+                        todoList.filter((_, i) => i < 5).map(todo => (
+                            <li className="dashboard--item">
+                                <p className="item-title">{todo.title}</p>
+                                <p className="item-content">{todo.todo}</p>
+                            </li>
+                        ))
+                    }</ul>
                 </div>
-              </Link>
-            })}
-            <Link to={'/post/notice/0'} state={{ teamId: param.teamId }} className='notice-plus'>
-              {isAdmin && !loading && <TiPlus size={24} color="black" />}
-            </Link>
-          </div>
-
-          <div className="team-direct">
-            <p>바로가기</p>
-            <a href="https://www.figma.com/file/X60Jy15c8mHbCHmM31bZaT/tcp-design">피그마</a>
-          </div>
+                <div className="dashboard--content alarm scroll-bar">
+                    <h4>알림</h4>
+                    <ul>{
+                        alarmList.filter((_, i) => i < 5).map(alarm => (
+                            <li className="dashboard--item">
+                                <p className="item-title">{alarm.title}</p>
+                            </li>
+                        ))
+                    }</ul>
+                </div>
+            </div>
+            <div className="dashboard--bottom-wrap">
+                <div className="dashboard--content calendar" onClick={() => nav('calendar')}>
+                    <FullCalendar
+                        plugins={[dayGridPlugin, interactionPlugin]}
+                        editable={true}
+                        headerToolbar={{
+                            left: "title",
+                            center: "",
+                            right: ""
+                        }}
+                        eventDisplay={'block'}
+                        eventTextColor={'#FFF'}
+                        eventColor={'#F2921D'}
+                        height={'100%'}
+                        events={scheduleList}
+                    />
+                </div>
+                <div className="dashboard--bottom-wrap cols">
+                    <div className="dashboard--content upcoming scroll-bar" onClick={() => nav('calendar')}>
+                        <h4>다가오는 일정</h4>
+                        <ul>{
+                            upcomingList.filter((_, i) => i < 5).map(upcoming => {
+                                const date = (new Date(upcoming.endDate).toLocaleDateString()).replaceAll(".", '')
+                                return (
+                                    <li className="dashboard--item">
+                                        <p className="item-title">{upcoming.content}</p>
+                                        <p className="item-content">{date}까지</p>
+                                    </li>
+                                );
+                            })
+                        }</ul>
+                    </div>
+                    <div className="dashboard--content link scroll-bar">
+                        <h4>바로가기</h4>
+                        <ul>{
+                            upcomingList.filter((_, i) => i < 5).map(upcoming => {
+                                const date = (new Date(upcoming.endDate).toLocaleDateString()).replaceAll(".", '')
+                                return (
+                                    <li className="dashboard--item">
+                                        <a className="item-title" href="https://www.figma.com/file/X60Jy15c8mHbCHmM31bZaT/tcp-design">피그마</a>
+                                    </li>
+                                );
+                            })
+                        }</ul>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div >
-  )
+    );
 }
