@@ -4,7 +4,7 @@ import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from "@fullcalendar/interaction";
 import { useLayoutEffect, useState} from "react";
-import { ajax, HttpMethod } from "../../util/ajax";
+import { ajax, HttpMethod } from "../../utils/ajax";
 import { TodoType } from "./todo/TodoType";
 import { Alarm } from "../../types/alarm";
 

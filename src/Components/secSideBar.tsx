@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import { useContext, useEffect, useState } from 'react';
 import "../styles/secSideBar.css";
 import { UserContext } from "../App";
 import axios from 'axios';
@@ -10,17 +10,32 @@ interface ChatRoom {
     teamId: string;
     id: string;
     createdAt: string;
-  }
+}
+
+interface VoiceChatRoom {
+    title: any;
+    teamId: string;
+    id: string;
+    createdAt: string;
+}
 
 export default function SecSideBar() {
     const user = useContext(UserContext);
     const [chatRoomList, setChatRoomList] = useState<ChatRoom[]>([]);
+    const [voiceChatRoomList, setVoiceChatRoomList] = useState<VoiceChatRoom[]>([]);
     const nav = useNavigate();
-    const param = useParams();
-    const { teamId, roomId } = param;
-    const [modal, setModal] = useState(false);
-    const [teamName, setTeamName] = useState("");
+    const { teamId } = useParams<string>();
+    const [chatRoomModal, setChatRoomModal] = useState<boolean>(false);
+    const [voiceChatRoomModal, setVoiceChatRoomModal] = useState<boolean>(false);
+    const [teamName, setTeamName] = useState<string>("");
     Modal.setAppElement("#root");
+
+    useEffect(() => {
+        (async () => {
+            setChatRoomList((await axios.get("/api/chat/room")).data);
+            setVoiceChatRoomList((await axios.get(`/api/chat/voice/${teamId}`)).data);
+        })();
+    }, []);
 
     useEffect(() => {
         (async () => {
@@ -33,7 +48,15 @@ export default function SecSideBar() {
             teamId,
             roomTitle: teamName,
         });
-        setModal(false);
+        setChatRoomModal(false);
+    };
+
+    const createVoiceChatRoom = async () => {
+        await axios.post("/api/chat/voice", {
+            teamId,
+            roomTitle: teamName,
+        });
+        setVoiceChatRoomModal(false);
     };
 
     return (
@@ -45,7 +68,7 @@ export default function SecSideBar() {
                         alt='icon'
                         className='icon'
                     />
-                    <span className='side-bar--add' onClick={() => setModal(true)}>+</span>
+                    <span className='side-bar--add' onClick={() => setChatRoomModal(true)}>+</span>
                 </div>
                 <ul className='side-bar--side'>
                     {chatRoomList.map(room => (
@@ -55,14 +78,24 @@ export default function SecSideBar() {
                     ))}
                 </ul>
                 <div className='side-bar--call'>
-                    <img
-                        src='/images/phoneicon.png'
-                        alt='icon'
-                        className='icon'
-                    />
+                    <div className='rows'>
+                        <img
+                            src='/images/phoneicon.png'
+                            alt='icon'
+                            className='icon'
+                        />
+                        <span className='side-bar--add' onClick={() => setVoiceChatRoomModal(true)}>+</span>
+                    </div>
                     <div className='side-bar--call--div'></div>
                     <span className='side-bar--list'>백엔드 회의</span>
                 </div>
+                <ul className={"side-bar--side"}>
+                    {voiceChatRoomList.map(room => (
+                        <li onClick={() => nav(`/call/${room.id}`)}>
+                            {room.title}
+                        </li>
+                    ))}
+                </ul>
                 <div className='side-bar--codeshare'>
                     <img
                         src='/images/clarity_code-line.png'
@@ -81,30 +114,80 @@ export default function SecSideBar() {
                 </div>
             </div>
             <Modal
-                isOpen={modal}
-                onRequestClose={() => setModal(false)}
+                isOpen={chatRoomModal}
+                onRequestClose={() => setChatRoomModal(false)}
                 style={{
-                overlay: {
-                    backgroundColor: "rgba(0, 0, 0, 0.5)",
-                    zIndex: 100,
-                },
-                content: {
-                    width: "300px",
-                    height: "200px",
-                    margin: "auto",
-                    borderRadius: "20px",
-                    overflowX: "hidden",
-                },
+                    overlay: {
+                        backgroundColor: "rgba(0, 0, 0, 0.5)",
+                        zIndex: 100,
+                    },
+                    content: {
+                        width: "320px",
+                        height: "250px",
+                        margin: "auto",
+                        borderRadius: "20px",
+                        overflowX: "hidden",
+                    },
                 }}
             >
-                <span>채팅방 이름을 입력하세요</span>
-                <input
-                    type="text"
-                    placeholder="채팅방 이름"
-                    value={teamName}
-                    onChange={(e) => setTeamName(e.target.value)}
-                />
-                <button onClick={() => createChatRoom()}>확인</button>
+                <div className="create-room-root">
+                    <div className="create-room-header">
+                        <h1 className="craete-room-title">채팅방 생성</h1>
+                    </div>
+                    <ul className="craete-room-ul">
+                        <input
+                            type="text"
+                            placeholder="채팅방 이름을 입력하세요."
+                            className="craete-room-input"
+                            name="title"
+                            value={teamName}
+                            onChange={(e) => setTeamName(e.target.value)}
+                        />
+                        <div>
+                            <div className="craete-room-button-submit" onClick={() => createChatRoom()}>
+                                확인
+                            </div>
+                        </div>
+                    </ul>
+                </div>
+            </Modal>
+            <Modal
+                isOpen={voiceChatRoomModal}
+                onRequestClose={() => setVoiceChatRoomModal(false)}
+                style={{
+                    overlay: {
+                        backgroundColor: "rgba(0, 0, 0, 0.5)",
+                        zIndex: 100,
+                    },
+                    content: {
+                        width: "320px",
+                        height: "250px",
+                        margin: "auto",
+                        borderRadius: "20px",
+                        overflowX: "hidden",
+                    },
+                }}
+            >
+                <div className="create-room-root">
+                    <div className="create-room-header">
+                        <h1 className="craete-room-title">음성채팅방 생성</h1>
+                    </div>
+                    <ul className="craete-room-ul">
+                        <input
+                            type="text"
+                            placeholder="채팅방 이름을 입력하세요."
+                            className="craete-room-input"
+                            name="title"
+                            value={teamName}
+                            onChange={(e) => setTeamName(e.target.value)}
+                        />
+                        <div>
+                            <div className="craete-room-button-submit" onClick={() => createVoiceChatRoom()}>
+                                확인
+                            </div>
+                        </div>
+                    </ul>
+                </div>
             </Modal>
         </div>
     );

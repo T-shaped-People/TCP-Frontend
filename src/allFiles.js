@@ -22,6 +22,7 @@ import Post from "./Components/community/Post";
 import Comment from "./Components/comment/comment";
 import Recomment from "./Components/comment/Recomment";
 import Notice from "./Components/Notice";
+import VoiceRoom from "./Components/voice/pages/VoiceRoom";
 
 export {
   TeamHeader,
@@ -47,5 +48,6 @@ export {
   Post,
   Comment,
   Recomment,
-  Notice
+  Notice,
+  VoiceRoom
 };

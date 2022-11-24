@@ -90,7 +90,7 @@ export default function MakeProject() {
             </li>
             <li className="makeProject-tr">
               <p className="makeProject-td">팀 설명</p>
-              
+
             </li>
             <li className="makeProject-tr">
               <p className="makeProject-td">프로젝트 마감일시</p>
