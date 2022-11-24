@@ -40,6 +40,7 @@ export default function SecSideBar() {
     useEffect(() => {
         (async () => {
             setChatRoomList((await axios.get(`/api/chat/room/${teamId}`)).data);
+            setVoiceChatRoomList((await axios.get(`/api/chat/voice/${teamId}`)).data);
         })();
     }, [teamId]);
 
@@ -87,7 +88,6 @@ export default function SecSideBar() {
                         <span className='side-bar--add' onClick={() => setVoiceChatRoomModal(true)}>+</span>
                     </div>
                     <div className='side-bar--call--div'></div>
-                    <span className='side-bar--list'>백엔드 회의</span>
                 </div>
                 <ul className={"side-bar--side"}>
                     {voiceChatRoomList.map(room => (
