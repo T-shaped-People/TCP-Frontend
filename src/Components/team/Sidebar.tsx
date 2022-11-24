@@ -32,7 +32,7 @@ function Sidebar() {
                 alt={"icon"}
                 className={"sidebar--tcp"}
                 onClick={() => {
-                if (user.isLogin) navigate("/calendar");
+                if (user.isLogin) navigate("/myteam");
                 else navigate("/");
                 }}
             />

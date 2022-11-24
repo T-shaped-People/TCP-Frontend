@@ -36,30 +36,33 @@ const TeamHeader = () => {
   }, [param]);
   return (
     <>
-        <header className="team-header">
-            <nav>
-                <div className="nav--left">{team.name}</div>
-                <ul className="nav--right rows">
-                    <li onClick={()=> navigate('todo') } className={"team-header-todo"}>
-                        <img
-                            src="/images/carbon_notebook.png"
-                            alt="icon"
-                            className="team-header--notebook"
-                        />
-                    </li>
-                    <li className="header--username">
-                        <img
-                            src="/images/person.png"
-                            alt="icon"
-                            className="team-header--person"
-                        />
-                        <span>{user.nickname}</span>
-                    </li>
-                </ul>
-            </nav>
-        </header>
-        <Sidebar />
-        <SecSideBar />
+      <header className="team-header">
+        <nav>
+          <div className="nav--left">{team.name}</div>
+          <ul className="nav--right rows">
+            <li
+              onClick={() => navigate(`team/${param.teamId}`)}
+              className={"team-header-todo"}
+            >
+              <img
+                src="/images/carbon_notebook.png"
+                alt="icon"
+                className="team-header--notebook"
+              />
+            </li>
+            <li className="header--username">
+              <img
+                src="/images/person.png"
+                alt="icon"
+                className="team-header--person"
+              />
+              <span>{user.nickname}</span>
+            </li>
+          </ul>
+        </nav>
+      </header>
+      <Sidebar />
+      <SecSideBar />
     </>
   );
 };
