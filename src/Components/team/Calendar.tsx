@@ -1,4 +1,3 @@
-import { TeamHeader, SecSideBar, Sidebar } from '../../allFiles';
 import "../../styles/team/calendar.css"
 import FullCalendar, { EventDropArg } from '@fullcalendar/react';
 import timeGridPlugin from "@fullcalendar/timegrid";
@@ -79,121 +78,115 @@ function CalendarInput({ closeModal, setRefreshCalendar, setInput, input }: Cale
 
 export default function Calendar() {
 
-  const [schedule, setSchedule] = useState([]);
-  const [modal, setModal] = useState(false);
-  const [refreshCalendar, setRefreshCalendar] = useState(false);
-  const param = useParams();
-  const [input, setInput] = useState({
-    teamId: param.teamId,
-    endDate: "",
-    startDate: "",
-    content: "",
-  });
+    const [schedule, setSchedule] = useState([]);
+    const [modal, setModal] = useState(false);
+    const [refreshCalendar, setRefreshCalendar] = useState(false);
+    const param = useParams();
+    const [input, setInput] = useState({
+        teamId: param.teamId,
+        endDate: "",
+        startDate: "",
+        content: "",
+    });
 
-  useEffect(() => {
-    (async () => {
-      try {
-        if (input.content !== "" && input.startDate !== "" && input.endDate !== "") {
-          console.log(input);
-          await axios.post(`/api/calendar/upload/`, input);
-        }
-        else {
-          input.content = "";
-          input.endDate = "";
-          input.startDate = "";
-        }
-        const newArray: CalendarScheduleType[] = [];
-        const viewCalendar: CalendarScheduleListType[] = (await getCalendar()).data;
-        viewCalendar.map((value: CalendarScheduleListType) => {
-          const newSchedule = {
-            id: value.id,
-            title: value.content,
-            start: value.startDate.substring(0, 10),
-            end: value.endDate.substring(0, 10),
-          }
-          newArray.push(newSchedule);
+    useEffect(() => {
+        (async () => {
+            try {
+                if (input.content !== "" && input.startDate !== "" && input.endDate !== "") {
+                    console.log(input);
+                    await axios.post(`/api/calendar/upload/`, input);
+                } else {
+                    input.content = "";
+                    input.endDate = "";
+                    input.startDate = "";
+                }
+                const newArray: CalendarScheduleType[] = [];
+                const viewCalendar: CalendarScheduleListType[] = (await getCalendar()).data;
+                viewCalendar.map((value: CalendarScheduleListType) => {
+                    const newSchedule = {
+                        id: value.id,
+                        title: value.content,
+                        start: value.startDate.substring(0, 10),
+                        end: value.endDate.substring(0, 10),
+                    }
+                    newArray.push(newSchedule);
+                })
+                setSchedule(newArray);
+            } catch (error) {
+                console.log(error);
+            }
+        })();
+    }, [refreshCalendar]);
+
+    const getCalendar = async () => {
+        return axios.get(`/api/calendar/${param.teamId}`);
+    }
+
+    const closeModal = () => {
+        setModal(false);
+    }
+
+    const openModal = () => {
+        setModal(true);
+    }
+
+    const ScheduleDrag = (event: (EventDropArg | EventResizeDoneArg)) => {
+        const {start, end} = event.event._instance.range;
+        const {publicId, title} = event.event._def
+        const convertStart: Array<string> = ((start.toLocaleDateString()).replaceAll(' ', '')).split('.')
+        const convertEnd: Array<string> = ((end.toLocaleDateString()).replaceAll(' ', '')).split('.')
+
+        const newStart = `${convertStart[0]}-${convertStart[1].padStart(2, "0")}-${convertStart[2].padStart(2, "0")}`
+        const newEnd = `${convertEnd[0]}-${convertEnd[1]}-${convertEnd[2]}`
+
+        axios.put('/api/calendar', {
+            id: publicId,
+            endDate: newEnd,
+            startDate: newStart,
+            content: title
         })
-        setSchedule(newArray);
-      } catch (error) {
-        console.log(error);
-      }
-    })();
-  }, [refreshCalendar])
+    }
 
-  const getCalendar = async () => {
-    return axios.get(`/api/calendar/${param.teamId}`);
-  }
-
-  const closeModal = () => {
-    setModal(false);
-  }
-
-  const openModal = () => {
-    setModal(true);
-  }
-
-  const ScheduleDrag = (event: (EventDropArg | EventResizeDoneArg)) => {
-    const {start, end} = event.event._instance.range;
-    const {publicId, title} = event.event._def
-    const convertStart: Array<string> = ((start.toLocaleDateString()).replaceAll(' ', '')).split('.')
-    const convertEnd: Array<string> = ((end.toLocaleDateString()).replaceAll(' ', '')).split('.')
-
-    const newStart = `${convertStart[0]}-${convertStart[1].padStart(2, "0")}-${convertStart[2].padStart(2, "0")}`
-    const newEnd = `${convertEnd[0]}-${convertEnd[1]}-${convertEnd[2]}`
-
-    axios.put('/api/calendar', {
-      id: publicId,
-      endDate: newEnd,
-      startDate: newStart,
-      content: title
-    })
-  }
-
-  return (
-    <div className={"calendar-root"}>
-      <TeamHeader />
-      <Sidebar />
-      <div className={"sideAndSide"}>
-        <SecSideBar />
-        <div className={"calendar"}>
-          <FullCalendar
-            plugins={[dayGridPlugin, interactionPlugin, timeGridPlugin]}
-            headerToolbar={{
-              left: 'prev,next today',
-              center: 'title',
-              right: 'dayGridMonth,timeGridWeek,timeGridDay'
-            }}
-            editable={true}
-            initialView="dayGridMonth"
-            weekends={true}
-            eventDisplay={'block'}
-            eventTextColor={'#FFF'}
-            eventColor={'#F2921D'}
-            height={'100%'}
-            events={schedule}
-            eventDrop={ScheduleDrag}
-            eventResize={ScheduleDrag}
-          />
+    return (
+        <div className={"calendar-root"}>
+            <div className={"calendar"}>
+                <FullCalendar
+                    plugins={[dayGridPlugin, interactionPlugin, timeGridPlugin]}
+                    headerToolbar={{
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                    }}
+                    editable={true}
+                    initialView="dayGridMonth"
+                    weekends={true}
+                    eventDisplay={'block'}
+                    eventTextColor={'#FFF'}
+                    eventColor={'#F2921D'}
+                    height={'100%'}
+                    events={schedule}
+                    eventDrop={ScheduleDrag}
+                    eventResize={ScheduleDrag}
+                />
+            </div>
+            <div className='add-calendar' onClick={openModal}>
+                <span>일정 추가</span>
+                <AiOutlinePlusSquare className='add-calendar-plus' />
+            </div>
+            <Modal
+                isOpen={modal}
+                onRequestClose={closeModal}
+                style={{
+                    overlay: {
+                        position: "fixed",
+                        inset: "0px",
+                        backgroundColor: "rgba(42, 42, 42, 0.75)",
+                        zIndex: "4"
+                    }
+                }}
+                className="popup">
+                <CalendarInput closeModal={closeModal} setRefreshCalendar={setRefreshCalendar} setInput={setInput} input={input} />
+            </Modal>
         </div>
-      </div>
-      <div className='add-calendar' onClick={openModal}>
-        <span>일정 추가</span>
-        <AiOutlinePlusSquare className='add-calendar-plus' />
-      </div>
-      <Modal
-        isOpen={modal}
-        onRequestClose={closeModal}
-        style={{
-          overlay: {
-            position: "fixed",
-            inset: "0px",
-            backgroundColor: "rgba(42, 42, 42, 0.75)",
-            zIndex: "4"
-          }
-        }}
-        className="popup">
-        <CalendarInput closeModal={closeModal} setRefreshCalendar={setRefreshCalendar} setInput={setInput} input={input} />
-      </Modal>
-    </div>
-  )
+    );
 }

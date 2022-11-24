@@ -9,8 +9,9 @@ a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, bo
   line-height: inherit;
   vertical-align: inherit;
   font-family: inherit;
+  color: inherit;
 }
-html, body, #root{
+html, body, #root {
   height: 100%;
   width: 100%;
 }
@@ -42,5 +43,30 @@ a {
 
 .rows {
   display: flex;
-  align-items: center;
+}
+
+.cols {
+  display: flex;
+  flex-direction: column;
+}
+
+:is(
+    body,
+    .scroll-bar
+)::-webkit-scrollbar {
+    width: 20px;
+}
+
+:is(
+    body,
+    .scroll-bar
+)::-webkit-scrollbar-thumb {
+    background-color: #ffffff;
+    border-radius: 10px;
+    border: 8px solid transparent;
+    background-clip: padding-box;
+}
+
+.scroll-bar {
+    overflow: auto;
 }
