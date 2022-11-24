@@ -24,9 +24,10 @@ export default function SecSideBar() {
     const [chatRoomList, setChatRoomList] = useState<ChatRoom[]>([]);
     const [voiceChatRoomList, setVoiceChatRoomList] = useState<VoiceChatRoom[]>([]);
     const nav = useNavigate();
-    const { teamId } = useParams();
-    const [modal, setModal] = useState(false);
-    const [teamName, setTeamName] = useState("");
+    const { teamId } = useParams<string>();
+    const [chatRoomModal, setChatRoomModal] = useState<boolean>(false);
+    const [voiceChatRoomModal, setVoiceChatRoomModal] = useState<boolean>(false);
+    const [teamName, setTeamName] = useState<string>("");
     Modal.setAppElement("#root");
 
     useEffect(() => {
@@ -47,7 +48,15 @@ export default function SecSideBar() {
             teamId,
             roomTitle: teamName,
         });
-        setModal(false);
+        setChatRoomModal(false);
+    };
+
+    const createVoiceChatRoom = async () => {
+        await axios.post("/api/chat/voice", {
+            teamId,
+            roomTitle: teamName,
+        });
+        setVoiceChatRoomModal(false);
     };
 
     return (
@@ -59,7 +68,7 @@ export default function SecSideBar() {
                         alt='icon'
                         className='icon'
                     />
-                    <span className='side-bar--add' onClick={() => setModal(true)}>+</span>
+                    <span className='side-bar--add' onClick={() => setChatRoomModal(true)}>+</span>
                 </div>
                 <ul className='side-bar--side'>
                     {chatRoomList.map(room => (
@@ -69,14 +78,24 @@ export default function SecSideBar() {
                     ))}
                 </ul>
                 <div className='side-bar--call'>
-                    <img
-                        src='/images/phoneicon.png'
-                        alt='icon'
-                        className='icon'
-                    />
+                    <div className='rows'>
+                        <img
+                            src='/images/phoneicon.png'
+                            alt='icon'
+                            className='icon'
+                        />
+                        <span className='side-bar--add' onClick={() => setVoiceChatRoomModal(true)}>+</span>
+                    </div>
                     <div className='side-bar--call--div'></div>
                     <span className='side-bar--list'>백엔드 회의</span>
                 </div>
+                <ul className={"side-bar--side"}>
+                    {voiceChatRoomList.map(room => (
+                        <li onClick={() => nav(`/call/${room.id}`)}>
+                            {room.title}
+                        </li>
+                    ))}
+                </ul>
                 <div className='side-bar--codeshare'>
                     <img
                         src='/images/clarity_code-line.png'
@@ -88,13 +107,6 @@ export default function SecSideBar() {
                     </p>
                 </div>
             </div>
-            <ul className={"side-bar--side"}>
-                {voiceChatRoomList.map(room => (
-                    <li onClick={() => nav(`/call/${room.id}`)}>
-                        {room.title}
-                    </li>
-                ))}
-            </ul>
             <div className='side-bar--user'>
                 <div className='side-bar--user--div'>
                     <div className='side-bar--userimg'></div>
@@ -102,8 +114,8 @@ export default function SecSideBar() {
                 </div>
             </div>
             <Modal
-                isOpen={modal}
-                onRequestClose={() => setModal(false)}
+                isOpen={chatRoomModal}
+                onRequestClose={() => setChatRoomModal(false)}
                 style={{
                     overlay: {
                         backgroundColor: "rgba(0, 0, 0, 0.5)",
@@ -133,6 +145,44 @@ export default function SecSideBar() {
                         />
                         <div>
                             <div className="craete-room-button-submit" onClick={() => createChatRoom()}>
+                                확인
+                            </div>
+                        </div>
+                    </ul>
+                </div>
+            </Modal>
+            <Modal
+                isOpen={voiceChatRoomModal}
+                onRequestClose={() => setVoiceChatRoomModal(false)}
+                style={{
+                    overlay: {
+                        backgroundColor: "rgba(0, 0, 0, 0.5)",
+                        zIndex: 100,
+                    },
+                    content: {
+                        width: "320px",
+                        height: "250px",
+                        margin: "auto",
+                        borderRadius: "20px",
+                        overflowX: "hidden",
+                    },
+                }}
+            >
+                <div className="create-room-root">
+                    <div className="create-room-header">
+                        <h1 className="craete-room-title">음성채팅방 생성</h1>
+                    </div>
+                    <ul className="craete-room-ul">
+                        <input
+                            type="text"
+                            placeholder="채팅방 이름을 입력하세요."
+                            className="craete-room-input"
+                            name="title"
+                            value={teamName}
+                            onChange={(e) => setTeamName(e.target.value)}
+                        />
+                        <div>
+                            <div className="craete-room-button-submit" onClick={() => createVoiceChatRoom()}>
                                 확인
                             </div>
                         </div>
