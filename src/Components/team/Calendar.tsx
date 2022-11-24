@@ -137,7 +137,7 @@ export default function Calendar() {
         const convertEnd: Array<string> = ((end.toLocaleDateString()).replaceAll(' ', '')).split('.')
 
         const newStart = `${convertStart[0]}-${convertStart[1].padStart(2, "0")}-${convertStart[2].padStart(2, "0")}`
-        const newEnd = `${convertEnd[0]}-${convertEnd[1]}-${convertEnd[2]}`
+        const newEnd = `${convertEnd[0]}-${convertEnd[1].padStart(2, "0")}-${convertEnd[2].padStart(2, "0")}`
 
         axios.put('/api/calendar', {
             id: publicId,
