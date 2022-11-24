@@ -17,6 +17,25 @@
     height: 25px;
 }
 
+.side-bar--add {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    margin-left: 2px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #B2B9C7;
+    border-radius: 50%;
+    transition: .25s;
+    cursor: pointer;
+}
+
+.side-bar--add:hover {
+    background-color: rgba(255, 255, 255, .2);
+}
+
 .side-bar-menu {
     padding: 15px 5px;
 }

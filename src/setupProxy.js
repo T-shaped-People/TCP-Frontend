@@ -2,17 +2,14 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 
 module.exports = function (app) {
     app.use(
-        '/api',
-        createProxyMiddleware({
+        '/',
+        createProxyMiddleware(['/api', '/socket.io'], {
             target: 'http://54.180.118.42:3000',
-            changeOrigin: true
-        }),
-    );
-    app.use(
-        '/socket.io',
-        createProxyMiddleware({
-            target: 'http://54.180.118.42:3000',
-            changeOrigin: true
-        }),
+            changeOrigin: true,
+            ws: true,
+            router: {
+                '/socket.io': 'ws://54.180.118.42:3000',
+            }
+        })
     );
 };

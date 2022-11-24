@@ -1,6 +1,6 @@
 import axios, { AxiosError, AxiosPromise } from "axios"
 
-enum HttpMethod {
+export enum HttpMethod {
     GET,
     POST,
     PUT,
