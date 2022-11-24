@@ -9,6 +9,7 @@ header {
     color: white;
     top: 0;
     box-shadow: 5px 5px 5px #00000044;
+    line-height: 50px;
 }
 
 header 
