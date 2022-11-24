@@ -3,10 +3,11 @@ import '../../styles/team/dashboard.css'
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from "@fullcalendar/interaction";
-import { useLayoutEffect, useState} from "react";
+import { FormEvent, useLayoutEffect, useState} from "react";
 import { ajax, HttpMethod } from "../../utils/ajax";
 import { TodoType } from "./todo/TodoType";
 import { Alarm } from "../../types/alarm";
+import Modal from "react-modal";
 
 interface UpcomingSchedule {
   id: number
@@ -32,6 +33,13 @@ interface Schedule {
   end: string
 }
 
+interface Link {
+    id: number;
+    teamId: string;
+    title: string;
+    link: string;
+}
+
 export default function TeamDashboard() {
   const nav = useNavigate();
   const param = useParams();
@@ -39,13 +47,18 @@ export default function TeamDashboard() {
   const [alarmList, setAlarmList] = useState<Alarm[]>([]);
   const [upcomingList, setUpcomingList] = useState<UpcomingSchedule[]>([]);
   const [scheduleList, setScheduleList] = useState<Schedule[]>([]);
+  const [linkList, setLinkList] = useState<Link[]>([]);
+  const [createLinkModal, setCreateLinkModal] = useState<boolean>(false);
+  const [newLink, setNewLink] = useState<string>('');
+  const [newLinkTitle, setNewLinkTitle] = useState<string>('');
+  Modal.setAppElement("#root");
 
     useLayoutEffect(() => {
         getDashboardInfo();
     }, [param.teamId]);
 
     const getDashboardInfo = async () => {
-        const [todos, alarms, schedules, upcomings] = await Promise.all([
+        const [todos, alarms, schedules, upcomings, links] = await Promise.all([
             ajax<TodoType[]>({
                 url: `/api/todo/${param.teamId}`,
                 method: HttpMethod.GET
@@ -61,6 +74,10 @@ export default function TeamDashboard() {
             ajax<UpcomingSchedule[]>({
                 url: `/api/calendar/upcoming/${param.teamId}`,
                 method: HttpMethod.GET
+            }),
+            ajax<Link[]>({
+                url: `/api/link/${param.teamId}`,
+                method: HttpMethod.GET
             })
         ]);
         setTodoList(todos);
@@ -72,6 +89,29 @@ export default function TeamDashboard() {
         })));
         setAlarmList(alarms);
         setUpcomingList(upcomings);
+        setLinkList(links);
+    }
+
+    const createLink = async (e: FormEvent) => {
+        e.preventDefault();
+        await ajax({
+            url: '/api/link',
+            method: HttpMethod.POST,
+            payload: {
+                teamId: param.teamId,
+                title: newLinkTitle,
+                link: newLink
+            }
+        });
+        setNewLinkTitle('');
+        setNewLink('');
+        setCreateLinkModal(false);
+
+        const links = await ajax<Link[]>({
+            url: `/api/link/${param.teamId}`,
+            method: HttpMethod.GET
+        });
+        setLinkList(links);
     }
 
     return (
@@ -80,9 +120,12 @@ export default function TeamDashboard() {
                 <div className="dashboard--content todo scroll-bar" onClick={() => nav(`/team/${param.teamId}/todo`)}>
                     <h4>Todos</h4>
                     <ul>{
-                        todoList.filter((_, i) => i < 5).map(todo => (
+                        todoList.map(todo => (
                             <li className="dashboard--item">
-                                <p className="item-title">{todo.title}</p>
+                                <p className="item-title">
+                                    {todo.completed && <span className="todo-completed">[완료됨]</span>}
+                                    {todo.title}
+                                </p>
                                 <p className="item-content">{todo.todo}</p>
                             </li>
                         ))
@@ -91,7 +134,7 @@ export default function TeamDashboard() {
                 <div className="dashboard--content alarm scroll-bar">
                     <h4>알림</h4>
                     <ul>{
-                        alarmList.filter((_, i) => i < 5).map(alarm => (
+                        alarmList.map(alarm => (
                             <li className="dashboard--item">
                                 <p className="item-title">{alarm.title}</p>
                             </li>
@@ -120,7 +163,7 @@ export default function TeamDashboard() {
                     <div className="dashboard--content upcoming scroll-bar" onClick={() => nav('calendar')}>
                         <h4>다가오는 일정</h4>
                         <ul>{
-                            upcomingList.filter((_, i) => i < 5).map(upcoming => {
+                            upcomingList.map(upcoming => {
                                 const date = (new Date(upcoming.endDate).toLocaleDateString()).replaceAll(".", '')
                                 return (
                                     <li className="dashboard--item">
@@ -132,17 +175,55 @@ export default function TeamDashboard() {
                         }</ul>
                     </div>
                     <div className="dashboard--content link scroll-bar">
-                        <h4>바로가기</h4>
+                        <div className="rows">
+                            <h4>바로가기</h4>
+                            <span className='add' onClick={() => setCreateLinkModal(true)}>+</span>
+                        </div>
                         <ul>{
-                            upcomingList.filter((_, i) => i < 5).map(upcoming => {
-                                const date = (new Date(upcoming.endDate).toLocaleDateString()).replaceAll(".", '')
-                                return (
-                                    <li className="dashboard--item">
-                                        <a className="item-title" href="https://www.figma.com/file/X60Jy15c8mHbCHmM31bZaT/tcp-design">피그마</a>
-                                    </li>
-                                );
-                            })
+                            linkList.map(link => (
+                                <li className="dashboard--item">
+                                    <a target='_blank' rel='noopener noreferrer' className="item-title" href={link.link}>{link.title}</a>
+                                </li>
+                            ))
                         }</ul>
+                        <Modal
+                            isOpen={createLinkModal}
+                            onRequestClose={() => setCreateLinkModal(false)}
+                            style={{
+                                overlay: {
+                                    backgroundColor: "rgba(0, 0, 0, 0.5)",
+                                    zIndex: 100,
+                                },
+                                content: {
+                                    width: "320px",
+                                    height: "250px",
+                                    margin: "auto",
+                                    borderRadius: "20px",
+                                    overflowX: "hidden",
+                                },
+                            }}
+                        >
+                            <h1>바로가기 링크 생성</h1>
+                            <form onSubmit={createLink} className='create-link-box'>
+                                <input
+                                    type="text"
+                                    placeholder="제목 입력"
+                                    name="link"
+                                    required
+                                    value={newLinkTitle}
+                                    onChange={(e) => setNewLinkTitle(e.target.value)}
+                                />
+                                <input
+                                    type="text"
+                                    placeholder="바로가기 링크 입력"
+                                    name="link"
+                                    required
+                                    value={newLink}
+                                    onChange={(e) => setNewLink(e.target.value)}
+                                />
+                                <button type="submit">확인</button>
+                            </form>
+                        </Modal>
                     </div>
                 </div>
             </div>

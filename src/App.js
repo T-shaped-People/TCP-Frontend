@@ -1,20 +1,16 @@
 import React, { createContext } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import {
-  Chatting,
   MakeProject,
-  Canvas,
   Community,
   BeforeLogin,
-  Calendar,
   Content,
   NotFound,
   MakeTeam,
   MyTeam,
   Team,
-  Todo,
+  TeamHeader,
   Post,
-  Notice,
   JoinTeam,
   VoiceRoom
 } from "./allFiles";
@@ -70,6 +66,7 @@ function App() {
           <Route path={"/maketeam"} element={<MakeTeam />}></Route>
           <Route path={"/myteam"} element={<MyTeam />}></Route>
           <Route path={"/team/:teamId/*"} element={<Team />}></Route>
+          <Route path={"/team"} element={<TeamHeader />}></Route>
           <Route path={"/jointeam"} element={<JoinTeam />} />
           <Route path={"/call/:room"} element={<VoiceRoom />} />
         </Routes>

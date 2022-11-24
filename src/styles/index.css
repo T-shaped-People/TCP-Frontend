@@ -43,6 +43,7 @@ a {
 
 .rows {
   display: flex;
+  align-items: center;
 }
 
 .cols {
@@ -61,10 +62,14 @@ a {
     body,
     .scroll-bar
 )::-webkit-scrollbar-thumb {
-    background-color: #ffffff;
+    background-color: #15133c;
     border-radius: 10px;
     border: 8px solid transparent;
     background-clip: padding-box;
+}
+
+body {
+    overflow: overlay;
 }
 
 .scroll-bar {

@@ -1,3 +1,12 @@
+:has(.team-section)
+:is(
+    body,
+    .scroll-bar
+)::-webkit-scrollbar-thumb {
+    background-color: #ffffff;
+}
+
+
 .team-section {
     position: fixed;
     display: flex;
