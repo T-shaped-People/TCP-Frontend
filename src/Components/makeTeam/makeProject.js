@@ -3,6 +3,8 @@ import axios from "axios";
 import { MainHeader } from "../../allFiles";
 import "../../styles/makeProject.css";
 import { useNavigate } from "react-router-dom";
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 const Modal = ({ teamCode }) => {
   const nav = useNavigate();
@@ -38,6 +40,7 @@ export default function MakeProject() {
     deadline: "",
   });
   const [teamCode, setTeamCode] = useState([]);
+  const [content, setContent] = useState('');
 
   const onChange = (e) => {
     const { name, value } = e.target;
@@ -51,7 +54,11 @@ export default function MakeProject() {
 
   const makeTeam = async () => {
     try {
-      const data = (await axios.post("api/team", inputs)).data;
+      const postData = {
+        ...inputs,
+        description: content,
+      }
+      const data = (await axios.post("api/team", postData)).data;
       const code = await axios.post("api/team/code", {
         teamId: data.teamId,
       });
@@ -90,7 +97,15 @@ export default function MakeProject() {
             </li>
             <li className="makeProject-tr">
               <p className="makeProject-td">팀 설명</p>
-
+              <CKEditor
+                  editor={ClassicEditor}
+                  // {...register('content')}
+                  data={content}
+                  onChange={(event, editor) => {
+                    const data = editor.getData();
+                    setContent(data);
+                  }}
+              />
             </li>
             <li className="makeProject-tr">
               <p className="makeProject-td">프로젝트 마감일시</p>

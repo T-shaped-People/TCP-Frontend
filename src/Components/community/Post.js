@@ -6,6 +6,7 @@ import "../../styles/community/Post.css";
 import axios from "axios";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useForm } from 'react-hook-form'
+
 function Post() {
   const param = useParams();
   const location = useLocation();
