@@ -1,5 +1,5 @@
 import ClipLoader from "react-spinners/ClipLoader";
-import styled from "styled-components";
+import styled from 'styled-components'
 import { MainHeader } from "../allFiles";
 
 export default function LoadingPage()

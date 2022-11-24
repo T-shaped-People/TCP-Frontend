@@ -1,3 +1,7 @@
 html{
     font-size: 62.5%;
 }
+
+li, ul, ol{
+    list-style: none;
+}

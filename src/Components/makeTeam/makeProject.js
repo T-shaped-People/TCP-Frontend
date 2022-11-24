@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { MainHeader } from "../allFiles";
-import "../styles/makeProject.css";
+import { MainHeader } from "../../allFiles";
+import "../../styles/makeProject.css";
 import { useNavigate } from "react-router-dom";
 
-const Modal = ({ teamCode }: { teamCode: string }) => {
+const Modal = ({ teamCode }) => {
   const nav = useNavigate();
   return (
     <div className="makeproject-modal">
@@ -28,20 +28,18 @@ const Modal = ({ teamCode }: { teamCode: string }) => {
 };
 
 export default function MakeProject() {
+  const now = ((new Date().toLocaleDateString()).replaceAll(".", "")).split(" ", )
+  const start = `${now[0]}-${now[1].padStart(2, "0")}-${now[2].padStart(2, "0")}`;
   const [modal, setModal] = React.useState(false);
   const [inputs, setInput] = React.useState({
     teamName: "",
     description: "",
-    startDate: "",
+    startDate: start,
     deadline: "",
   });
   const [teamCode, setTeamCode] = useState([]);
 
-  const onChange = (
-    e:
-      | React.ChangeEvent<HTMLInputElement>
-      | React.ChangeEvent<HTMLTextAreaElement>
-  ) => {
+  const onChange = (e) => {
     const { name, value } = e.target;
     const nextInputs = {
       ...inputs,
@@ -79,10 +77,9 @@ export default function MakeProject() {
       <div className="makeProject-div">
         <h1 className="makeProject-title">팀 만들기</h1>
         <div className="makeProject-flex">
-          <h2 className="makeProject-subtitle">새 프로젝트를 만들어보세요</h2>
-          <div className="makeProject-table">
-            <div className="makeProject-tr">
-              <span className="makeProject-td">팀 이름</span>
+          <ul className="makeProject-table">
+            <li className="makeProject-tr">
+              <p className="makeProject-td">팀 이름</p>
               <input
                 type="text"
                 name="teamName"
@@ -90,37 +87,25 @@ export default function MakeProject() {
                 onChange={onChange}
                 value={teamName}
               />
-            </div>
-            <div className="makeProject-tr">
-              <span className="makeProject-td">팀 설명</span>
-              <textarea
-                className="makeProject-textarea"
-                name="description"
-                onChange={onChange}
-                value={description}
-              />
-            </div>
-            <div className="makeProject-tr">
-              <span className="makeProject-td">프로젝트 마감일시</span>
+            </li>
+            <li className="makeProject-tr">
+              <p className="makeProject-td">팀 설명</p>
+              
+            </li>
+            <li className="makeProject-tr">
+              <p className="makeProject-td">프로젝트 마감일시</p>
               <div className="makeProject-input-date-div">
-                <input
-                  type="date"
-                  name="startDate"
-                  className="makeProject-input-date"
-                  onChange={onChange}
-                  value={startDate}
-                />
-                ~
                 <input
                   type="date"
                   name="deadline"
                   className="makeProject-input-date"
                   onChange={onChange}
                   value={deadline}
+                  min={start}
                 />
               </div>
-            </div>
-          </div>
+            </li>
+          </ul>
           <button className="makeProject-button" onClick={makeTeam}>
             팀 만들기
           </button>
