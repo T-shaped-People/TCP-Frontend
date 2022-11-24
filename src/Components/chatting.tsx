@@ -5,7 +5,7 @@ import '../styles/chatting.css';
 import { io } from 'socket.io-client';
 import { Chat } from '../types/chat';
 
-const socket = io("http://43.201.36.11:3000/chat", {
+const socket = io("http://54.180.118.42:3000/chat", {
     transports: ['websocket']
 });
 

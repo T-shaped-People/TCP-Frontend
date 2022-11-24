@@ -2,22 +2,32 @@ import React, {useContext, useEffect, useState} from 'react';
 import "../styles/secSideBar.css";
 import { UserContext } from "../App";
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 interface ChatRoom {
     title: any;
     teamId: string;
     id: string;
     createdAt: string;
-  }
+}
+
+interface VoiceChatRoom {
+    title: any;
+    teamId: string;
+    id: string;
+    createdAt: string;
+}
 
 export default function SecSideBar() {
   const user = useContext(UserContext);
   const [chatRoomList, setChatRoomList] = useState<ChatRoom[]>([]);
+  const [voiceChatRoomList, setVoiceChatRoomList] = useState<VoiceChatRoom[]>([]);
   const nav = useNavigate();
+  const { teamId } = useParams();
   useEffect(() => {
     (async () => {
         setChatRoomList((await axios.get("/api/chat/room")).data);
+        setVoiceChatRoomList((await axios.get(`/api/chat/voice/${teamId}`)).data);
     })();
   }, []);
 
@@ -46,6 +56,13 @@ export default function SecSideBar() {
                 </div>
                 <span className={"side-bar--list"}>백엔드 회의</span>
             </div>
+            <ul className={"side-bar--side"}>
+                {voiceChatRoomList.map(room => (
+                    <li onClick={() => nav(`/call/${room.id}`)}>
+                        {room.title}
+                    </li>
+                ))}
+            </ul>
             <div className={"side-bar--codeshare"}>
                 <img
                     src={"/images/clarity_code-line.png"}
