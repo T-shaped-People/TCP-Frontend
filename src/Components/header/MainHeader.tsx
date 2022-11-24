@@ -20,8 +20,6 @@ const MainHeader = () => {
                 else navigate("/");
               }}
             />
-          </div>
-          <div className="rows">
             <Link to="/community" className="nav--link">
               팀원 모집
             </Link>
