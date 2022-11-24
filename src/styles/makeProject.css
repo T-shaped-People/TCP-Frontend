@@ -28,31 +28,47 @@
     display: flex;
     flex-direction: column;
 }
+
 .makeProject-td{
-    position: absolute;
+    margin-bottom: 10px;
 }
+
 .makeProject-input, .makeProject-textarea{
-    margin-left: 13em;
-    margin-bottom: 30px;
-    border: 2px solid black;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid lightgray;
 }
 .makeProject-input{
     border-radius: 5px;
     padding-left: 5px;
     height: 40px;
-    width: 400px;
+    width: 631px;
+}
+.makeProject-input:focus{
+    outline: none;
 }
 .makeProject-input-date{
     border-radius: 5px;
     padding-left: 5px;
     height: 40px;
     width: 200px;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid lightgray;
+}
+.makeProject-input-date:focus{
+    outline: none;
 }
 .makeProject-input-date-div{
-    margin-left: 13em;
     margin-bottom: 30px;
-    
 }
+
+.makeProject-tr{
+    margin-bottom: 30px;
+}
+
 .makeProject-textarea{
     width: 400px;
     border-radius: 5px;
@@ -69,6 +85,7 @@
     font-size: 15px;
     margin-left: 11em;
     margin-top: 3em;
+    margin-bottom: 2em;
 }
 .makeproject-modal{
     font-size: 15px;
@@ -109,4 +126,17 @@
     .makeProject-flex{
         margin-left: 22em;
     }
+}
+
+.makeProject-tr > .ck.ck-reset.ck-editor.ck-rounded-corners > .ck.ck-editor__main > .ck.ck-content.ck-editor__editable.ck-rounded-corners.ck-editor__editable_inline{
+    height: 400px;
+}
+
+.makeProject-tr > .ck.ck-reset.ck-editor.ck-rounded-corners{
+    width: 100%;
+    margin: 20px auto 0 auto;
+}
+
+.makeProject-tr > .ck.ck-reset.ck-editor.ck-rounded-corners > .ck.ck-editor__main{
+    height: 400px;
 }
