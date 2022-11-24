@@ -36,6 +36,7 @@ nav {
 .team-header-todo {
     cursor: pointer;
     margin-right: 20px;
+    transition: all 0.3s;
 }
 
 .team-header-todo:hover {
