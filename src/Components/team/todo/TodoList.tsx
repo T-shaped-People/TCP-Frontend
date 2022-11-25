@@ -17,7 +17,7 @@ const TodoList = ({ item }: TodoListType) => {
 
     useEffect(() => {
         completed ? setComplete("완료됨") : setComplete("진행 중");
-    }, [item]);
+    }, [item, completed]);
 
     return (
         <div>

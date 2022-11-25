@@ -80,7 +80,7 @@ const MyTodo = ({ teamId, toggleMyTodoModal }: MyTodoType) => {
       }
     };
     getMemberList();
-  }, []);
+  }, [teamId, user.usercode]);
 
   return (
     <div className="mytodo-root">
