@@ -156,11 +156,11 @@
     justify-content: space-between;
 }
 
-.craete-room-title {
+.create-room-title {
     font-size: 23px;
 }
 
-.craete-room-ul {
+.create-room-ul {
     list-style: none;
     margin-top: 40px;
 }
@@ -172,7 +172,7 @@
     align-items: center;
 }
 
-.craete-room-input {
+.create-room-input {
     padding: 5px;
     width: 20em;
     height: 4em;
@@ -180,7 +180,11 @@
     border: 2px solid #f5f5f7;
 }
 
-.craete-room-button-submit {
+.create-room-input:focus { 
+    outline: none; 
+}
+
+.create-room-button-submit {
     position: absolute;
     bottom: 10%;
     right: 8%;
@@ -191,4 +195,16 @@
     padding: 8px;
     border-radius: .5rem;
     text-align: center;
+}
+
+.create-room-button {
+    background-color: #f7f7f7;
+    width: 25px;
+    height: 25px;
+    margin-right: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: .5rem;
 }

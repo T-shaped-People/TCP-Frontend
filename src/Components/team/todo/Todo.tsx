@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import Modal from "react-modal";
 import MyTodo from "./TodoFormModal";
 import TodoList from "./TodoList";
-import { MyTodoModalStyle } from "../../../styles/team/TodoModalStyle";
+import { GeneralModalStyle } from "../../../styles/team/GeneralModalStyle";
 import { TodoType } from "./TodoType";
 
 const Todo = () => {
@@ -56,11 +56,11 @@ const Todo = () => {
                 <Modal
                     isOpen={myTodoModal}
                     onRequestClose={() => setMyTodoModal(false)}
-                    style={MyTodoModalStyle}
+                    style={GeneralModalStyle}
                 >
                     <MyTodo
-                    teamId={param.teamId}
-                    toggleMyTodoModal={toggleMyTodoModal}
+                        teamId={param.teamId}
+                        toggleMyTodoModal={toggleMyTodoModal}
                     />
                 </Modal>
                 <div className="Todo-content">
@@ -69,8 +69,8 @@ const Todo = () => {
                         <span
                             className="Todo-content-completed"
                             onClick={() => {
-                            showCompletedTodo(0);
-                            setTodoIndex(0);
+                                showCompletedTodo(0);
+                                setTodoIndex(0);
                             }}
                         >
                             {!isCompletedTodo[0] ? "Completed TODO" : "Incompleted TODO"}

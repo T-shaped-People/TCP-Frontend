@@ -4,6 +4,7 @@ import { UserContext } from "../App";
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import Modal from "react-modal";
+import { CreateChatRoomModalStyle, GeneralModalStyle } from '../styles/team/GeneralModalStyle';
 
 interface ChatRoom {
     title: any;
@@ -57,6 +58,15 @@ export default function SecSideBar() {
             teamId,
             roomTitle: teamName,
         });
+        setVoiceChatRoomModal(false);
+    };
+
+    const toggleCreateChatModal = () => {
+        setChatRoomModal(false);
+    };
+
+
+    const toggleCreateVoiceChatModal = () => {
         setVoiceChatRoomModal(false);
     };
 
@@ -116,35 +126,39 @@ export default function SecSideBar() {
             <Modal
                 isOpen={chatRoomModal}
                 onRequestClose={() => setChatRoomModal(false)}
-                style={{
-                    overlay: {
-                        backgroundColor: "rgba(0, 0, 0, 0.5)",
-                        zIndex: 100,
-                    },
-                    content: {
-                        width: "320px",
-                        height: "250px",
-                        margin: "auto",
-                        borderRadius: "20px",
-                        overflowX: "hidden",
-                    },
-                }}
+                style={CreateChatRoomModalStyle}
             >
                 <div className="create-room-root">
                     <div className="create-room-header">
-                        <h1 className="craete-room-title">채팅방 생성</h1>
+                        <h1 className="create-room-title">채팅방 생성</h1>
+                        <div className="create-room-button" onClick={toggleCreateChatModal}>
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                strokeWidth={1.5}
+                                stroke="currentColor"
+                                className="w-6 h-6"
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    d="M6 18L18 6M6 6l12 12"
+                                />
+                            </svg>
+                        </div>
                     </div>
-                    <ul className="craete-room-ul">
+                    <ul className="create-room-ul">
                         <input
                             type="text"
                             placeholder="채팅방 이름을 입력하세요."
-                            className="craete-room-input"
+                            className="create-room-input"
                             name="title"
                             value={teamName}
                             onChange={(e) => setTeamName(e.target.value)}
                         />
                         <div>
-                            <div className="craete-room-button-submit" onClick={() => createChatRoom()}>
+                            <div className="create-room-button-submit" onClick={() => createChatRoom()}>
                                 확인
                             </div>
                         </div>
@@ -154,35 +168,39 @@ export default function SecSideBar() {
             <Modal
                 isOpen={voiceChatRoomModal}
                 onRequestClose={() => setVoiceChatRoomModal(false)}
-                style={{
-                    overlay: {
-                        backgroundColor: "rgba(0, 0, 0, 0.5)",
-                        zIndex: 100,
-                    },
-                    content: {
-                        width: "320px",
-                        height: "250px",
-                        margin: "auto",
-                        borderRadius: "20px",
-                        overflowX: "hidden",
-                    },
-                }}
+                style={CreateChatRoomModalStyle}
             >
                 <div className="create-room-root">
                     <div className="create-room-header">
-                        <h1 className="craete-room-title">음성채팅방 생성</h1>
+                        <h1 className="create-room-title">음성채팅방 생성</h1>
+                        <div className="create-room-button" onClick={toggleCreateVoiceChatModal}>
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                strokeWidth={1.5}
+                                stroke="currentColor"
+                                className="w-6 h-6"
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    d="M6 18L18 6M6 6l12 12"
+                                />
+                            </svg>
+                        </div>
                     </div>
-                    <ul className="craete-room-ul">
+                    <ul className="create-room-ul">
                         <input
                             type="text"
                             placeholder="채팅방 이름을 입력하세요."
-                            className="craete-room-input"
+                            className="create-room-input"
                             name="title"
                             value={teamName}
                             onChange={(e) => setTeamName(e.target.value)}
                         />
                         <div>
-                            <div className="craete-room-button-submit" onClick={() => createVoiceChatRoom()}>
+                            <div className="create-room-button-submit" onClick={() => createVoiceChatRoom()}>
                                 확인
                             </div>
                         </div>

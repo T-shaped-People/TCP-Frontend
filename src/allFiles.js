@@ -7,7 +7,7 @@ import Canvas from "./Components/team/Canvas";
 import BeforeLogin from "./Components/BeforeLogin";
 import SecSideBar from "./Components/secSideBar";
 import Community from "./Components/community/community";
-import Calendar from "./Components/team/Calendar";
+import Calendar from "./Components/team/calendar/Calendar";
 import MakeTeam from "./Components/makeTeam";
 import Content from "./Components/community/content";
 import LoadingPage from "./Components/loadingPage";
