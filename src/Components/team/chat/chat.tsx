@@ -144,7 +144,7 @@ export default function Chatting() {
           autoComplete="off"
           required
         />
-        <button type="submit">
+        <button type="submit" style={{ cursor: "pointer" }}>
           <img
             src="/images/chat-submit.png"
             alt="icon"

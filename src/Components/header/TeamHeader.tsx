@@ -41,7 +41,7 @@ const TeamHeader = () => {
           <div className="nav--left">{team.name}</div>
           <ul className="nav--right rows">
             <li
-              onClick={() => navigate(`team/${param.teamId}`)}
+              onClick={() => navigate(`todo`)}
               className={"team-header-todo"}
             >
               <img

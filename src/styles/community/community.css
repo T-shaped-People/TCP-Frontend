@@ -136,17 +136,17 @@
 @media screen and (max-width: 1380px){
     .board{
         margin: 1em auto;
-        width: 1000px;
+        /* width: 1000px; */
     }
     
-    .board::before{
+    /* .board::before{
         content: '\00a0';
         font-size: 48px;
         border-radius: 0px 50px 50px 0px;
         background-color: aqua;
         position: absolute;
         left: 0;
-    }
+    } */
 
     .board--title{
         display: inline;

@@ -3,6 +3,7 @@ import { Recomment } from '../../allFiles';
 import { useState } from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import axios from 'axios';
 
 function PostComment({ postComment }) {
     return (
@@ -28,6 +29,18 @@ export default function Comment({ postId, comment, deleteComment }) {
     const realHour = Number(hour) < 10 ? "0" + String(hour) : String(hour);
     const date = created.substring(0, 10) + " " + realHour + "시 " + created.substring(14, 16) + "분 " + created.substring(17, 19) + "초";
 
+    const Reply = async () => {
+        try {
+            const response = await axios.post(`/api/board/comment/${postId}`, {
+                depth: comment.depth + 1,
+                parentId: comment.id,
+                content: input
+            })
+            console.log(response)
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     return (
         <>
@@ -44,7 +57,7 @@ export default function Comment({ postId, comment, deleteComment }) {
                     삭제
                 </button>}
                 {change &&
-                    <div className="write-comment">
+                    <div className="write-comment" onClick={(e) => e.stopPropagation()}>
                         <CKEditor
                             editor={ClassicEditor}
                             data={input}
@@ -53,18 +66,21 @@ export default function Comment({ postId, comment, deleteComment }) {
                                 setInput(data);
                             }}
                         />
+                        <button onClick={() => Reply()} className="write-comment-button">
+                            작성
+                        </button>
                     </div>}
-                {comment.child && comment.child.map((value) => {
-                    if (value.deleted !== true) {
-                        return <Recomment postId={postId} comment={value} deleteComment={deleteComment} />
-                    }
-                    else {
-                        return <div className="deleted-comment">
-                            <p>삭제된 댓글입니다.</p>
-                        </div>
-                    }
-                })}
             </div>
+            {comment.child && comment.child.map((value) => {
+                if (value.deleted !== true) {
+                    return <Recomment postId={postId} comment={value} deleteComment={deleteComment} />
+                }
+                else {
+                    return <div className="deleted-comment">
+                        <p>삭제된 댓글입니다.</p>
+                    </div>
+                }
+            })}
         </>
     )
 }
