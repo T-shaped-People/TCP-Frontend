@@ -7,6 +7,7 @@ import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { AiOutlineEye } from "react-icons/ai";
 import { FaRegComment } from "react-icons/fa";
+import { elapsedTime, MilliSecondTime } from "../../utils/date";
 // import { connect } from "http2";
 
 
@@ -107,7 +108,7 @@ export default function Content() {
             <FaRegComment size={12} />
             &nbsp;
             <span className="content-info-view">{content.commentCnt}</span>
-            <span className="content-info-date">{content.createdAt}</span>
+            <span className="content-info-date">{elapsedTime(content.createdAt, MilliSecondTime.MONTH)}</span>
           </div>
         </div>
         <div>

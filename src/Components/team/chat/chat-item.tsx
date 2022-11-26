@@ -1,5 +1,6 @@
 import React from 'react';
 import { Chat } from '../../../types/chat';
+import { elapsedTime, MilliSecondTime } from '../../../utils/date';
 
 const ChatItem: React.FC<Chat> = ({
     usercode,
@@ -18,7 +19,7 @@ const ChatItem: React.FC<Chat> = ({
             <div className='chat--item--content-wrap'>
                 <div className='chat--item--header'>
                     <div className='chat--item--nickname'>{nickname}</div>
-                    <div className='chat--item--date'>{new Date(createdAt).toLocaleString()}</div>
+                    <div className='chat--item--date'>{elapsedTime(createdAt, MilliSecondTime.DAY)}</div>
                 </div>
                 <div className='chat--item--content'>{content}</div>
             </div>

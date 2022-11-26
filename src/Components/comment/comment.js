@@ -3,6 +3,7 @@ import { Recomment } from '../../allFiles';
 import { useState } from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { elapsedTime, MilliSecondTime } from '../../utils/date';
 
 function PostComment({ postComment }) {
     return (
@@ -23,10 +24,8 @@ export default function Comment({ postId, comment, deleteComment }) {
         setChange((prev) => !prev);
     }
 
-    const created = comment.createdAt;
     const hour = Number(comment.createdAt.substring(12, 13)) + 9;
     const realHour = Number(hour) < 10 ? "0" + String(hour) : String(hour);
-    const date = created.substring(0, 10) + " " + realHour + "시 " + created.substring(14, 16) + "분 " + created.substring(17, 19) + "초";
 
 
     return (
@@ -36,7 +35,7 @@ export default function Comment({ postId, comment, deleteComment }) {
                     <img src={`https://auth.bssm.kro.kr/resource/user/profile/${comment.usercode}.png`} alt='유저 프로필' className='comment-profileImg' />
                     <div>
                         <p className="read-comment-nickname">{comment.nickname}</p>
-                        <p className="read-comment-date">{date}</p>
+                        <p className="read-comment-date">{elapsedTime(comment.createdAt, MilliSecondTime.MONTH)}</p>
                     </div>
                 </div>
                 <p className="read-comment-content" dangerouslySetInnerHTML={createMarkup()}></p>
