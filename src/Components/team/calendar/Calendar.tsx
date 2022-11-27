@@ -11,6 +11,7 @@ import Modal from 'react-modal';
 import CalendarInput from "./CalendarInput";
 import { CalendarScheduleListType, CalendarScheduleType, ModalType} from "./CalendarType";
 import DeleteCalendar from "./deleteCalendar";
+import { CreateScheduleModalStyle } from "../../../styles/team/GeneralModalStyle";
 
 export default function Calendar() {
 
@@ -121,14 +122,7 @@ export default function Calendar() {
             <Modal
                 isOpen={modal.isOpen}
                 onRequestClose={() => closeModal(modal, setModal)}
-                style={{
-                    overlay: {
-                        position: "fixed",
-                        inset: "0px",
-                        backgroundColor: "rgba(42, 42, 42, 0.75)",
-                        zIndex: "4"
-                    }
-                }}
+                style={CreateScheduleModalStyle}
                 className="popup">
                 <CalendarInput closeModal={closeModal} modal={modal} setModal={setModal} teamId={param.teamId} />
             </Modal>
