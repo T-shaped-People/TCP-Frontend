@@ -26,6 +26,11 @@ export default function Calendar() {
         isOpen: false
     });
 
+    const getEventColor = (id: number) => {
+        const colors = ["#6554C0", "#4FCBDF", "#EC994B", "#36B37E"];
+        return colors[id % colors.length];
+    }
+
     useEffect(() => {
         (async () => {
             try {
@@ -37,6 +42,7 @@ export default function Calendar() {
                         title: value.content,
                         start: value.startDate.substring(0, 10),
                         end: value.endDate.substring(0, 10),
+                        color: getEventColor(value.id)
                     }
                     newArray.push(newSchedule);
                 })
@@ -111,7 +117,6 @@ export default function Calendar() {
                     weekends={true}
                     eventDisplay={'block'}
                     eventTextColor={'#FFF'}
-                    eventColor={'#F2921D'}
                     height={'100%'}
                     events={schedule}
                     eventDrop={ScheduleDrag}
