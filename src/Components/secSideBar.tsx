@@ -25,7 +25,7 @@ export default function SecSideBar() {
     const [chatRoomList, setChatRoomList] = useState<ChatRoom[]>([]);
     const [voiceChatRoomList, setVoiceChatRoomList] = useState<VoiceChatRoom[]>([]);
     const nav = useNavigate();
-    const { teamId } = useParams<string>();
+    const { teamId, roomId } = useParams<string>();
     const [chatRoomModal, setChatRoomModal] = useState<boolean>(false);
     const [voiceChatRoomModal, setVoiceChatRoomModal] = useState<boolean>(false);
     const [teamName, setTeamName] = useState<string>("");
@@ -83,7 +83,10 @@ export default function SecSideBar() {
                 </div>
                 <ul className='side-bar--side'>
                     {chatRoomList.map(room => (
-                        <li onClick={() => nav(`/team/${room.teamId}/${room.id}/chatting`)}>
+                        <li
+                            onClick={() => nav(`/team/${room.teamId}/room/${room.id}/chatting`)}
+                            className={room.id === roomId? 'active': ''}
+                        >
                             {room.title}
                         </li>
                     ))}
@@ -101,7 +104,10 @@ export default function SecSideBar() {
                 </div>
                 <ul className={"side-bar--side"}>
                     {voiceChatRoomList.map(room => (
-                        <li onClick={() => nav(`/call/${room.id}`)}>
+                        <li
+                            onClick={() => nav(`/team/${room.teamId}/room/${room.id}/call`)}
+                            className={room.id === roomId? 'active': ''}
+                        >
                             {room.title}
                         </li>
                     ))}

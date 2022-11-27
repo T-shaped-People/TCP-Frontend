@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { createPeerConnectionContext } from '../utils/PeerConnectionSession';
 
-export const useStartPeerSession = (room, userMediaStream, localVideoRef) => {
+export const useStartPeerSession = (roomId, userMediaStream, localVideoRef) => {
   const peerVideoConnection = useMemo(() => createPeerConnectionContext(), []);
 
   const [displayMediaStream, setDisplayMediaStream] = useState(null);
@@ -9,7 +9,7 @@ export const useStartPeerSession = (room, userMediaStream, localVideoRef) => {
 
   useEffect(() => {
     if (userMediaStream) {
-      peerVideoConnection.joinRoom(room);
+      peerVideoConnection.joinRoom(roomId);
       peerVideoConnection.onAddUser((user) => {
         setConnectedUsers((users) => [...users, user]);
         peerVideoConnection.addPeerConnection(`${user}`, userMediaStream, (_stream) => {
@@ -41,7 +41,7 @@ export const useStartPeerSession = (room, userMediaStream, localVideoRef) => {
         userMediaStream?.getTracks()?.forEach((track) => track.stop());
       }
     };
-  }, [peerVideoConnection, room, userMediaStream]);
+  }, [peerVideoConnection, roomId, userMediaStream]);
 
   const cancelScreenSharing = async () => {
     const senders = await peerVideoConnection.senders.filter((sender) => sender.track.kind === 'video');

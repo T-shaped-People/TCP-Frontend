@@ -9,14 +9,14 @@ import { toggleFullscreen } from '../../../utils/helpers';
 const VoiceRoom = () => {
 
   // roomID
-  const { room } = useParams();
+  const { roomId } = useParams();
   const galleryRef = useRef();
   const localVideoRef = useRef();
   const mainRef = useRef();
 
   const userMediaStream = useCreateMediaStream(localVideoRef);
   const { connectedUsers, shareScreen, cancelScreenSharing, isScreenShared } = useStartPeerSession(
-    room,
+    roomId,
     userMediaStream,
     localVideoRef,
   );

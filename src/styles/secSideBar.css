@@ -64,6 +64,10 @@
     background-color: rgba(255, 255, 255, .2);
 }
 
+.side-bar--side li.active {
+    background-color: rgba(255, 255, 255, .15);
+}
+
 .side-bar--call > span {
     margin-top: 8px;
 }
