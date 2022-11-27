@@ -8,7 +8,7 @@ export interface CalendarIn {
 }
 
 export interface ModalType{
-    id?: number
+    id?: string
     isOpen: boolean
 }
 
