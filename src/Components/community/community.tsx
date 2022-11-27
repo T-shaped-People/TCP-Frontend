@@ -6,6 +6,7 @@ import { TiPlus } from "react-icons/ti";
 import { Link, useNavigate } from "react-router-dom";
 import { AiOutlineEye } from "react-icons/ai";
 import { FaRegComment } from "react-icons/fa";
+import { elapsedTime, MilliSecondTime } from "../../utils/date";
 
 interface Post {
   category: string;
@@ -56,8 +57,6 @@ export default function Community() {
         </div>
         <div className="board-root">
           {post.map((item) => {
-            const date = item.createdAt.substring(0, 10);
-            console.log(item.teamColor);
             return (
               <div
                 className="board"
@@ -97,7 +96,7 @@ export default function Community() {
                     <span className="recruit">{item.field}</span>
                     {item.description}
                   </div>
-                  <span className="board--date">{date}</span>
+                  <span className="board--date">{elapsedTime(item.createdAt, MilliSecondTime.MONTH)}</span>
                 </div>
               </div>
             );

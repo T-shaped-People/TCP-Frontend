@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { MdPerson, MdCalendarToday } from "react-icons/md";
+import { MdCalendarToday } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { MainHeader, JoinTeam } from "../allFiles";
 import { useNavigate } from "react-router-dom";
@@ -18,7 +18,7 @@ interface Team {
 
 const TeamList = ({ team }: { team: Team }) => {
   const nav = useNavigate();
-  const { name, leaderNickname, startDate, deadline } = team;
+  const { name, leaderNickname, deadline } = team;
   const getDateDiff = (d2: Date) => {
     const date1 = new Date();
     const date2 = new Date(d2);

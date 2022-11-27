@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { TodoType } from "./TodoType";
+import { TodoType } from "../../../types/todo";
 import Modal from "react-modal";
 import TodoModal from "./TodoModal";
 
@@ -17,7 +17,7 @@ const TodoList = ({ item }: TodoListType) => {
 
     useEffect(() => {
         completed ? setComplete("완료됨") : setComplete("진행 중");
-    }, [item]);
+    }, [item, completed]);
 
     return (
         <div>

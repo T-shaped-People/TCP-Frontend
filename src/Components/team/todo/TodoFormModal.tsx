@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState, useContext, useEffect } from "react";
-import { TeamMemberType } from "./TodoType";
+import { TeamMemberType } from "../../../types/todo";
 import { UserContext } from "../../../App";
 
 type MyTodoType = {
@@ -80,7 +80,7 @@ const MyTodo = ({ teamId, toggleMyTodoModal }: MyTodoType) => {
       }
     };
     getMemberList();
-  }, []);
+  }, [teamId, user.usercode]);
 
   return (
     <div className="mytodo-root">

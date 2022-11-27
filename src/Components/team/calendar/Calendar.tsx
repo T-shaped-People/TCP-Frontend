@@ -1,5 +1,5 @@
-import "../../styles/team/calendar.css"
-import FullCalendar, { EventDropArg } from '@fullcalendar/react';
+import "../../../styles/team/calendar.css"
+import FullCalendar, {EventClickArg, EventDropArg} from '@fullcalendar/react';
 import timeGridPlugin from "@fullcalendar/timegrid";
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin, { EventResizeDoneArg } from "@fullcalendar/interaction";
@@ -7,99 +7,27 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import { AiOutlinePlusSquare } from 'react-icons/ai'
-import Modal from 'react-modal';
-
-interface CalendarIn{
-  closeModal: () => void
-  setRefreshCalendar: React.Dispatch<React.SetStateAction<boolean>>
-  setInput: React.Dispatch<React.SetStateAction<{
-    teamId: string;
-    endDate: string;
-    startDate: string;
-    content: string;
-  }>>
-  input: any
-}
-
-interface CalendarScheduleListType{
-  id: number
-  usercode: string
-  teamId: string
-  startDate: string
-  endDate: string
-  content: string
-}
-
-interface CalendarScheduleType{
-  title: string
-  start: string
-  end: string
-}
-
-function CalendarInput({ closeModal, setRefreshCalendar, setInput, input }: CalendarIn) {
-  const onChange = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const { name, value } = e.target;
-    const nextInputs = {
-      ...input,
-      [name]: value,
-    };
-    setInput(nextInputs);
-  }
-
-  const uploadSchedule = () => {
-    closeModal();
-    setRefreshCalendar((prev) => !prev);
-  }
-
-  return (
-    <div className='calendar-input'>
-      <ul className='calendar-input-ul'>
-        <li className='calendar-input-ul-li'>
-          <p>일정 내용</p>
-          <input type="text" name="content" value={input.title} onChange={(e) => { onChange(e) }} />
-        </li>
-        <li className='calendar-input-ul-li'>
-          <p>시작</p>
-          <input type="date" name="startDate" value={input.start} onChange={(e) => { onChange(e) }} />
-        </li>
-        <li className='calendar-input-ul-li'>
-          <p>끝</p>
-          <input type="date" name="endDate" value={input.end} onChange={(e) => { onChange(e) }} />
-        </li>
-        <li className='calendar-input-ul-li'>
-          <button className='calendar-button' onClick={uploadSchedule}>추가</button>
-        </li>
-      </ul>
-    </div>
-  )
-}
+import Modal from 'react-modal'; 
+import CalendarInput from "./CalendarInput";
+import { CalendarScheduleListType, CalendarScheduleType, ModalType} from "./CalendarType";
+import DeleteCalendar from "./deleteCalendar";
 
 export default function Calendar() {
 
     const [schedule, setSchedule] = useState([]);
-    const [modal, setModal] = useState(false);
+    const [modal, setModal] = useState({
+        isOpen: false
+    });
     const [refreshCalendar, setRefreshCalendar] = useState(false);
     const param = useParams();
-    const [input, setInput] = useState({
-        teamId: param.teamId,
-        endDate: "",
-        startDate: "",
-        content: "",
+    const [deleteModal, setDeleteModal] = useState<ModalType>({
+        id: 0,
+        isOpen: false
     });
 
     useEffect(() => {
         (async () => {
             try {
-                if (input.content !== "" && input.startDate !== "" && input.endDate !== "") {
-                    console.log(input);
-                    await axios.post(`/api/calendar/upload/`, input);
-                } else {
-                    input.content = "";
-                    input.endDate = "";
-                    input.startDate = "";
-                }
                 const newArray: CalendarScheduleType[] = [];
                 const viewCalendar: CalendarScheduleListType[] = (await getCalendar()).data;
                 viewCalendar.map((value: CalendarScheduleListType) => {
@@ -122,12 +50,19 @@ export default function Calendar() {
         return axios.get(`/api/calendar/${param.teamId}`);
     }
 
-    const closeModal = () => {
-        setModal(false);
+    const closeModal = (modal: ModalType, setModal: React.Dispatch<React.SetStateAction<ModalType>>) => {
+        const newModal = {
+            ...modal,
+            isOpen: false,
+        }
+        setModal(newModal);
+        setRefreshCalendar((prev)=> !prev);
     }
 
     const openModal = () => {
-        setModal(true);
+        setModal({
+            isOpen: true
+        });
     }
 
     const ScheduleDrag = (event: (EventDropArg | EventResizeDoneArg)) => {
@@ -145,6 +80,15 @@ export default function Calendar() {
             startDate: newStart,
             content: title
         })
+    }
+
+    const deleteSchedule = (event: EventClickArg) => {
+        const { publicId } = event.event._def
+        const newDel = {
+            id: Number(publicId),
+            isOpen: true,
+        }
+        setDeleteModal(newDel);
     }
 
     return (
@@ -167,6 +111,7 @@ export default function Calendar() {
                     events={schedule}
                     eventDrop={ScheduleDrag}
                     eventResize={ScheduleDrag}
+                    eventClick={deleteSchedule}
                 />
             </div>
             <div className='add-calendar' onClick={openModal}>
@@ -174,8 +119,8 @@ export default function Calendar() {
                 <AiOutlinePlusSquare className='add-calendar-plus' />
             </div>
             <Modal
-                isOpen={modal}
-                onRequestClose={closeModal}
+                isOpen={modal.isOpen}
+                onRequestClose={() => closeModal(modal, setModal)}
                 style={{
                     overlay: {
                         position: "fixed",
@@ -185,7 +130,22 @@ export default function Calendar() {
                     }
                 }}
                 className="popup">
-                <CalendarInput closeModal={closeModal} setRefreshCalendar={setRefreshCalendar} setInput={setInput} input={input} />
+                <CalendarInput closeModal={closeModal} modal={modal} setModal={setModal} teamId={param.teamId} />
+            </Modal>
+            <Modal
+                isOpen={deleteModal.isOpen}
+                onRequestClose={() => closeModal(deleteModal, setDeleteModal)}
+                style={{
+                    overlay: {
+                        position: "fixed",
+                        inset: "0px",
+                        backgroundColor: "rgba(42, 42, 42, 0.75)",
+                        zIndex: "4"
+                    }
+                }}
+                className={"popup"}
+            >
+                <DeleteCalendar modal={deleteModal} close={closeModal} setModal={setDeleteModal} />
             </Modal>
         </div>
     );

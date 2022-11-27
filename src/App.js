@@ -11,8 +11,7 @@ import {
   Team,
   TeamHeader,
   Post,
-  JoinTeam,
-  VoiceRoom
+  JoinTeam
 } from "./allFiles";
 import axios, { AxiosError } from "axios";
 import "./styles/App.css";
@@ -68,7 +67,6 @@ function App() {
           <Route path={"/team/:teamId/*"} element={<Team />}></Route>
           <Route path={"/team"} element={<TeamHeader />}></Route>
           <Route path={"/jointeam"} element={<JoinTeam />} />
-          <Route path={"/call/:room"} element={<VoiceRoom />} />
         </Routes>
       </UserContext.Provider>
     </BrowserRouter>

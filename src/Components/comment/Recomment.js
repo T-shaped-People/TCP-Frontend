@@ -4,6 +4,7 @@ import axios from 'axios';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { useState } from 'react';
+import { elapsedTime, MilliSecondTime } from '../../utils/date';
 
 
 const ReReadComment = styled.div`
@@ -54,17 +55,18 @@ export default function Recomment({ postId, comment, deleteComment }) {
         setChange(false);
     }
 
-
     return (
         <div>
             <ReReadComment onClick={() => postComment()} depth={comment.depth}>
+
                 <div className='read-comment-div'>
                     <img src={`https://auth.bssm.kro.kr/resource/user/profile/${comment.usercode}.png`} alt='유저 프로필' className='comment-profileImg' />
                     <div>
                         <p className="read-comment-nickname">{comment.nickname}</p>
-                        <p className="read-comment-date">{date}</p>
+                        <p className="re-read-comment-date">{elapsedTime(comment.createdAt, MilliSecondTime.MONTH)}</p>
                     </div>
                 </div >
+                <p className="re-read-comment-nickname">{comment.nickname}</p>
                 <p className="re-read-comment-content" dangerouslySetInnerHTML={createMarkup()}></p>
                 {
                     comment.permission && <button onClick={() => deleteComment(comment.id)} className="re-read-comment-delete">

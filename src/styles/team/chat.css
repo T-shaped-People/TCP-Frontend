@@ -50,6 +50,7 @@
 }
 
 .chat--item--content-wrap {
+    position: relative;
     flex: 1;
 }
 
@@ -113,4 +114,19 @@
 .chat--input > button img {
     width: 22px;
     height: 22px;
+}
+
+.chat--item--delete {
+    position: absolute;
+    display: flex;
+    background-color: #fa8072;
+    bottom: 10%;
+    right: .5%;
+    width: 5rem;
+    height: 3rem;
+    color: white;
+    align-items: center;
+    justify-content: center;
+    border-radius: 1rem;
+    cursor: pointer;
 }

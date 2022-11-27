@@ -119,7 +119,10 @@ class PeerConnectionSession {
 }
 
 export const createPeerConnectionContext = () => {
-  const socket = io(process.env.REACT_APP_SOCKET_URL, {'transports': ['websocket', 'polling']});
+  const socket = io("/voice", {
+    transports: ["websocket", "polling"],
+    withCredentials: true,
+  });
 
   return new PeerConnectionSession(socket);
 };
