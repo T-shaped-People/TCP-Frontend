@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState, useContext, useEffect } from "react";
-import { TeamMemberType } from "./TodoType";
+import { TeamMemberType } from "../../../types/todo";
 import { UserContext } from "../../../App";
 
 type MyTodoType = {

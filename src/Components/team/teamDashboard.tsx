@@ -3,34 +3,34 @@ import '../../styles/team/dashboard.css'
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from "@fullcalendar/interaction";
-import { FormEvent, useLayoutEffect, useState} from "react";
+import { FormEvent, useLayoutEffect, useState } from "react";
 import { ajax, HttpMethod } from "../../utils/ajax";
-import { TodoType } from "./todo/TodoType";
+import { TodoType } from "../../types/todo";
 import { Alarm } from "../../types/alarm";
 import Modal from "react-modal";
 
 interface UpcomingSchedule {
-  id: number
-  usercode: number
-  teamId: string
-  startDate: string
-  endDate: string
-  content: string
+    id: number
+    usercode: number
+    teamId: string
+    startDate: string
+    endDate: string
+    content: string
 }
 
 interface RawSchedule {
-  id: number
-  usercode: string
-  teamId: string
-  startDate: string
-  endDate: string
-  content: string
+    id: number
+    usercode: string
+    teamId: string
+    startDate: string
+    endDate: string
+    content: string
 }
 
 interface Schedule {
-  title: string
-  start: string
-  end: string
+    title: string
+    start: string
+    end: string
 }
 
 interface Link {
@@ -41,17 +41,17 @@ interface Link {
 }
 
 export default function TeamDashboard() {
-  const nav = useNavigate();
-  const param = useParams();
-  const [todoList, setTodoList] = useState<TodoType[]>([]);
-  const [alarmList, setAlarmList] = useState<Alarm[]>([]);
-  const [upcomingList, setUpcomingList] = useState<UpcomingSchedule[]>([]);
-  const [scheduleList, setScheduleList] = useState<Schedule[]>([]);
-  const [linkList, setLinkList] = useState<Link[]>([]);
-  const [createLinkModal, setCreateLinkModal] = useState<boolean>(false);
-  const [newLink, setNewLink] = useState<string>('');
-  const [newLinkTitle, setNewLinkTitle] = useState<string>('');
-  Modal.setAppElement("#root");
+    const nav = useNavigate();
+    const param = useParams();
+    const [todoList, setTodoList] = useState<TodoType[]>([]);
+    const [alarmList, setAlarmList] = useState<Alarm[]>([]);
+    const [upcomingList, setUpcomingList] = useState<UpcomingSchedule[]>([]);
+    const [scheduleList, setScheduleList] = useState<Schedule[]>([]);
+    const [linkList, setLinkList] = useState<Link[]>([]);
+    const [createLinkModal, setCreateLinkModal] = useState<boolean>(false);
+    const [newLink, setNewLink] = useState<string>('');
+    const [newLinkTitle, setNewLinkTitle] = useState<string>('');
+    Modal.setAppElement("#root");
 
     useLayoutEffect(() => {
         getDashboardInfo();

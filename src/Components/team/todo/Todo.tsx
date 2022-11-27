@@ -7,7 +7,7 @@ import Modal from "react-modal";
 import MyTodo from "./TodoFormModal";
 import TodoList from "./TodoList";
 import { GeneralModalStyle } from "../../../styles/team/GeneralModalStyle";
-import { TodoType } from "./TodoType";
+import { TodoType } from "../../../types/todo";
 
 const Todo = () => {
     const [myTodoModal, setMyTodoModal] = useState<boolean>(false);

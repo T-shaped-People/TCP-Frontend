@@ -28,10 +28,29 @@ export default function Chatting() {
     initSocket();
   }, []);
 
+  const deleteChat = async (id: number) => {
+    await axios.delete(`/api/chat/${teamId}/${id}`, {
+      withCredentials: true,
+    });
+    try {
+      const chatData = (await getChatList(teamId, roomId)).data.reverse();
+      setStartChatId(() => chatData[0]?.id ?? 1);
+      setChatList(chatData);
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        alert(error.response?.data?.message);
+      } else {
+        alert("알 수 없는 에러가 발생하였습니다");
+      }
+    }
+    setLoading(false);
+  }
+
   useEffect(() => {
     if (!roomId) return;
     initChatList();
   }, [roomId]);
+
 
   useEffect(() => {
     if (loading) {
@@ -133,7 +152,7 @@ export default function Chatting() {
           <li className="chat--load" ref={chatLoadRef}></li>
         ) : null}
         {chatList.map((chat) => (
-          <ChatItem {...chat} />
+          <ChatItem {...chat} deleteChat={deleteChat} />
         ))}
       </ul>
       <form className="chat--input" onSubmit={sendChat}>

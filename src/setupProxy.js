@@ -4,11 +4,11 @@ module.exports = function (app) {
     app.use(
         '/',
         createProxyMiddleware(['/api', '/socket.io'], {
-            target: 'http://localhost:3001',
+            target: 'http://54.180.118.42:3000',
             changeOrigin: true,
             ws: true,
             router: {
-                '/socket.io': 'ws://localhost:3001',
+                '/socket.io': 'ws://54.180.118.42:3000',
             }
         })
     );

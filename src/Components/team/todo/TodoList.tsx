@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { TodoType } from "./TodoType";
+import { TodoType } from "../../../types/todo";
 import Modal from "react-modal";
 import TodoModal from "./TodoModal";
 
