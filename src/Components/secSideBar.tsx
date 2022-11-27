@@ -85,7 +85,7 @@ export default function SecSideBar() {
                     {chatRoomList.map(room => (
                         <li
                             onClick={() => nav(`/team/${room.teamId}/room/${room.id}/chatting`)}
-                            className={room.id === roomId? 'active': ''}
+                            className={room.id === roomId ? 'active' : ''}
                         >
                             {room.title}
                         </li>
@@ -106,7 +106,7 @@ export default function SecSideBar() {
                     {voiceChatRoomList.map(room => (
                         <li
                             onClick={() => nav(`/team/${room.teamId}/room/${room.id}/call`)}
-                            className={room.id === roomId? 'active': ''}
+                            className={room.id === roomId ? 'active' : ''}
                         >
                             {room.title}
                         </li>
@@ -125,7 +125,11 @@ export default function SecSideBar() {
             </div>
             <div className='side-bar--user'>
                 <div className='side-bar--user--div'>
-                    <div className='side-bar--userimg'></div>
+                    <img 
+                        className='side-bar--userimg' 
+                        src={`https://auth.bssm.kro.kr/resource/user/profile/${user.usercode}.png`}
+                        alt=""
+                        onError={e => e.currentTarget.src = '/images/profile_default.png'}></img>
                     <p className='secSideBar-nickname'>{user.nickname}</p>
                 </div>
             </div>

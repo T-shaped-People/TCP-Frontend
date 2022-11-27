@@ -67,6 +67,7 @@ export default function Recomment({ postId, comment, deleteComment }) {
                     </div>
                 </div >
                 <p className="re-read-comment-nickname">{comment.nickname}</p>
+                <p className="re-read-comment-date">{elapsedTime(comment.createdAt, MilliSecondTime.MONTH)}</p>
                 <p className="re-read-comment-content" dangerouslySetInnerHTML={createMarkup()}></p>
                 {
                     comment.permission && <button onClick={() => deleteComment(comment.id)} className="re-read-comment-delete">
