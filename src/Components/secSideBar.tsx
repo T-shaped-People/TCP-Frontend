@@ -29,6 +29,7 @@ export default function SecSideBar() {
     const [chatRoomModal, setChatRoomModal] = useState<boolean>(false);
     const [voiceChatRoomModal, setVoiceChatRoomModal] = useState<boolean>(false);
     const [teamName, setTeamName] = useState<string>("");
+    const [refresh, setRefresh] = useState(false);
     Modal.setAppElement("#root");
 
     useEffect(() => {
@@ -43,7 +44,7 @@ export default function SecSideBar() {
             setChatRoomList((await axios.get(`/api/chat/room/${teamId}`)).data);
             setVoiceChatRoomList((await axios.get(`/api/chat/voice/${teamId}`)).data);
         })();
-    }, [teamId]);
+    }, [teamId, refresh]);
 
     const createChatRoom = async () => {
         await axios.post("/api/chat", {
@@ -51,6 +52,7 @@ export default function SecSideBar() {
             roomTitle: teamName,
         });
         setChatRoomModal(false);
+        setRefresh((prev) => !prev)
     };
 
     const createVoiceChatRoom = async () => {
@@ -59,6 +61,7 @@ export default function SecSideBar() {
             roomTitle: teamName,
         });
         setVoiceChatRoomModal(false);
+        setRefresh((prev) => !prev)
     };
 
     const toggleCreateChatModal = () => {
