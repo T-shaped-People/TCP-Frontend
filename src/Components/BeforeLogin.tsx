@@ -49,15 +49,17 @@ function BeforeLogin() {
           </div>
           <div className={"section--div2"}>
             <p className={"section--div2--p"}>
-              ✔ 함께 아이디어를 공유할 수 있는 드로잉 기능 제공
+              ✔ Todo, Calendar를 이용한 체계적인 프로젝트 관리
             </p>
             <p className={"section--div2--p"}>
-              ✔ 코드 공유방을 통한 실시간 코드 피드백 기능 사용
+              ✔ 팀원들과 함께하는 영상 통화, 채팅
             </p>
             <p className={"section--div2--p"}>
-              ✔ 아이디어 공유를 통해 빠른 브레인스토밍
+              ✔ 프로젝트를 함께 할 팀원들을 모집하는 기능
             </p>
-            <h2>이 모든 것을 한번에</h2>
+            <h2>
+              이 모든 것을 한 번에
+            </h2>
           </div>
         </div>
         <div className={"section--right"}>
