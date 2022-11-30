@@ -1,12 +1,19 @@
-.read-comment-root{
-    margin-left: 28em;
-    margin-top: 10em;
+.read-comment-root {
+    margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 0 10px;
 }
-.read-comment{
+.read-comment-root > *  {
+    max-width: 1000px;
+}
+.read-comment {
     font-size: 15px;
-    max-width: 65em;
+    width: 100%;
     overflow: scroll;
-    margin-top: 20px;
     background-color: white;
     position: relative;
     padding: 10px;
@@ -14,28 +21,28 @@
     transition: .25s;
     cursor: pointer;
 }
-.read-comment:hover{
+.read-comment:hover {
     background-color: rgb(239, 239, 239);
 }
-.read-comment::-webkit-scrollbar{
+.read-comment::-webkit-scrollbar {
     display: none;
 }
-.read-comment-nickname{
+.read-comment-nickname {
     font-size: 1em;
 }
-.read-comment-date{
+.read-comment-date {
     font-size: 12px;
     margin-top: 10px;
 }
-.read-comment-div{
+.read-comment-div {
     display: flex;
     align-items: center;
     gap: 10px;
 }
-.read-comment-content{
+.read-comment-content {
     margin-top: 20px;
 }
-.read-comment-delete{
+.read-comment-delete {
     position: absolute;
     top: 10px;
     right: 10px;
@@ -44,10 +51,10 @@
     font-size: 15px;
     cursor: pointer;
 }
-.read-comment-delete:hover{
+.read-comment-delete:hover {
     color: red;
 }
-.comment-profileImg{
+.comment-profileImg {
     border-radius: 50%;
     height: 40px;
     width: 40px;
