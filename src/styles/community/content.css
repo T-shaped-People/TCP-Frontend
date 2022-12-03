@@ -62,6 +62,7 @@
 
 .write-comment > .ck.ck-reset.ck-editor.ck-rounded-corners > .ck.ck-editor__main {
     height: 100px;
+    cursor: text;
 }
 
 .write-comment-input {

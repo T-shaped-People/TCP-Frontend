@@ -78,8 +78,13 @@ export default function Content() {
     return axios.get(`/api/board/comment/${param.postId}`);
   };
 
-  const deleteComment = (id) => {
+  const deleteComment = async (id) => {
     axios.delete(`/api/board/comment/${param.postId}/${id}`);
+    try {
+      setComment((await getComment()).data.comments);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   const getTextColorByBackgroundColor = (hexColor) => {

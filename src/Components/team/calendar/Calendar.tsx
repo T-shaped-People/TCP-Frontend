@@ -1,15 +1,21 @@
-import "../../../styles/team/calendar.css"
-import FullCalendar, {EventClickArg, EventDropArg} from '@fullcalendar/react';
+import "../../../styles/team/calendar.css";
+import FullCalendar, { EventClickArg, EventDropArg } from "@fullcalendar/react";
 import timeGridPlugin from "@fullcalendar/timegrid";
-import dayGridPlugin from '@fullcalendar/daygrid';
-import interactionPlugin, { EventResizeDoneArg } from "@fullcalendar/interaction";
-import axios from 'axios';
-import { useParams } from 'react-router-dom';
-import React, { useEffect, useState } from 'react';
-import { AiOutlinePlusSquare } from 'react-icons/ai'
-import Modal from 'react-modal';
+import dayGridPlugin from "@fullcalendar/daygrid";
+import interactionPlugin, {
+  EventResizeDoneArg,
+} from "@fullcalendar/interaction";
+import axios from "axios";
+import { useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { AiOutlinePlusSquare } from "react-icons/ai";
+import Modal from "react-modal";
 import CalendarInput from "./CalendarInput";
-import { CalendarScheduleListType, CalendarScheduleType, ModalType} from "./CalendarType";
+import {
+  CalendarScheduleListType,
+  CalendarScheduleType,
+  ModalType,
+} from "./CalendarType";
 import DeleteCalendar from "./deleteCalendar";
 import { CreateScheduleModalStyle, DeleteScheduleModalStyle } from "../../../styles/team/GeneralModalStyle";
 
@@ -53,9 +59,9 @@ export default function Calendar() {
         })();
     }, [refreshCalendar]);
 
-    const getCalendar = async () => {
-        return axios.get(`/api/calendar/${param.teamId}`);
-    }
+  const getCalendar = async () => {
+    return axios.get(`/api/calendar/${param.teamId}`);
+  };
 
     const closeModal = (modal: ModalType, setModal: React.Dispatch<React.SetStateAction<ModalType>>) => {
         try{
@@ -70,28 +76,40 @@ export default function Calendar() {
         }
     }
 
-    const openModal = () => {
-        setModal({
-            isOpen: true
-        });
-    }
+  const openModal = () => {
+    setModal({
+      isOpen: true,
+    });
+  };
 
-    const ScheduleDrag = (event: (EventDropArg | EventResizeDoneArg)) => {
-        const {start, end} = event.event._instance.range;
-        const {publicId, title} = event.event._def
-        const convertStart: Array<string> = ((start.toLocaleDateString()).replaceAll(' ', '')).split('.')
-        const convertEnd: Array<string> = ((end.toLocaleDateString()).replaceAll(' ', '')).split('.')
+  const ScheduleDrag = (event: EventDropArg | EventResizeDoneArg) => {
+    const { start, end } = event.event._instance.range;
+    const { publicId, title } = event.event._def;
+    const convertStart: Array<string> = start
+      .toLocaleDateString()
+      .replaceAll(" ", "")
+      .split(".");
+    const convertEnd: Array<string> = end
+      .toLocaleDateString()
+      .replaceAll(" ", "")
+      .split(".");
 
-        const newStart = `${convertStart[0]}-${convertStart[1].padStart(2, "0")}-${convertStart[2].padStart(2, "0")}`
-        const newEnd = `${convertEnd[0]}-${convertEnd[1].padStart(2, "0")}-${convertEnd[2].padStart(2, "0")}`
+    const newStart = `${convertStart[0]}-${convertStart[1].padStart(
+      2,
+      "0"
+    )}-${convertStart[2].padStart(2, "0")}`;
+    const newEnd = `${convertEnd[0]}-${convertEnd[1].padStart(
+      2,
+      "0"
+    )}-${convertEnd[2].padStart(2, "0")}`;
 
-        axios.put('/api/calendar', {
-            id: publicId,
-            endDate: newEnd,
-            startDate: newStart,
-            content: title
-        })
-    }
+    axios.put("/api/calendar", {
+      id: publicId,
+      endDate: newEnd,
+      startDate: newStart,
+      content: title,
+    });
+  };
 
     const deleteSchedule = (event: EventClickArg) => {
         const { publicId } = event.event._def
