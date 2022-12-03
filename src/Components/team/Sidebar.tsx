@@ -45,8 +45,8 @@ function Sidebar() {
                         <Link to={`/team/${item.id}`}>{item.name[0]}</Link>
                     </li>
                 ))}
-                <li key='plus'>
-                    <img
+                <li key='plus' onClick={() => navigate("/makeproject")}>
+                    <img 
                         src={"/images/whiteplus.png"}
                         alt={"icon"}
                         className={"sidebar--plus"}

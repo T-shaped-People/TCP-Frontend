@@ -32,12 +32,15 @@ const MyTodo = ({ teamId, toggleMyTodoModal }: MyTodoType) => {
   const postTodo = async () => {
     try {
       const result = await axios.post("/api/todo/upload", input);
-      const mentionResult = await axios.post("/api/todo/mention", {
-        todoId: result.data.id,
-        teamId: teamId,
-        mentionUsercode: userCode,
-      });
-      if (result && mentionResult) {
+      let mentionResult;
+      if(userCode !== 0) { 
+        mentionResult = await axios.post("/api/todo/mention", {
+          todoId: result.data.id,
+          teamId: teamId,
+          mentionUsercode: userCode,
+        });
+      }
+      if (result || mentionResult) {
         toggleMyTodoModal();
       } else {
         setText("실패했습니다.");

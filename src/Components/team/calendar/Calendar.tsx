@@ -17,57 +17,64 @@ import {
   ModalType,
 } from "./CalendarType";
 import DeleteCalendar from "./deleteCalendar";
-import { CreateScheduleModalStyle } from "../../../styles/team/GeneralModalStyle";
+import { CreateScheduleModalStyle, DeleteScheduleModalStyle } from "../../../styles/team/GeneralModalStyle";
 
 export default function Calendar() {
-  const [schedule, setSchedule] = useState([]);
-  const [modal, setModal] = useState({
-    isOpen: false,
-  });
-  const [refreshCalendar, setRefreshCalendar] = useState(false);
-  const param = useParams();
-  const [deleteModal, setDeleteModal] = useState<ModalType>({
-    id: 0,
-    isOpen: false,
-  });
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const newArray: CalendarScheduleType[] = [];
-        const viewCalendar: CalendarScheduleListType[] = (await getCalendar())
-          .data;
-        viewCalendar.map((value: CalendarScheduleListType) => {
-          const newSchedule = {
-            id: value.id,
-            title: value.content,
-            start: value.startDate.substring(0, 10),
-            end: value.endDate.substring(0, 10),
-          };
-          newArray.push(newSchedule);
-        });
-        setSchedule(newArray);
-      } catch (error) {
-        console.log(error);
-      }
-    })();
-  }, [refreshCalendar]);
+    const [schedule, setSchedule] = useState([]);
+    const [modal, setModal] = useState({
+        isOpen: false
+    });
+    const [refreshCalendar, setRefreshCalendar] = useState(false);
+    const param = useParams();
+    const [deleteModal, setDeleteModal] = useState<ModalType>({
+        id: "",
+        isOpen: false
+    });
+
+    const getEventColor = (id: number) => {
+        const colors = ["#6554C0", "#4FCBDF", "#EC994B", "#36B37E"];
+        return colors[id % colors.length];
+    }
+
+    useEffect(() => {
+        (async () => {
+            try {
+                const newArray: CalendarScheduleType[] = [];
+                const viewCalendar: CalendarScheduleListType[] = (await getCalendar()).data;
+                viewCalendar.map((value: CalendarScheduleListType) => {
+                    const newSchedule = {
+                        id: value.id,
+                        title: value.content,
+                        start: value.startDate.substring(0, 10),
+                        end: value.endDate.substring(0, 10),
+                        color: getEventColor(value.id)
+                    }
+                    newArray.push(newSchedule);
+                })
+                setSchedule(newArray);
+            } catch (error) {
+                console.log(error);
+            }
+        })();
+    }, [refreshCalendar]);
 
   const getCalendar = async () => {
     return axios.get(`/api/calendar/${param.teamId}`);
   };
 
-  const closeModal = (
-    modal: ModalType,
-    setModal: React.Dispatch<React.SetStateAction<ModalType>>
-  ) => {
-    const newModal = {
-      ...modal,
-      isOpen: false,
-    };
-    setModal(newModal);
-    setRefreshCalendar((prev) => !prev);
-  };
+    const closeModal = (modal: ModalType, setModal: React.Dispatch<React.SetStateAction<ModalType>>) => {
+        try{
+            const newModal = {
+                ...modal,
+                isOpen: false,
+            }
+            setModal(newModal);
+            setRefreshCalendar((prev) => !prev);
+        }catch(error){
+            console.log(error)
+        }
+    }
 
   const openModal = () => {
     setModal({
@@ -104,94 +111,56 @@ export default function Calendar() {
     });
   };
 
-  const deleteSchedule = (event: EventClickArg) => {
-    const { publicId } = event.event._def;
-    const newDel = {
-      id: Number(publicId),
-      isOpen: true,
-    };
-    setDeleteModal(newDel);
-  };
+    const deleteSchedule = (event: EventClickArg) => {
+        const { publicId } = event.event._def
+        const newDel = {
+            id: publicId,
+            isOpen: true,
+        }
+        setDeleteModal(newDel);
+    }
 
-  return (
-    <div className={"calendar-root"}>
-      <div className={"calendar"}>
-        <FullCalendar
-          plugins={[dayGridPlugin, interactionPlugin, timeGridPlugin]}
-          headerToolbar={{
-            left: "prev,next today",
-            center: "title",
-            right: "dayGridMonth,timeGridWeek,timeGridDay",
-          }}
-          editable={true}
-          initialView="dayGridMonth"
-          weekends={true}
-          eventDisplay={"block"}
-          eventTextColor={"#FFF"}
-          eventColor={"#F2921D"}
-          height={"100%"}
-          events={schedule}
-          eventDrop={ScheduleDrag}
-          eventResize={ScheduleDrag}
-          eventClick={deleteSchedule}
-        />
-      </div>
-      <div className="add-calendar" onClick={openModal}>
-        <span>일정 추가</span>
-        <AiOutlinePlusSquare className="add-calendar-plus" />
-      </div>
-      <Modal
-        isOpen={modal.isOpen}
-        onRequestClose={() => closeModal(modal, setModal)}
-        style={CreateScheduleModalStyle}
-        className="popup"
-      >
-        <CalendarInput
-          closeModal={closeModal}
-          modal={modal}
-          setModal={setModal}
-          teamId={param.teamId}
-        />
-      </Modal>
-      <Modal
-        isOpen={deleteModal.isOpen}
-        onRequestClose={() => closeModal(deleteModal, setDeleteModal)}
-        style={{
-          overlay: {
-            position: "fixed",
-            inset: "0px",
-            backgroundColor: "rgba(42, 42, 42, 0.75)",
-            zIndex: "4",
-          },
-        }}
-        className="popup"
-      >
-        <CalendarInput
-          closeModal={closeModal}
-          modal={modal}
-          setModal={setModal}
-          teamId={param.teamId}
-        />
-      </Modal>
-      <Modal
-        isOpen={deleteModal.isOpen}
-        onRequestClose={() => closeModal(deleteModal, setDeleteModal)}
-        style={{
-          overlay: {
-            position: "fixed",
-            inset: "0px",
-            backgroundColor: "rgba(42, 42, 42, 0.75)",
-            zIndex: "4",
-          },
-        }}
-        className={"popup"}
-      >
-        <DeleteCalendar
-          modal={deleteModal}
-          close={closeModal}
-          setModal={setDeleteModal}
-        />
-      </Modal>
-    </div>
-  );
+    return (
+        <div className={"calendar-root"}>
+            <div className={"calendar"}>
+                <FullCalendar
+                    plugins={[dayGridPlugin, interactionPlugin, timeGridPlugin]}
+                    headerToolbar={{
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                    }}
+                    editable={true}
+                    initialView="dayGridMonth"
+                    weekends={true}
+                    eventDisplay={'block'}
+                    eventTextColor={'#FFF'}
+                    height={'100%'}
+                    events={schedule}
+                    eventDrop={ScheduleDrag}
+                    eventResize={ScheduleDrag}
+                    eventClick={deleteSchedule}
+                />
+            </div>
+            <div className='add-calendar' onClick={openModal}>
+                <span>일정 추가</span>
+                <AiOutlinePlusSquare className='add-calendar-plus' />
+            </div>
+            <Modal
+                isOpen={modal.isOpen}
+                onRequestClose={() => closeModal(modal, setModal)}
+                style={CreateScheduleModalStyle}
+                className="popup">
+                <CalendarInput closeModal={closeModal} modal={modal} setModal={setModal} teamId={param.teamId} />
+            </Modal>
+            <Modal
+                isOpen={deleteModal.isOpen}
+                onRequestClose={() => closeModal(deleteModal, setDeleteModal)}
+                style={DeleteScheduleModalStyle}
+                className={"popup"}
+            >
+                <DeleteCalendar modal={deleteModal} close={closeModal} setModal={setDeleteModal} />
+            </Modal>
+        </div>
+    );
 }

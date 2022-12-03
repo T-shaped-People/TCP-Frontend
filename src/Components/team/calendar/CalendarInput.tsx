@@ -1,10 +1,6 @@
 import React, {useState} from "react";
 import axios from "axios";
-
-interface ModalType{
-    id?: number
-    isOpen: boolean
-}
+import { ModalType } from './CalendarType'
 
 interface CalendarIn{
     closeModal: (modal: ModalType, setModal: React.Dispatch<React.SetStateAction<ModalType>>) => void

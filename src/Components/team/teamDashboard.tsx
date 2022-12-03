@@ -57,6 +57,11 @@ export default function TeamDashboard() {
         getDashboardInfo();
     }, [param.teamId]);
 
+    const getEventColor = (id: number) => {
+        const colors = ["#6554C0", "#4FCBDF", "#EC994B", "#36B37E"];
+        return colors[id % colors.length];
+    }
+
     const getDashboardInfo = async () => {
         const [todos, alarms, schedules, upcomings, links] = await Promise.all([
             ajax<TodoType[]>({
@@ -86,6 +91,7 @@ export default function TeamDashboard() {
             title: schedule.content,
             start: schedule.startDate.substring(0, 10),
             end: schedule.endDate.substring(0, 10),
+            color: getEventColor(schedule.id)
         })));
         setAlarmList(alarms);
         setUpcomingList(upcomings);
@@ -154,7 +160,6 @@ export default function TeamDashboard() {
                         }}
                         eventDisplay={'block'}
                         eventTextColor={'#FFF'}
-                        eventColor={'#F2921D'}
                         height={'100%'}
                         events={scheduleList}
                     />

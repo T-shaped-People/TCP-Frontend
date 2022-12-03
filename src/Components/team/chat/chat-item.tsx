@@ -23,7 +23,10 @@ const ChatItem: React.FC<ChatItemType> = ({
     const user = useContext(UserContext);
 
     return (
-        <li className='chat--item'>
+        <li className='chat--item'
+            onMouseOver={() => setIsHovering(true)}
+            onMouseOut={() => setIsHovering(false)}
+        >
             <img className="chat--item--profile"
                 src={`https://auth.bssm.kro.kr/resource/user/profile/${usercode}.png`}
                 alt=""
@@ -31,8 +34,6 @@ const ChatItem: React.FC<ChatItemType> = ({
             />
             <div 
                 className='chat--item--content-wrap'
-                onMouseOver={() => setIsHovering(true)}
-                onMouseOut={() => setIsHovering(false)}
             >
                 <div className='chat--item--header'>
                     <div className='chat--item--nickname'>{nickname}</div>

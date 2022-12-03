@@ -6,14 +6,6 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import axios from 'axios';
 import { elapsedTime, MilliSecondTime } from '../../utils/date';
 
-function PostComment({ postComment }) {
-    return (
-        <div>
-
-        </div>
-    )
-}
-
 export default function Comment({ postId, comment, deleteComment }) {
     const [input, setInput] = useState("");
     const [change, setChange] = useState(false);
