@@ -45,14 +45,18 @@ export default function Comment({ postId, comment, deleteComment }) {
         <>
             <div className="read-comment" onClick={postComment} >
                 <div className='read-comment-div'>
-                    <img src={`https://auth.bssm.kro.kr/resource/user/profile/${comment.usercode}.png`} alt='유저 프로필' className='comment-profileImg' />
+                    <img src={`https://auth.bssm.kro.kr/resource/user/profile/${comment.usercode}.png`} alt='유저 프로필' className='comment-profileImg'
+                        onError={e => e.currentTarget.src = '/images/profile_default.png'} />
                     <div>
                         <p className="read-comment-nickname">{comment.nickname}</p>
                         <p className="read-comment-date">{elapsedTime(comment.createdAt, MilliSecondTime.MONTH)}</p>
                     </div>
                 </div>
                 <p className="read-comment-content" dangerouslySetInnerHTML={createMarkup()}></p>
-                {comment.permission && <button onClick={() => deleteComment(comment.id)} className="read-comment-delete">
+                {comment.permission && <button onClick={(e) => {
+                    deleteComment(comment.id);
+                    e.stopPropagation();
+                }} className="read-comment-delete">
                     삭제
                 </button>}
                 {change &&
